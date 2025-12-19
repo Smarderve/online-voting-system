@@ -1,0 +1,33 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Voter Signup</title>
+    <link rel="stylesheet" href="styles.css">
+</head>
+
+<body>
+    <div class="container">
+        <h1> Sign in</h1>
+        <form id="signupForm" action="/submit_signup" method="POST">
+            <div class="form-group">
+                <label for="use Name">user name</label>
+                <input type="text" id="fullName" name="fullName" required>
+            </div>
+            <div class="form-group">
+                <label for="password">Password:</label>
+                <input type="password" id="password" name="password" required>
+            </div>
+            <div>
+                <label for="fogertpassword">Forgot Password</label>
+                <input type="password" id="fogertpassword" name="fogertpassword" required>
+            </div>
+            <div>
+                <label for="rememberme">Remember Me</label>
+                <input type="checkbox" id="rememberme" name="rememberme">
+            </div>
+            <button type="submit">Sign in</button>
+
+</html>
