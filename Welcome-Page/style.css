@@ -5,18 +5,21 @@
 }
 
 body{
-    font-family: 'Times New Roman', Times, serif;
+    font-family: sans-serif;
     background-color: whitesmoke;
     color: black;
     cursor: default;
 }
 
+main{
+    flex: 1;
+}
 
 /*--------------------Header Section-----------------------*/
 
 
 header{
-    background-color: green;
+    background-color: transparent;
     position: fixed;
     top: 0;
     width: 100%;
@@ -25,9 +28,9 @@ header{
     align-items: center;
 }
 
-header h1{
-    color: white;
-    margin-left: 20px;
+header .logo img{
+    height: 70px;
+    width: 70px;
 }
 
 header nav{
@@ -35,30 +38,31 @@ header nav{
 }
 
 nav button{
-    border: 1px solid white;
-    background-color: green;
+    border: none;
+    background-color: white;
+    box-shadow: 0 0 5px gray;
     border-radius: 30px;
-    padding-left: 6px;
-    padding-right: 6px;
-    padding-top: 2px;
-    padding-bottom: 2px;
-    margin-left: 20px;
+    padding-left: 15px;
+    padding-right: 15px;
+    padding-top: 8px;
+    padding-bottom: 8px;
+    margin-left: 10px;
     transition: all 0.3s ease;
 }
 
 nav button a{    
     font-size: small;
-    font-weight: 500;
+    font-weight: medium;
     text-decoration: none;    
-    color: white;
+    color: green;
 }
 
 nav .sign-up{
-    background-color: white;
+    background-color: rgb(4, 187, 4);
 }
 
 nav .sign-up a{
-    color: green;
+    color: white;
 }
 
 nav button:active{
@@ -82,16 +86,15 @@ section{
 }
 
 section h2{
-    margin-bottom: 40px;
-    color: green;
-    font-size: xx-large;
+    color: black;
+    margin-bottom: 10px;
 }
 
 .cards{
     display: flex;
     justify-content: space-between;
     align-items: center;
-    gap: 20px;
+    gap: 30px;
     flex-wrap: wrap;
 }
 
@@ -102,10 +105,11 @@ section h2{
     background-color: rgba(235, 223, 223, 0.966);
     box-shadow: 0 0 10px black;
     padding: 0;
-    margin: 10px;
+    margin: 20px;
     width: 250px;
     height: 300px;
     border-radius: 10px;
+    border: none;
     font-size: small;
 }
 
@@ -125,14 +129,13 @@ section h2{
 }
 
 .card p{
-    margin-top: 5px;
+    margin-top: 8px;
     text-align: center;
 }
 
 .card-button{
     background-color: green;
-    box-shadow: 0 0  ;
-    margin: 20px;
+    margin: 18px;
     border: 2px solid white;
     border-radius: 20px;
     padding-left: 15px;
@@ -160,12 +163,20 @@ section h2{
     border-radius: 50px;
 }
 
+section .buttons{
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    gap: 0px;
+    margin-top: 20px;
+}
+
 section .more-button{
     background-color: green;
     box-shadow: 0 0 5px black;
-    margin: 20px;
+    margin: 7px;
     color: white;
-    border: 1px solid white;
+    border: none;
     border-radius: 20px;
     padding: 8px;
     font-size: small;
@@ -181,6 +192,46 @@ section .more-button:active{
     transform: scale(0.99);
 }
 
+section .info-cards{
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    gap: 20px;
+    font-size: small;
+    margin-top: 40px;
+    margin-bottom: 40px;
+}
+
+.info-cards .info-card{
+    margin-right: 20px;
+}
+
+.info-card .info-steps{ 
+    display: flex;
+    flex-direction: row;
+    align-items: center;
+    text-align: center;
+}
+
+.info-card .info-h3{
+    margin-bottom: 10px;
+}
+
+.info-steps .steps{
+    margin-left: 10px;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+}
+
+.info-steps .step-p1{
+    background-color: green;
+    color: white;
+    border-radius: 50%;
+    text-align: center;
+    width: 20px;
+    height: 20px;
+}
 
 
 /*--------------------Footer Section-------------------------*/
@@ -189,14 +240,50 @@ section .more-button:active{
 
 footer{
     display: flex;
-    justify-content: center;
-    align-items: end;
+    justify-content: start;
+    align-items: start;
+    gap: 50px;
     background-color: green;
     color: white;
-    position: fixed;
-    bottom: 0;
     width: 100%;
     padding: 5px;
+    font-size: small;
+}
+
+footer .footer-parts{
+    display: flex;
+    flex-direction: column;
+    justify-content: start;
+    align-items: start;
+    margin: 0 15px;
+}
+
+.footer-parts img{
+    height: 80px;
+    width: 80px;
+}
+
+.footer-parts h3{
+    margin-bottom: 10px;
+    font-size: medium;
+    font-weight: 700;
+}
+
+.footer-parts p{
+    margin-bottom: 10px;
+}
+
+.footer-parts .links{
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    margin-bottom: 10px;
+}
+
+.footer-parts .links a{
+    text-decoration: none;
+    color: white;
+    margin: 3px 0;
 }
 
 
