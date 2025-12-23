@@ -1,0 +1,118 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>KIUT</title>
+    <link rel="stylesheet" href="style.css">
+    <link rel="icon" type="image/x-icon" href="../Welcome-Page/images/kiut-green.png" >
+</head>
+<body>
+
+    <header>
+        <div class="logo">
+            <img src="../Welcome-Page/images/kiut-green.png" alt="KIUT Logo">
+        </div>
+        <button><a href="../Welcome-Page/index.html">Home</a></button>
+    </header>
+
+    <section>
+
+        <form id="register-form">
+            <h2>Register</h2>
+                <label for="RegNo">Registration No:</label>
+            <input type="text" id="RegNo" name="RegNo" required>
+            <div id="email-box">
+                <label for="email">Email:</label>
+                <input type="email" id="email" name="email" required>
+                <a href="#" class="toggle-link" onclick="toggleContact('phone')">Use Phone instead</a>
+            </div>
+            <div id="phone-box">
+                <label for="phone" class="phone">Phone Number:</label>
+                <input type="tel" id="phone" name="phone">
+                <a href="#" class="toggle-link" onclick="toggleContact('email')">Use Email instead</a>
+            </div>
+                <button type="button" class="button" onclick="handleContinue()">Continue</button>
+        </form>
+
+        <form id="otp-form">
+            <h2>Verify</h2>
+                <p>We have sent a code to your <span id="phone-number">phone number </span><Span id="email">email.</Span></p>
+            <div class="otp-inputs">
+                <input type="text" class="otp-box" maxlength="1" oninput="moveNext(this, 0)" onkeydown="moveBack(event, 0)" required>
+                <input type="text" class="otp-box" maxlength="1" oninput="moveNext(this, 1)" onkeydown="moveBack(event, 1)" required>
+                <input type="text" class="otp-box" maxlength="1" oninput="moveNext(this, 2)" onkeydown="moveBack(event, 2)" required>
+                <input type="text" class="otp-box" maxlength="1" oninput="moveNext(this, 3)" onkeydown="moveBack(event, 3)" required>
+                <input type="text" class="otp-box" maxlength="1" oninput="moveNext(this, 4)" onkeydown="moveBack(event, 4)" required>
+                <input type="text" class="otp-box" maxlength="1" oninput="moveNext(this, 5)" onkeydown="moveBack(event, 5)" required>
+            </div>
+                <button type="button" class="button">Confirm</button>
+            <div id="otp-timer">Resend code in <span id="timerSeconds">60</span>s</div>
+                <button type="button" id="resend-otp" onclick="handleContinue()">Resend code</button>
+        </form>
+
+    </section>
+
+    <footer>
+
+        <div class="footer-parts"> 
+            <img src="../Welcome-Page/images/kiut-white.png" alt="footer_kiut_logo">
+            <p>Kampala International University of Tanzania. <br> &copy; 2025. All Rights Reserved</p>
+
+        </div>
+
+        <div class="footer-parts">
+
+            <h3>About KIUT</h3>
+
+            <div class="links">
+                <a href="https://kiut.ac.tz/about">About Us</a>
+                <a href="https://kiut.ac.tz/about/governance/board_of_trustees">Governance</a>
+                <a href="https://kiut.ac.tz/about/about_kiut/contacts">Contact</a>
+                <a href="https://kiut.ac.tz/about/about_kiut/careers">Careers</a>
+            </div>
+
+        </div>
+
+        <div class="footer-parts">
+
+            <h3>KIUT Programmes</h3>
+
+            <div class="links">
+                <a href="https://kiut.ac.tz/admission/programmes/certificate_programmes">Certificates</a>
+                <a href="https://kiut.ac.tz/admission/programmes/diploma_programmes">Diploma</a>
+                <a href="https://kiut.ac.tz/admission/programmes/bachelor_programmes">Bachelor Degree</a>
+                <a href="https://kiut.ac.tz/admission/programmes/postgraduate_diploma_programmes">Postgraduate Diploma</a>
+                <a href="https://kiut.ac.tz/admission/programmes/masters_programmes">Masters</a>
+                <a href="https://kiut.ac.tz/admission/programmes/short_courses">Short Courses</a>
+            </div>
+
+        </div>
+
+        <div class="footer-parts">
+
+            <h3>Contact Information</h3>
+
+            <p>Kampala Road No. 2, Off Nyerere Road, 
+                <br>Gongo la Mboto,
+                <br>P. O. Box 9790, Ilala 12110, 
+                <br> Dar es Salaam, Tanzania.
+            </p>
+
+            <div class="links">
+                <a href="tel:+255782777775">+255 782 777 775</a>
+                <a href="tel:+255768000808">+255 768 000 808</a>
+            </div>
+
+            <div class="links">
+                <a href="mailto:info@kiut.ac.tz">info@kiut.ac.tz</a>
+                <a href="mailto:admissions@kiut.ac.tz">admissions@kiut.ac.tz</a>
+            </div>
+
+        </div>
+       
+    </footer>
+
+    <script src="script.js"></script>
+</body>
+</html>
