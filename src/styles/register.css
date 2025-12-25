@@ -255,3 +255,107 @@ footer .footer-parts{
 }
 
 
+
+/*-----Mobile Portrait Responsiveness-----*/
+
+@media (min-width: 768px) and (max-width: 1024px){
+    
+    
+    html{
+        width: 100%;
+    }
+
+    header{
+    background-color: rgba(22, 255, 22, 0.301);
+    backdrop-filter: blur(10px);
+    position: fixed;
+    top: 0;
+    width: 100%;
+    display: flex;
+    flex-direction: row;
+    align-items: center;
+    }
+    
+    header .logo img{
+        height: 70px;
+        width: 70px;
+    }
+
+    
+header nav{
+    margin-right: 0px;
+}
+
+nav button{
+    box-shadow: 0 0 5px gray;
+    border-radius: 30px;
+    padding-left: 15px;
+    padding-right: 15px;
+    padding-top: 8px;
+    padding-bottom: 8px;
+    margin-left: 5px;
+}
+
+nav button a{    
+    font-size: small;
+    font-weight: medium;
+}
+
+
+    footer{
+    display: flex;
+    flex-direction: column;
+    justify-content: start;
+    align-items: start;
+    gap: 30px;
+    background-color: green;
+    color: white;
+    width: 100%;
+    padding: 5px;
+    font-size: small;
+}
+
+footer .footer-parts{
+    display: flex;
+    flex-direction: column;
+    justify-content: start;
+    align-items: start;
+    margin: 0 15px;
+}
+
+.footer-parts img{
+    height: 80px;
+    width: 80px;
+}
+
+.footer-parts h3{
+    margin-bottom: 10px;
+    font-size: medium;
+    font-weight: 700;
+}
+
+.footer-parts p{
+    margin-bottom: 10px;
+}
+
+.footer-parts .links{
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    margin-bottom: 10px;
+}
+
+.footer-parts .links a{
+    text-decoration: none;
+    color: rgba(255, 255, 255, 0.774);
+    margin: 3px 0;
+    cursor: default;
+    transition: all 0.1s ease-in-out;
+}
+
+.footer-parts .links a:hover{
+    color: white;
+    font-weight: 600;
+}
+
+}

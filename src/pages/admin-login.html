@@ -1,37 +1,82 @@
 <!DOCTYPE html>
 <html lang="en">
-
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Voter Signup</title>
+    <title>KIUT</title>
     <link rel="stylesheet" href="../styles/admin-login.css">
+    <link rel="icon" type="image/x-icon" href="../../assets/images/kiut-green.png">
 </head>
 
-<header>
-    <div class="logo">
-        <img src="../assets/images/kiut-green.png" alt="kiut-logo">
-    </div>
-</header>
-
 <body>
-    <div class="container">
-        <form actiom="#">
-            <div clas="input field">
-                <label> User name</label>
-                <input type="text" placeholder="user name" required><br>
-                <label for="password">Password:</label>
-                <input type="password" id="password" name="password" placeholder="password" required>
-            </div> <label for="rememberme">Remember Me</label>
-            <input type="checkbox" id="rememberme" name="rememberme"><br>
-            <div class="button">
-                <label for="forgotpassword"><a href="#">Forgot Password?</a><br>
-                </label>
-                <button type="submit">sign in</button>
 
-            </div>
+    <header>
+        <div class="logo">
+            <img src="../../assets/images/kiut-green.png" alt="kiut-logo">
+        </div>
+            <button><a href="../../main/index.html">Home</a></button>
+    </header>
+
+    <main>
+
+        <form id="login-form">
+            <label for="username">Username:</label>
+                <input type="text" id="username" name="username" required>
+            <label for="password">Password:</label>
+                <input type="password" id="password" name="password" required>
+            <button type="submit">Login</button>
         </form>
-    </div>
+
+    </main>
+    
+    <footer>
+
+        <div class="footer-parts"> 
+            <img src="../../assets/images/kiut-white.png" alt="footer_kiut_logo">
+            <p>Kampala International University of Tanzania. <br> &copy; 2025. All Rights Reserved</p>
+        </div>
+
+        <div class="footer-parts">
+            <h3>About KIUT</h3>
+            <div class="links">
+                <a href="https://kiut.ac.tz/about">About Us</a>
+                <a href="https://kiut.ac.tz/about/governance/board_of_trustees">Governance</a>
+                <a href="https://kiut.ac.tz/about/about_kiut/contacts">Contact</a>
+                <a href="https://kiut.ac.tz/about/about_kiut/careers">Careers</a>
+            </div>
+        </div>
+
+        <div class="footer-parts">
+            <h3>KIUT Programmes</h3>
+            <div class="links">
+                <a href="https://kiut.ac.tz/admission/programmes/certificate_programmes">Certificates</a>
+                <a href="https://kiut.ac.tz/admission/programmes/diploma_programmes">Diploma</a>
+                <a href="https://kiut.ac.tz/admission/programmes/bachelor_programmes">Bachelor Degree</a>
+                <a href="https://kiut.ac.tz/admission/programmes/postgraduate_diploma_programmes">Postgraduate Diploma</a>
+                <a href="https://kiut.ac.tz/admission/programmes/masters_programmes">Masters</a>
+                <a href="https://kiut.ac.tz/admission/programmes/short_courses">Short Courses</a>
+            </div>
+        </div>
+
+        <div class="footer-parts">
+            <h3>Contact Information</h3>
+            <p>Kampala Road No. 2, Off Nyerere Road, 
+                <br>Gongo la Mboto,
+                <br>P. O. Box 9790, Ilala 12110, 
+                <br> Dar es Salaam, Tanzania.
+            </p>
+            <div class="links">
+                <a href="tel:+255782777775">+255 782 777 775</a>
+                <a href="tel:+255768000808">+255 768 000 808</a>
+            </div>
+            <div class="links">
+                <a href="mailto:info@kiut.ac.tz">info@kiut.ac.tz</a>
+                <a href="mailto:admissions@kiut.ac.tz">admissions@kiut.ac.tz</a>
+            </div>
+        </div>
+       
+    </footer>
+
 </body>
 
 </html>
