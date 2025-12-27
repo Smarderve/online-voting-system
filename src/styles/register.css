@@ -16,7 +16,8 @@ body{
 }
 
 header{
-    background-color: transparent;
+    background-color: rgba(22, 255, 22, 0.301);
+    backdrop-filter: blur(10px);
     position: fixed;
     top: 0;
     width: 100%;
