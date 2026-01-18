@@ -1,0 +1,765 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <link rel="stylesheet" href="../styles/admin-panel.css">
+    <link rel="icon" type="image/x-icon" href="../../assets/images/kiut-green.png">
+    <title>Admin Dashboard</title>
+</head>
+<body>
+
+    <header>
+        <div class="block">
+            <!--<img src="../../assets/images/kiut-white.png" alt="kiut-logo">-->
+        </div>
+        
+        <div class="icons">
+            <svg xmlns="http://www.w3.org/2000/svg" width="18px" height="18px" viewBox="0 0 24 24">
+	<g fill="none" fillRule="evenodd">
+		<path d="m12.594 23.258l-.012.002l-.071.035l-.02.004l-.014-.004l-.071-.036q-.016-.004-.024.006l-.004.01l-.017.428l.005.02l.01.013l.104.074l.015.004l.012-.004l.104-.074l.012-.016l.004-.017l-.017-.427q-.004-.016-.016-.018m.264-.113l-.014.002l-.184.093l-.01.01l-.003.011l.018.43l.005.012l.008.008l.201.092q.019.005.029-.008l.004-.014l-.034-.614q-.005-.019-.02-.022m-.715.002a.02.02 0 0 0-.027.006l-.006.014l-.034.614q.001.018.017.024l.015-.002l.201-.093l.01-.008l.003-.011l.018-.43l-.003-.012l-.01-.01z"></path>
+		<path fill="#008000" d="M12 2C6.477 2 2 6.477 2 12s4.477 10 10 10s10-4.477 10-10S17.523 2 12 2M8.5 9.5a3.5 3.5 0 1 1 7 0a3.5 3.5 0 0 1-7 0m9.758 7.484A7.99 7.99 0 0 1 12 20a7.99 7.99 0 0 1-6.258-3.016C7.363 15.821 9.575 15 12 15s4.637.821 6.258 1.984"></path>
+	</g>
+</svg>
+            <svg xmlns="http://www.w3.org/2000/svg" width="18px" height="18px" viewBox="0 0 24 24">
+	            <path fill="#008000" d="M12 22c1.1 0 2-.9 2-2h-4a2 2 0 0 0 2 2m6-6v-5c0-3.07-1.64-5.64-4.5-6.32V4c0-.83-.67-1.5-1.5-1.5s-1.5.67-1.5 1.5v.68C7.63 5.36 6 7.92 6 11v5l-1.29 1.29c-.63.63-.19 1.71.7 1.71h13.17c.89 0 1.34-1.08.71-1.71z"></path>
+            </svg>
+            <svg xmlns="http://www.w3.org/2000/svg" width="18px" height="18px" viewBox="0 0 24 24">
+	            <path fill="#008000" d="M5 5h7V3H3v18h9v-2H5z"></path>
+	            <path fill="#008000" d="m21 12l-4-4v3H9v2h8v3z"></path>
+            </svg>
+        </div>
+    </header>
+
+    <main>
+
+<!----===========================Sidebar Section====================================== -->
+
+        <section class="sidebar"> 
+            
+            <div class="profile">
+                <img src="../../assets/images/images (4).png" alt="admin-profile-picture" id="admin-profile-photo">
+                <div class="profile-content">
+                    <h2 id="admin-name">Admin Name</h2>
+                    <p>Administrator</p>
+                </div>
+            </div>
+
+            <div class="group">
+                <h3>Reports</h3>
+                <nav>
+                    <button class="nav-links" data-target="dashboard-section">
+                        <svg xmlns="http://www.w3.org/2000/svg" width="16px" height="16px" viewBox="0 0 24 24">
+	                        <path fill="#fff" d="M14 9q-.425 0-.712-.288T13 8V4q0-.425.288-.712T14 3h6q.425 0 .713.288T21 4v4q0 .425-.288.713T20 9zM4 13q-.425 0-.712-.288T3 12V4q0-.425.288-.712T4 3h6q.425 0 .713.288T11 4v8q0 .425-.288.713T10 13zm10 8q-.425 0-.712-.288T13 20v-8q0-.425.288-.712T14 11h6q.425 0 .713.288T21 12v8q0 .425-.288.713T20 21zM4 21q-.425 0-.712-.288T3 20v-4q0-.425.288-.712T4 15h6q.425 0 .713.288T11 16v4q0 .425-.288.713T10 21z" />
+                        </svg>Dashboard
+                    </button>
+                    <button class="nav-links" data-target="votes-section">
+                        <svg xmlns="http://www.w3.org/2000/svg" width="18px" height="18px" viewBox="0 0 8 8">
+	                        <path fill="#fff" d="M0 8V7l2-2h4l2 2v1M3 0v3h3L4 2M1 2l2-2l3 3l-2 2M2 6L1 7h6L6 6" />
+                        </svg>Votes
+                    </button>
+                    <button class="nav-links" data-target="voter-statistics-section">
+                        <svg xmlns="http://www.w3.org/2000/svg" width="18px" height="18px" viewBox="0 0 24 24">
+	                        <path fill="#fff" d="M4 3a1 1 0 0 1 1 1v13.5A1.5 1.5 0 0 0 6.5 19H20a1 1 0 1 1 0 2H6.5A3.5 3.5 0 0 1 3 17.5V4a1 1 0 0 1 1-1m15.5 3.75V18h-13a.5.5 0 0 1-.5-.5V9.161L8.165 8.08a.75.75 0 0 1 .715.025l3.82 2.246l5.6-4.2a.75.75 0 0 1 1.2.6"></path>
+                        </svg>Voters' Statistics
+                    </button>
+                    <button class="nav-links" data-target="systemLogs-section">
+                        <svg xmlns="http://www.w3.org/2000/svg" width="18px" height="18px" viewBox="0 0 24 24">
+	                        <path fill="#fff" d="M4 8.923h16V4.769H4zm0 5.154h16V9.923H4zm0 5.154h16v-4.154H4zM5.77 7.654V6.039h1.615v1.615zm0 5.154v-1.616h1.615v1.616zm0 5.154v-1.616h1.615v1.616z"></path>
+                        </svg>System Logs
+                    </button>
+                    <button class="nav-links" data-target="user-activity-section">
+                        <svg xmlns="http://www.w3.org/2000/svg" width="18px" height="18px" viewBox="0 0 24 24">
+	                        <path fill="#fff" d="M11.5 2a5.5 5.5 0 1 0 0 11a5.5 5.5 0 0 0 0-11M18 12.5a5.5 5.5 0 1 0 0 11a5.5 5.5 0 0 0 0-11m1 7.914l-2-2v-2.662h2v1.834L20.414 19z"></path>
+	                        <path fill="#fff" d="M12.255 14A6.97 6.97 0 0 0 11 18c0 1.487.464 2.866 1.255 4H2v-2a6 6 0 0 1 6-6z"></path>
+                        </svg>User Activity
+                    </button>
+                </nav>
+            </div>
+
+            <div class="group">
+                <h3>Manage</h3>
+                <nav>
+                    <button class="nav-links" data-target="elections-section">
+                        <svg xmlns="http://www.w3.org/2000/svg" width="17.15px" height="16px" viewBox="0 0 1920 1792">
+                            <path fill="#fff" d="m960 0l960 384v128h-128q0 26-20.5 45t-48.5 19H197q-28 0-48.5-19T128 512H0V384zM256 640h256v768h128V640h256v768h128V640h256v768h128V640h256v768h59q28 0 48.5 19t20.5 45v64H128v-64q0-26 20.5-45t48.5-19h59zm1595 960q28 0 48.5 19t20.5 45v128H0v-128q0-26 20.5-45t48.5-19z" />
+                        </svg>Elections
+                    </button>
+                    <button class="nav-links" data-target="candidates-section">
+                        <svg xmlns="http://www.w3.org/2000/svg" width="18px" height="18px" viewBox="0 0 512 512">
+                            <path fill="#fff" d="M336 256c-20.56 0-40.44-9.18-56-25.84c-15.13-16.25-24.37-37.92-26-61c-1.74-24.62 5.77-47.26 21.14-63.76S312 80 336 80c23.83 0 45.38 9.06 60.7 25.52c15.47 16.62 23 39.22 21.26 63.63c-1.67 23.11-10.9 44.77-26 61C376.44 246.82 356.57 256 336 256m131.83 176H204.18a27.71 27.71 0 0 1-22-10.67a30.22 30.22 0 0 1-5.26-25.79c8.42-33.81 29.28-61.85 60.32-81.08C264.79 297.4 299.86 288 336 288c36.85 0 71 9 98.71 26.05c31.11 19.13 52 47.33 60.38 81.55a30.27 30.27 0 0 1-5.32 25.78A27.68 27.68 0 0 1 467.83 432M147 260c-35.19 0-66.13-32.72-69-72.93c-1.42-20.6 5-39.65 18-53.62c12.86-13.83 31-21.45 51-21.45s38 7.66 50.93 21.57c13.1 14.08 19.5 33.09 18 53.52c-2.87 40.2-33.8 72.91-68.93 72.91m65.66 31.45c-17.59-8.6-40.42-12.9-65.65-12.9c-29.46 0-58.07 7.68-80.57 21.62c-25.51 15.83-42.67 38.88-49.6 66.71a27.39 27.39 0 0 0 4.79 23.36A25.32 25.32 0 0 0 41.72 400h111a8 8 0 0 0 7.87-6.57c.11-.63.25-1.26.41-1.88c8.48-34.06 28.35-62.84 57.71-83.82a8 8 0 0 0-.63-13.39c-1.57-.92-3.37-1.89-5.42-2.89" />
+                        </svg>Candidates
+                    </button>
+                </nav>
+            </div>
+
+            <div class="group">
+                <h3>Other</h3>
+                <nav>
+                    <button class="nav-links" data-target="notifications-section">
+                        <svg xmlns="http://www.w3.org/2000/svg" width="18px" height="18px" viewBox="0 0 24 24">
+	                        <path fill="#fff" d="M12 22c1.1 0 2-.9 2-2h-4a2 2 0 0 0 2 2m6-6v-5c0-3.07-1.64-5.64-4.5-6.32V4c0-.83-.67-1.5-1.5-1.5s-1.5.67-1.5 1.5v.68C7.63 5.36 6 7.92 6 11v5l-1.29 1.29c-.63.63-.19 1.71.7 1.71h13.17c.89 0 1.34-1.08.71-1.71z"></path>
+                        </svg>Notifications
+                    </button>
+                    <button class="nav-links" data-target="settings-section">
+                        <svg xmlns="http://www.w3.org/2000/svg" width="18px" height="18px" viewBox="0 0 24 24">
+                            <path fill="#fff" fill-rule="evenodd" d="M14.279 2.152C13.909 2 13.439 2 12.5 2s-1.408 0-1.779.152a2 2 0 0 0-1.09 1.083c-.094.223-.13.484-.145.863a1.62 1.62 0 0 1-.796 1.353a1.64 1.64 0 0 1-1.579.008c-.338-.178-.583-.276-.825-.308a2.03 2.03 0 0 0-1.49.396c-.318.242-.553.646-1.022 1.453c-.47.807-.704 1.21-.757 1.605c-.07.526.074 1.058.4 1.479c.148.192.357.353.68.555c.477.297.783.803.783 1.361s-.306 1.064-.782 1.36c-.324.203-.533.364-.682.556a2 2 0 0 0-.399 1.479c.053.394.287.798.757 1.605s.704 1.21 1.022 1.453c.424.323.96.465 1.49.396c.242-.032.487-.13.825-.308a1.64 1.64 0 0 1 1.58.008c.486.28.774.795.795 1.353c.015.38.051.64.145.863c.204.49.596.88 1.09 1.083c.37.152.84.152 1.779.152s1.409 0 1.779-.152a2 2 0 0 0 1.09-1.083c.094-.223.13-.483.145-.863c.02-.558.309-1.074.796-1.353a1.64 1.64 0 0 1 1.579-.008c.338.178.583.276.825.308c.53.07 1.066-.073 1.49-.396c.318-.242.553-.646 1.022-1.453c.47-.807.704-1.21.757-1.605a2 2 0 0 0-.4-1.479c-.148-.192-.357-.353-.68-.555c-.477-.297-.783-.803-.783-1.361s.306-1.064.782-1.36c.324-.203.533-.364.682-.556a2 2 0 0 0 .399-1.479c-.053-.394-.287-.798-.757-1.605s-.704-1.21-1.022-1.453a2.03 2.03 0 0 0-1.49-.396c-.242.032-.487.13-.825.308a1.64 1.64 0 0 1-1.58-.008a1.62 1.62 0 0 1-.795-1.353c-.015-.38-.051-.64-.145-.863a2 2 0 0 0-1.09-1.083M12.5 15c1.67 0 3.023-1.343 3.023-3S14.169 9 12.5 9s-3.023 1.343-3.023 3s1.354 3 3.023 3" clip-rule="evenodd"/>
+                        </svg>Settings
+                    </button>
+                    <button class="nav-links">
+                        <svg xmlns="http://www.w3.org/2000/svg" width="18px" height="18px" viewBox="0 0 24 24">
+	                        <path fill="#fff" d="M5 5h7V3H3v18h9v-2H5z"></path>
+	                        <path fill="#fff" d="m21 12l-4-4v3H9v2h8v3z"></path>
+                        </svg>Logout
+                    </button>
+                </nav>
+            </div>
+
+        </section>
+
+<!----===========================Dashboard Section====================================== -->
+        
+        <section id="dashboard-section" class="page-section">
+            <div class="heading">
+                <svg xmlns="http://www.w3.org/2000/svg" width="30" height="30" viewBox="0 0 24 24">
+	                <path fill="#6b8e23" d="M3 13h8V3H3zm0 8h8v-6H3zm10 0h8V11h-8zm0-18v6h8V3z" />
+                </svg>
+                <h1>Dashboard</h1>
+            </div>
+            <div class="navigation">
+            <div class="nav-map">
+                <svg xmlns="http://www.w3.org/2000/svg" width="15" height="15" viewBox="0 0 20 20">
+	                <path fill="#008000" d="M10.707 2.293a1 1 0 0 0-1.414 0l-7 7a1 1 0 0 0 1.414 1.414L4 10.414V17a1 1 0 0 0 1 1h2a1 1 0 0 0 1-1v-2a1 1 0 0 1 1-1h2a1 1 0 0 1 1 1v2a1 1 0 0 0 1 1h2a1 1 0 0 0 1-1v-6.586l.293.293a1 1 0 0 0 1.414-1.414z" />
+                </svg>
+                <button data-target="dashboard-section"="nav-links">Home</button>
+            </div>
+                <span>></span>
+            <div class="nav-map">
+                <svg xmlns="http://www.w3.org/2000/svg" width="15" height="15" viewBox="0 0 24 24">
+	                <path fill="#008000" d="M3 13h8V3H3zm0 8h8v-6H3zm10 0h8V11h-8zm0-18v6h8V3z" />
+                </svg>
+                <button>Dashboard</button>
+            </div>
+        </div>
+            <div class="cards">
+                <div class="card1">
+                    <div class="card-info">
+                        <h1>1</h1>
+                        <p>Ongoing Elections</p>
+                        <svg xmlns="http://www.w3.org/2000/svg" width="107.15px" height="100px" viewBox="0 0 1920 1792">
+	                        <path fill="#fff" d="m960 0l960 384v128h-128q0 26-20.5 45t-48.5 19H197q-28 0-48.5-19T128 512H0V384zM256 640h256v768h128V640h256v768h128V640h256v768h128V640h256v768h59q28 0 48.5 19t20.5 45v64H128v-64q0-26 20.5-45t48.5-19h59zm1595 960q28 0 48.5 19t20.5 45v128H0v-128q0-26 20.5-45t48.5-19z" />
+                        </svg>
+                    </div>
+                    <button class=".nav-links" data-target="elections-section">More info</button>
+                </div>
+                <div class="card2">
+                    <div class="card-info">
+                        <h1>10</h1>
+                        <p>No. of Positions</p>
+                        <svg xmlns="http://www.w3.org/2000/svg" width="100px" height="100px" viewBox="0 0 640 640">
+	                        <path fill="#fff" d="M320 64c35.3 0 64 28.7 64 64s-28.7 64-64 64s-64-28.7-64-64s28.7-64 64-64m96 312c0 25-12.7 47-32 59.9V480H256v-44.1C236.7 423 224 401 224 376v-40c0-53 43-96 96-96s96 43 96 96zm16 104v-27.3c19.9-22.5 32-52.2 32-84.7v-32c0-26.7-7.3-51.6-19.9-73.1c11.1-4.5 23.2-6.9 35.9-6.9c53 0 96 43 96 96v32c0 23.7-12.9 44.4-32 55.4V480zM96 439.4c-19.1-11-32-31.7-32-55.4v-32c0-53 43-96 96-96c12.7 0 24.8 2.5 35.9 6.9c-12.6 21.4-19.9 46.4-19.9 73.1v32c0 32.5 12.1 62.1 32 84.7V480H96zM160 96c30.9 0 56 25.1 56 56s-25.1 56-56 56s-56-25.1-56-56s25.1-56 56-56m320 0c30.9 0 56 25.1 56 56s-25.1 56-56 56s-56-25.1-56-56s25.1-56 56-56M56 528h528c13.3 0 24 10.7 24 24s-10.7 24-24 24H56c-13.3 0-24-10.7-24-24s10.7-24 24-24" />
+                        </svg>
+                    </div>
+                    <button class="nav-links" data-target="user-activity-section">More info</button>
+                </div>
+                <div class="card3">
+                    <div class="card-info">
+                        <h1>20</h1>
+                        <p>No. of Candidates</p>
+                        <svg xmlns="http://www.w3.org/2000/svg" width="100px" height="100px" viewBox="0 0 512 512">
+	                        <path fill="#fff" d="M336 256c-20.56 0-40.44-9.18-56-25.84c-15.13-16.25-24.37-37.92-26-61c-1.74-24.62 5.77-47.26 21.14-63.76S312 80 336 80c23.83 0 45.38 9.06 60.7 25.52c15.47 16.62 23 39.22 21.26 63.63c-1.67 23.11-10.9 44.77-26 61C376.44 246.82 356.57 256 336 256m131.83 176H204.18a27.71 27.71 0 0 1-22-10.67a30.22 30.22 0 0 1-5.26-25.79c8.42-33.81 29.28-61.85 60.32-81.08C264.79 297.4 299.86 288 336 288c36.85 0 71 9 98.71 26.05c31.11 19.13 52 47.33 60.38 81.55a30.27 30.27 0 0 1-5.32 25.78A27.68 27.68 0 0 1 467.83 432M147 260c-35.19 0-66.13-32.72-69-72.93c-1.42-20.6 5-39.65 18-53.62c12.86-13.83 31-21.45 51-21.45s38 7.66 50.93 21.57c13.1 14.08 19.5 33.09 18 53.52c-2.87 40.2-33.8 72.91-68.93 72.91m65.66 31.45c-17.59-8.6-40.42-12.9-65.65-12.9c-29.46 0-58.07 7.68-80.57 21.62c-25.51 15.83-42.67 38.88-49.6 66.71a27.39 27.39 0 0 0 4.79 23.36A25.32 25.32 0 0 0 41.72 400h111a8 8 0 0 0 7.87-6.57c.11-.63.25-1.26.41-1.88c8.48-34.06 28.35-62.84 57.71-83.82a8 8 0 0 0-.63-13.39c-1.57-.92-3.37-1.89-5.42-2.89" />
+                        </svg>
+                    </div>
+                    <button class="nav-links" data-target="candidates-section">More info</button>
+                </div>
+                <div class="card4">
+                    <div class="card-info">
+                        <h1>120</h1>
+                        <p>No. of Votes</p>
+                        <svg xmlns="http://www.w3.org/2000/svg" width="100px" height="100px" viewBox="0 0 512 512">
+	                        <path fill="#fff" d="M494 21.621c-14.947 8.43-29.566 17.581-43.67 29.227l7.318 38.547C471.923 93.66 483.583 95.26 494 95.36zm-98.982 24.512c-15.283-.085-32.48 2.596-53.832 6.834l-.22.043l-.22.033c-14.77 2.177-40.794 12.065-66.465 38.867l44.27 11.766c.972-1.493 5.936-9.004 6.88-10.555q7.686 4.684 15.372 9.365c-12.475 20.475-26.742 35.556-43.934 54.522c-2.123 4.718.977 8.199 4.36 10.14c5.22 2.931 14.1 3.09 16.437 2.102c23.932-15.768 40.819-35.928 55.963-56.271l5.469.964c11.501 2.031 26.47 1.058 38.707-2.853c11.098-3.548 19.272-9.357 22.662-15.688L432.54 53.65c-12.044-5.214-24.039-7.442-37.523-7.517zM227.932 98.717l-29.436 115.986l9.643.297H311.27l.9-.209l6.804-27.092c-8.86 1.9-18.296-.217-26.557-4.855c-5.188-2.913-10.024-7.24-12.621-13.434c-7.797-19.938 15.857-37.297 28.724-52.75l-80.59-17.943zM69.562 201l-23 46h418.875l-23-46H334.195l-3.517 14H352v18H160v-18h19.852l3.552-14H69.563zM41 265v222h430V265zm14 14h402v194H55zm18 18v118.238l34.502-74.994l73.36 31.762l66.652-45.84l37.513 57.273l50.11-4.595l31.3-39.332L439 394.627V297zm169.543 54.43l-90.63 62.33l27.01 41.24h95.606l19.666-24.71zm-126.045 12.326L74.521 455h82.885l-30.193-46.098l36.144-24.857l-46.859-20.29zm253.065.732L297.533 455h140.54l.927-1.166v-36.602zm-49.944 33.854l-23.426 2.148l9.805 14.969z" />
+                        </svg>
+                    </div>  
+                    <button class="nav-links" data-target="votes-section">More info</button>
+                </div>
+            </div>
+           
+        </section>
+
+<!----===========================Elections Section====================================== -->
+
+        <section id="elections-section" class="page-section"> 
+            <div class="heading">
+                <svg xmlns="http://www.w3.org/2000/svg" width="30" height="30" viewBox="0 0 24 24">
+	                <path fill="#6b8e23" d="M3 13h8V3H3zm0 8h8v-6H3zm10 0h8V11h-8zm0-18v6h8V3z" />
+                </svg>
+                <h1>Elections Management</h1>
+            </div>
+            <div class="navigation">
+                <div class="nav-map">
+                    <svg xmlns="http://www.w3.org/2000/svg" width="15" height="15" viewBox="0 0 20 20">
+	                    <path fill="#6b8e23" d="M10.707 2.293a1 1 0 0 0-1.414 0l-7 7a1 1 0 0 0 1.414 1.414L4 10.414V17a1 1 0 0 0 1 1h2a1 1 0 0 0 1-1v-2a1 1 0 0 1 1-1h2a1 1 0 0 1 1 1v2a1 1 0 0 0 1 1h2a1 1 0 0 0 1-1v-6.586l.293.293a1 1 0 0 0 1.414-1.414z" />
+                    </svg>
+                    <button onclick="navigate('dashboard')">Home</button>
+                </div>
+                <span>></span>
+                <div class="nav-map">
+                    <svg xmlns="http://www.w3.org/2000/svg" width="15" height="15" viewBox="0 0 24 24">
+	                    <path fill="#6b8e23" d="M3 13h8V3H3zm0 8h8v-6H3zm10 0h8V11h-8zm0-18v6h8V3z" />
+                    </svg>
+                    <button onclick="navigate('elections')">Elections</button>
+                </div>
+            </div>
+           
+            <div class="election-cards">
+                <div class="election-card">
+                    <div class="card-header">
+                        <h3>Current Election</h3>
+                    </div>
+                    <div class="card-body">
+                        <h2>Student Council Election 2024</h2>
+                        <p><strong>Start Date:</strong> June 1, 2024</p>
+                        <p><strong>End Date:</strong> June 7, 2024</p>
+                        <p><strong>Status:</strong> Ongoing</p>
+                        <div class="card-buttons">
+                            <button onclick="manageElection()">Manage Election</button>
+                            <button onclick="endElection()">End Election</button>
+                        </div>
+                    </div>
+                </div>
+                <div class="election-card">
+                    <div class="card-header">
+                        <h3>Create New Election</h3>
+                    </div>
+                    <form class="card-body">
+                        <label for="election-name">Election Name</label>
+                        <input type="text" name="election-name" id="election-name" placeholder="e.g. Students Government Elections 2025/26">
+                        <div class="election-dates">
+                            <div class="date-box">
+                            <label for="start-date">Start Date</label>
+                            <input type="date" name="start-date" id="start-date" placeholder="Select Start Date">
+                            </div>
+                            <div class="date-box">
+                                <label for="end-date">End Date</label>
+                                <input type="date" name="end-date" id="end-date" placeholder="Select End Date">
+                            </div>
+                        </div>
+                        <label for="status">Status</label>
+                        <select name="status" id="status">
+                            <option value="upcoming">Upcoming</option>
+                            <option value="ongoing">Ongoing</option>
+                            <option value="completed">Completed</option>
+                        </select>
+                        <button type="submit" onclick="createElection()">Create Election</button>
+                    </form>
+                </div>
+                
+            </div>
+
+
+        </section>
+
+<!----===========================Candidates Section====================================== -->
+
+        <section id="candidates-section" class="page-section">
+            <div class="heading">
+                <svg xmlns="http://www.w3.org/2000/svg" width="30" height="30" viewBox="0 0 24 24">
+	                <path fill="#6b8e23" d="M3 13h8V3H3zm0 8h8v-6H3zm10 0h8V11h-8zm0-18v6h8V3z" />
+                </svg>
+                <h1>Candidates</h1>
+            </div>
+            <div class="navigation">
+                <div class="nav-map">
+                    <svg xmlns="http://www.w3.org/2000/svg" width="15" height="15" viewBox="0 0 20 20">
+	                    <path fill="#6b8e23" d="M10.707 2.293a1 1 0 0 0-1.414 0l-7 7a1 1 0 0 0 1.414 1.414L4 10.414V17a1 1 0 0 0 1 1h2a1 1 0 0 0 1-1v-2a1 1 0 0 1 1-1h2a1 1 0 0 1 1 1v2a1 1 0 0 0 1 1h2a1 1 0 0 0 1-1v-6.586l.293.293a1 1 0 0 0 1.414-1.414z" />
+                    </svg>
+                    <button onclick="navigate('dashboard')">Home</button>
+                </div>
+                <span>></span>
+                <div class="nav-map">
+                    <svg xmlns="http://www.w3.org/2000/svg" width="15" height="15" viewBox="0 0 24 24">
+	                    <path fill="#6b8e23" d="M3 13h8V3H3zm0 8h8v-6H3zm10 0h8V11h-8zm0-18v6h8V3z" />
+                    </svg>
+                    <button onclick="navigate('candidates')">Candidates</button>
+                </div>
+            </div>
+            
+            <div class="candidates-table">
+                <div class="table-top">
+                    <div class="selection">
+                        <p>Show</p>
+                        <select name="entries" id="entries">
+                            <option value="5">5</option>
+                            <option value="10">10</option>
+                            <option value="15">15</option>
+                            <option value="20">20</option>
+                            <option value="25">25</option>
+                            <option value="30">30</option>
+                        </select>
+                        <p>Entries</p>
+                    </div>
+                    <button type="button" id="new-candidate" onclick="openCandidatesForm()">+ New</button>
+                </div>
+                <table class="candidates-list">
+                    <thead>
+                        <tr>
+                            <th>No.</th>
+                            <th>Photo</th>
+                            <th>Name</th>
+                            <th>Position</th>
+                            <th>Party</th>
+                            <th>Department</th>
+                            <th>Course</th>
+                            <th>Year</th>
+                            <th>Action</th>
+                        </tr>
+                    </thead>
+                    <tbody>
+                        <tr>
+                            <td>1</td>
+                            <td><img src="../../assets/images/images (4).png" alt="sample"></td>
+                            <td>Candidate 1</td>
+                            <td>President</td>
+                            <td>CCM</td>
+                            <td>Finance</td>
+                            <td>Accounting</td>
+                            <td>3rd Year</td>
+                            <td class="actions-cell">
+                                <button onclick="editCandidate()">
+                                <svg xmlns="http://www.w3.org/2000/svg" width="18" height="18" viewBox="0 0 640 640">
+	                                <path fill="#6b8e23" d="M535.6 85.7c-21.9-21.9-57.3-21.9-79.2 0L432 110.1l97.9 97.9l24.4-24.4c21.9-21.9 21.9-57.3 0-79.2zm-299.2 220c-6.1 6.1-10.8 13.6-13.5 21.9l-29.6 88.8c-2.9 8.6-.6 18.1 5.8 24.6s15.9 8.7 24.6 5.8l88.8-29.6c8.2-2.7 15.7-7.4 21.9-13.5L496 241.9L398.1 144zM160 128c-53 0-96 43-96 96v256c0 53 43 96 96 96h256c53 0 96-43 96-96v-96c0-17.7-14.3-32-32-32s-32 14.3-32 32v96c0 17.7-14.3 32-32 32H160c-17.7 0-32-14.3-32-32V224c0-17.7 14.3-32 32-32h96c17.7 0 32-14.3 32-32s-14.3-32-32-32z" />
+                                </svg>Edit</button>
+                                <button onclick="deleteCandidate()">
+                                <svg xmlns="http://www.w3.org/2000/svg" width="18" height="18" viewBox="0 0 24 24">
+	                                <path fill="#6b8e23" d="M19 4h-3.5l-1-1h-5l-1 1H5v2h14M6 19a2 2 0 0 0 2 2h8a2 2 0 0 0 2-2V7H6z" />
+                                </svg>Delete</button>
+                            </td>
+                        </tr>
+                        <tr>
+                            <td>2</td>
+                            <td><img src="../../assets/images/images (4).png" alt="sample"></td>
+                            <td>Candidate 2</td>
+                            <td>President</td>
+                            <td>CCM</td>
+                            <td>Computing And IT</td>
+                            <td>Computer Science</td>
+                            <td>2nd Year</td>
+                            <td class="actions-cell">
+                                <button onclick="editCandidate()">
+                                <svg xmlns="http://www.w3.org/2000/svg" width="18" height="18" viewBox="0 0 640 640">
+	                                <path fill="#6b8e23" d="M535.6 85.7c-21.9-21.9-57.3-21.9-79.2 0L432 110.1l97.9 97.9l24.4-24.4c21.9-21.9 21.9-57.3 0-79.2zm-299.2 220c-6.1 6.1-10.8 13.6-13.5 21.9l-29.6 88.8c-2.9 8.6-.6 18.1 5.8 24.6s15.9 8.7 24.6 5.8l88.8-29.6c8.2-2.7 15.7-7.4 21.9-13.5L496 241.9L398.1 144zM160 128c-53 0-96 43-96 96v256c0 53 43 96 96 96h256c53 0 96-43 96-96v-96c0-17.7-14.3-32-32-32s-32 14.3-32 32v96c0 17.7-14.3 32-32 32H160c-17.7 0-32-14.3-32-32V224c0-17.7 14.3-32 32-32h96c17.7 0 32-14.3 32-32s-14.3-32-32-32z" />
+                                </svg>Edit</button>
+                                <button onclick="deleteCandidate()">
+                                <svg xmlns="http://www.w3.org/2000/svg" width="18" height="18" viewBox="0 0 24 24">
+	                                <path fill="#6b8e23" d="M19 4h-3.5l-1-1h-5l-1 1H5v2h14M6 19a2 2 0 0 0 2 2h8a2 2 0 0 0 2-2V7H6z" />
+                                </svg>Delete</button>
+                            </td>
+                        </tr>
+                        <tr>
+                            <td>3</td>
+                            <td><img src="../../assets/images/images (4).png" alt="sample"></td>
+                            <td>Candidate 3</td>
+                            <td>President</td>
+                            <td>CCM</td>
+                            <td>Finance</td>
+                            <td>Accounting</td>
+                            <td>3rd Year</td>
+                            <td class="actions-cell">
+                                <button onclick="editCandidate()">
+                                <svg xmlns="http://www.w3.org/2000/svg" width="18" height="18" viewBox="0 0 640 640">
+	                                <path fill="#6b8e23" d="M535.6 85.7c-21.9-21.9-57.3-21.9-79.2 0L432 110.1l97.9 97.9l24.4-24.4c21.9-21.9 21.9-57.3 0-79.2zm-299.2 220c-6.1 6.1-10.8 13.6-13.5 21.9l-29.6 88.8c-2.9 8.6-.6 18.1 5.8 24.6s15.9 8.7 24.6 5.8l88.8-29.6c8.2-2.7 15.7-7.4 21.9-13.5L496 241.9L398.1 144zM160 128c-53 0-96 43-96 96v256c0 53 43 96 96 96h256c53 0 96-43 96-96v-96c0-17.7-14.3-32-32-32s-32 14.3-32 32v96c0 17.7-14.3 32-32 32H160c-17.7 0-32-14.3-32-32V224c0-17.7 14.3-32 32-32h96c17.7 0 32-14.3 32-32s-14.3-32-32-32z" />
+                                </svg>Edit</button>
+                                <button onclick="deleteCandidate()">
+                                <svg xmlns="http://www.w3.org/2000/svg" width="18" height="18" viewBox="0 0 24 24">
+	                                <path fill="#6b8e23" d="M19 4h-3.5l-1-1h-5l-1 1H5v2h14M6 19a2 2 0 0 0 2 2h8a2 2 0 0 0 2-2V7H6z" />
+                                </svg>Delete</button>
+                            </td>
+                        </tr>
+                        <tr>
+                            <td>4</td>
+                            <td><img src="../../assets/images/images (4).png" alt="sample"></td>
+                            <td>Candidate 4</td>
+                            <td>President</td>
+                            <td>CCM</td>
+                            <td>Computing And IT</td>
+                            <td>Computer Science</td>
+                            <td>2nd Year</td>
+                            <td class="actions-cell">
+                                <button onclick="editCandidate()">
+                                <svg xmlns="http://www.w3.org/2000/svg" width="18" height="18" viewBox="0 0 640 640">
+	                                <path fill="#6b8e23" d="M535.6 85.7c-21.9-21.9-57.3-21.9-79.2 0L432 110.1l97.9 97.9l24.4-24.4c21.9-21.9 21.9-57.3 0-79.2zm-299.2 220c-6.1 6.1-10.8 13.6-13.5 21.9l-29.6 88.8c-2.9 8.6-.6 18.1 5.8 24.6s15.9 8.7 24.6 5.8l88.8-29.6c8.2-2.7 15.7-7.4 21.9-13.5L496 241.9L398.1 144zM160 128c-53 0-96 43-96 96v256c0 53 43 96 96 96h256c53 0 96-43 96-96v-96c0-17.7-14.3-32-32-32s-32 14.3-32 32v96c0 17.7-14.3 32-32 32H160c-17.7 0-32-14.3-32-32V224c0-17.7 14.3-32 32-32h96c17.7 0 32-14.3 32-32s-14.3-32-32-32z" />
+                                </svg>Edit</button>
+                                <button onclick="deleteCandidate()">
+                                <svg xmlns="http://www.w3.org/2000/svg" width="18" height="18" viewBox="0 0 24 24">
+	                                <path fill="#6b8e23" d="M19 4h-3.5l-1-1h-5l-1 1H5v2h14M6 19a2 2 0 0 0 2 2h8a2 2 0 0 0 2-2V7H6z" />
+                                </svg>Delete</button>
+                            </td>
+                        </tr>
+                    </tbody>
+                </table>
+                <div class="table-bottom">
+                    <div class="number-entries">
+                        <p>Showing <span id="entriesstart">1</span> to <span id="entries-end">4</span> of <span id="total-entries">4</span> Entries</p>
+                    </div>
+                    <div class="table-nav">
+                        <button id="previous-btn" type="button"> < Previous</button>
+                        <button id="next-btn" type="button">Next ></button>
+                    </div>
+                </div>
+            </div> 
+            
+           
+        </section>
+
+<!----===========================Votes Section====================================== -->
+
+        <section id="votes-section" class="page-section">
+            <div class="heading">
+                <svg xmlns="http://www.w3.org/2000/svg" width="30" height="30" viewBox="0 0 24 24">
+	                <path fill="#6b8e23" d="M3 13h8V3H3zm0 8h8v-6H3zm10 0h8V11h-8zm0-18v6h8V3z" />
+                </svg>
+                <h1>Votes</h1>
+            </div>
+            <div class="navigation">
+                <div class="nav-map">
+                    <svg xmlns="http://www.w3.org/2000/svg" width="15" height="15" viewBox="0 0 20 20">
+	                    <path fill="#6b8e23" d="M10.707 2.293a1 1 0 0 0-1.414 0l-7 7a1 1 0 0 0 1.414 1.414L4 10.414V17a1 1 0 0 0 1 1h2a1 1 0 0 0 1-1v-2a1 1 0 0 1 1-1h2a1 1 0 0 1 1 1v2a1 1 0 0 0 1 1h2a1 1 0 0 0 1-1v-6.586l.293.293a1 1 0 0 0 1.414-1.414z" />
+                    </svg>
+                    <button onclick="navigate('dashboard')">Home</button>
+                </div>
+                <span>></span>
+                <div class="nav-map">
+                    <svg xmlns="http://www.w3.org/2000/svg" width="15" height="15" viewBox="0 0 24 24">
+	                    <path fill="#6b8e23" d="M3 13h8V3H3zm0 8h8v-6H3zm10 0h8V11h-8zm0-18v6h8V3z" />
+                    </svg>
+                    <button onclick="navigate('votes')">Votes</button>
+                </div>
+            </div>
+            <div class="votes-cards">
+                <div class="votes-card">
+                    <div class="votes-card-header">
+                        <h3>Votes Statistics</h3>
+                    </div>
+                    <div class="cards">
+                        <div class="card">
+                            <h2>120</h2>
+                            <p>Total Votes</p>
+                        </div>
+                        <div class="card">
+                            <h2>80</h2>
+                            <p>Valid Votes</p>
+                        </div>
+                        <div class="card">
+                            <h2>40</h2>
+                            <p>Invalid Votes</p>
+                        </div>
+                        <div class="card">
+                            <h2>300</h2>
+                            <p>Registered Voters</p>
+                        </div>
+                    </div>
+                </div>
+                <div class="votes-card">
+                    <div class="votes-card-header">
+                        <h3>Votes Results</h3>
+                    </div>
+                    <div class="card-body" id="chart1">
+                        <h3>Student Government Elections 2025/26</h3>
+                        <canvas id="votesChart"></canvas>
+                    </div>
+                </div>
+            </div>
+        </section>
+
+<!--================================System Logs-Section===========================-->
+
+        <section id="systemLogs-section" class="page-section">            
+            <div class="heading">
+                <svg xmlns="http://www.w3.org/2000/svg" width="30" height="30" viewBox="0 0 24 24">
+	                <path fill="#6b8e23" d="M3 13h8V3H3zm0 8h8v-6H3zm10 0h8V11h-8zm0-18v6h8V3z" />
+                </svg>
+                <h1>System Logs</h1>
+            </div>
+            <div class="navigation">
+                <div class="nav-map">
+                    <svg xmlns="http://www.w3.org/2000/svg" width="15" height="15" viewBox="0 0 20 20">
+	                    <path fill="#6b8e23" d="M10.707 2.293a1 1 0 0 0-1.414 0l-7 7a1 1 0 0 0 1.414 1.414L4 10.414V17a1 1 0 0 0 1 1h2a1 1 0 0 0 1-1v-2a1 1 0 0 1 1-1h2a1 1 0 0 1 1 1v2a1 1 0 0 0 1 1h2a1 1 0 0 0 1-1v-6.586l.293.293a1 1 0 0 0 1.414-1.414z" />
+                    </svg>
+                    <button onclick="navigate('dashboard')">Home</button>
+                </div>
+                <span>></span>
+                <div class="nav-map">
+                    <svg xmlns="http://www.w3.org/2000/svg" width="15" height="15" viewBox="0 0 24 24">
+	                    <path fill="#6b8e23" d="M3 13h8V3H3zm0 8h8v-6H3zm10 0h8V11h-8zm0-18v6h8V3z" />
+                    </svg>
+                    <button onclick="navigate('systemLogs')">System Logs</button>
+                </div>
+            </div>
+
+        </section>
+
+<!--=============================Notifications Section============================== -->
+        
+        <section id="notifications-section" class="page-section">
+            <div class="heading">
+                <svg xmlns="http://www.w3.org/2000/svg" width="30" height="30" viewBox="0 0 24 24">
+	                <path fill="#6b8e23" d="M3 13h8V3H3zm0 8h8v-6H3zm10 0h8V11h-8zm0-18v6h8V3z" />
+                </svg>
+                <h1>Notifications</h1>
+            </div>
+            <div class="navigation">
+                <div class="nav-map">
+                    <svg xmlns="http://www.w3.org/2000/svg" width="15" height="15" viewBox="0 0 20 20">
+	                    <path fill="#6b8e23" d="M10.707 2.293a1 1 0 0 0-1.414 0l-7 7a1 1 0 0 0 1.414 1.414L4 10.414V17a1 1 0 0 0 1 1h2a1 1 0 0 0 1-1v-2a1 1 0 0 1 1-1h2a1 1 0 0 1 1 1v2a1 1 0 0 0 1 1h2a1 1 0 0 0 1-1v-6.586l.293.293a1 1 0 0 0 1.414-1.414z" />
+                    </svg>
+                    <button onclick="navigate('dashboard')">Home</button>
+                </div>
+                <span>></span>
+                <div class="nav-map">
+                    <svg xmlns="http://www.w3.org/2000/svg" width="15" height="15" viewBox="0 0 24 24">
+	                    <path fill="#6b8e23" d="M3 13h8V3H3zm0 8h8v-6H3zm10 0h8V11h-8zm0-18v6h8V3z" />
+                    </svg>
+                    <button onclick="navigate('notifications')">Notifications</button>
+                </div>
+            </div>
+            
+        </section>
+<!--=============================Voters' Statistics Section============================== -->
+        
+        <section id="voter-statistics-section" class="page-section">
+            <div class="heading">
+                <svg xmlns="http://www.w3.org/2000/svg" width="30" height="30" viewBox="0 0 24 24">
+	                <path fill="#6b8e23" d="M3 13h8V3H3zm0 8h8v-6H3zm10 0h8V11h-8zm0-18v6h8V3z" />
+                </svg>
+                <h1>Voters' Statistics</h1>
+            </div>
+            <div class="navigation">
+                <div class="nav-map">
+                    <svg xmlns="http://www.w3.org/2000/svg" width="15" height="15" viewBox="0 0 20 20">
+	                    <path fill="#6b8e23" d="M10.707 2.293a1 1 0 0 0-1.414 0l-7 7a1 1 0 0 0 1.414 1.414L4 10.414V17a1 1 0 0 0 1 1h2a1 1 0 0 0 1-1v-2a1 1 0 0 1 1-1h2a1 1 0 0 1 1 1v2a1 1 0 0 0 1 1h2a1 1 0 0 0 1-1v-6.586l.293.293a1 1 0 0 0 1.414-1.414z" />
+                    </svg>
+                    <button onclick="navigate('dashboard')">Home</button>
+                </div>
+                <span>></span>
+                <div class="nav-map">
+                    <svg xmlns="http://www.w3.org/2000/svg" width="15" height="15" viewBox="0 0 24 24">
+	                    <path fill="#6b8e23" d="M3 13h8V3H3zm0 8h8v-6H3zm10 0h8V11h-8zm0-18v6h8V3z" />
+                    </svg>
+                    <button onclick="navigate('notifications')">Notifications</button>
+                </div>
+            </div>
+            
+        </section>
+
+<!--=============================Notifications Section============================== -->
+        
+        <section id="notifications-section" class="page-section">
+            <div class="heading">
+                <svg xmlns="http://www.w3.org/2000/svg" width="30" height="30" viewBox="0 0 24 24">
+	                <path fill="#6b8e23" d="M3 13h8V3H3zm0 8h8v-6H3zm10 0h8V11h-8zm0-18v6h8V3z" />
+                </svg>
+                <h1>Notifications</h1>
+            </div>
+            <div class="navigation">
+                <div class="nav-map">
+                    <svg xmlns="http://www.w3.org/2000/svg" width="15" height="15" viewBox="0 0 20 20">
+	                    <path fill="#6b8e23" d="M10.707 2.293a1 1 0 0 0-1.414 0l-7 7a1 1 0 0 0 1.414 1.414L4 10.414V17a1 1 0 0 0 1 1h2a1 1 0 0 0 1-1v-2a1 1 0 0 1 1-1h2a1 1 0 0 1 1 1v2a1 1 0 0 0 1 1h2a1 1 0 0 0 1-1v-6.586l.293.293a1 1 0 0 0 1.414-1.414z" />
+                    </svg>
+                    <button onclick="navigate('dashboard')">Home</button>
+                </div>
+                <span>></span>
+                <div class="nav-map">
+                    <svg xmlns="http://www.w3.org/2000/svg" width="15" height="15" viewBox="0 0 24 24">
+	                    <path fill="#6b8e23" d="M3 13h8V3H3zm0 8h8v-6H3zm10 0h8V11h-8zm0-18v6h8V3z" />
+                    </svg>
+                    <button onclick="navigate('notifications')">Notifications</button>
+                </div>
+            </div>
+        </section>
+
+<!----===========================Settings Section====================================== -->
+
+        <section id="settings-section" class="page-section">
+            <div class="heading">
+                <svg xmlns="http://www.w3.org/2000/svg" width="30" height="30" viewBox="0 0 24 24">
+	                <path fill="#6b8e23" d="M3 13h8V3H3zm0 8h8v-6H3zm10 0h8V11h-8zm0-18v6h8V3z" />
+                </svg>
+                <h1>Settings</h1>
+            </div>
+            <div class="navigation">
+                <div class="nav-map">
+                    <svg xmlns="http://www.w3.org/2000/svg" width="15" height="15" viewBox="0 0 20 20">
+	                    <path fill="#6b8e23" d="M10.707 2.293a1 1 0 0 0-1.414 0l-7 7a1 1 0 0 0 1.414 1.414L4 10.414V17a1 1 0 0 0 1 1h2a1 1 0 0 0 1-1v-2a1 1 0 0 1 1-1h2a1 1 0 0 1 1 1v2a1 1 0 0 0 1 1h2a1 1 0 0 0 1-1v-6.586l.293.293a1 1 0 0 0 1.414-1.414z" />
+                    </svg>
+                    <button onclick="navigate('dashboard')">Home</button>
+                </div>
+                <span>></span>
+                <div class="nav-map">
+                    <svg xmlns="http://www.w3.org/2000/svg" width="15" height="15" viewBox="0 0 24 24">
+	                    <path fill="#6b8e23" d="M3 13h8V3H3zm0 8h8v-6H3zm10 0h8V11h-8zm0-18v6h8V3z" />
+                    </svg>
+                    <button onclick="navigate('settings')">Settings</button>
+                </div>
+            </div>
+        </section>
+
+<!----===========================Profile Section====================================== -->
+
+        <section id="profile-section" class="page-section">
+            <div class="heading">
+                <svg xmlns="http://www.w3.org/2000/svg" width="30" height="30" viewBox="0 0 24 24">
+	                <path fill="#6b8e23" d="M3 13h8V3H3zm0 8h8v-6H3zm10 0h8V11h-8zm0-18v6h8V3z" />
+                </svg>
+                <h1>Profile</h1>
+            </div>
+            <div class="navigation">
+                <div class="nav-map">
+                    <svg xmlns="http://www.w3.org/2000/svg" width="15" height="15" viewBox="0 0 20 20">
+	                    <path fill="#6b8e23" d="M10.707 2.293a1 1 0 0 0-1.414 0l-7 7a1 1 0 0 0 1.414 1.414L4 10.414V17a1 1 0 0 0 1 1h2a1 1 0 0 0 1-1v-2a1 1 0 0 1 1-1h2a1 1 0 0 1 1 1v2a1 1 0 0 0 1 1h2a1 1 0 0 0 1-1v-6.586l.293.293a1 1 0 0 0 1.414-1.414z" />
+                    </svg>
+                    <button onclick="navigate('dashboard')">Home</button>
+                </div>
+                <span>></span>
+                <div class="nav-map">
+                    <svg xmlns="http://www.w3.org/2000/svg" width="15" height="15" viewBox="0 0 24 24">
+	                    <path fill="#6b8e23" d="M3 13h8V3H3zm0 8h8v-6H3zm10 0h8V11h-8zm0-18v6h8V3z" />
+                    </svg>
+                    <button onclick="navigate('profile')">Profile</button>
+                </div>
+            </div>
+        </section> 
+        
+        <div id="candidates-form-box" class="form-box" onclick="if(event.target.id==='candidates-form-box') closeCandidatesForm()">
+        <form id="candidates-form">
+                <div class="form-header">
+                    <h2>Add New Candidate</h2>
+                </div>
+                <div class="form-group">
+                    <label for="candidate-name">Name:</label>
+                    <input type="text" id="candidate-name" name="candidate-name" required>
+                </div>
+                <div class="form-group">
+                    <label for="position">Position:</label>
+                    <input type="text" id="position" name="position" required>
+                </div>
+                <div class="form-group">
+                    <label for="party">Party:</label>
+                    <input type="text" id="party" name="party" required>
+                </div>
+                <div class="form-group">
+                    <label for="department">Department:</label>
+                    <input type="text" id="department" name="department" required>
+                </div>
+                <div class="form-group">
+                    <label for="course">Course:</label>
+                    <input type="text" id="course" name="course" required>
+                </div>
+                <div class="form-group">
+                    <label for="photo">Photo:</label>
+                    <input type="file" id="photo" name="photo" accept="image/*" required>
+                </div>
+                <button type="submit">Add Candidate</button>
+            </form>
+        </div>
+    </main>
+
+    <footer>
+    </footer>
+
+   <script src="https://cdn.jsdelivr.net/npm/chart.js"></script>
+    <script>
+
+//==============================Sections Navigation============================
+        
+        /* function navigate(page) {
+
+            //Get all page sections
+            const sections = document.querySelectorAll(".page-section");
+
+            //hide all sections
+
+            sections.forEach(function (section) {
+                section.style.display = "none";
+            });
+
+            //Show the selected section
+
+            const targetSelection = document.getElementById(page + "-section");
+            if (targetSelection) {
+                targetSelection.style.display = "block";
+            }
+
+            //Initially show dashboard section
+
+            navigate('dashboard'); 
+        }*/
+    
+    document.addEventListener("DOMContentLoaded", function () {
+        const buttons = document.querySelectorAll(".nav-links");
+        const sections = document.querySelectorAll(".page-section");
+
+        buttons.forEach(btn => {
+            btn.addEventListener("click", function () {
+                const target = btn.dataset.target;
+
+                function hideAllSections() {
+                    sections.forEach(sec => sec.classList.remove("active"));
+                    document.getElementById(target).classList.add("active");
+                }
+               
+                sections.forEach(sec => sec.style.display = "none");
+                buttons.forEach(b => b.classList.remove("active"));
+
+                
+                document.getElementById(target).style.display = "flex";
+                this.classList.add("active");
+
+                window.onload = function () {
+                    showSection("dashboard");
+                }
+            });
+        });
+    });
+
+
+//=======================================Hidden Form===========================
+
+function openCandidatesForm() {
+    document.getElementById("candidates-form-box").classList.add("active");
+} 
+
+function closeCandidatesForm() {
+    document.getElementById("candidates-form-box").classList.remove("active");
+}
+
+//=======================+===============Graphs================================
+
+//chart1
+
+const ctx = document.getElementById('votesChart');
+
+  new Chart(ctx, {
+    type: 'bar',
+    data: {
+      labels: ['Candidate1', 'Candidate2', 'Candidate3', 'Candidate4', 'Candidate5', 'Candidate6'],
+      datasets: [{
+        label: 'Number of Votes',
+        data: [120, 190, 30, 50, 20, 30],
+        backgroundColor: 'rgb(0, 129, 0)',
+        borderColor: 'rgb(255, 255, 255)',
+        borderWidth: 1
+      }]
+    },
+    options: {
+      scales: {
+        y: {
+          beginAtZero: true
+        }
+      }
+    }
+  });
+
+    </script>
+    
+</body>
+</html>
