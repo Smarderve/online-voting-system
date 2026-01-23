@@ -10,18 +10,20 @@
 <body>
 
     <header>
-        <div class="block">
-            <!--<img src="../../assets/images/kiut-white.png" alt="kiut-logo">-->
-        </div>
-        
         <div class="icons">
-            <svg xmlns="http://www.w3.org/2000/svg" width="18px" height="18px" viewBox="0 0 24 24">
-	<g fill="none" fillRule="evenodd">
-		<path d="m12.594 23.258l-.012.002l-.071.035l-.02.004l-.014-.004l-.071-.036q-.016-.004-.024.006l-.004.01l-.017.428l.005.02l.01.013l.104.074l.015.004l.012-.004l.104-.074l.012-.016l.004-.017l-.017-.427q-.004-.016-.016-.018m.264-.113l-.014.002l-.184.093l-.01.01l-.003.011l.018.43l.005.012l.008.008l.201.092q.019.005.029-.008l.004-.014l-.034-.614q-.005-.019-.02-.022m-.715.002a.02.02 0 0 0-.027.006l-.006.014l-.034.614q.001.018.017.024l.015-.002l.201-.093l.01-.008l.003-.011l.018-.43l-.003-.012l-.01-.01z"></path>
-		<path fill="#008000" d="M12 2C6.477 2 2 6.477 2 12s4.477 10 10 10s10-4.477 10-10S17.523 2 12 2M8.5 9.5a3.5 3.5 0 1 1 7 0a3.5 3.5 0 0 1-7 0m9.758 7.484A7.99 7.99 0 0 1 12 20a7.99 7.99 0 0 1-6.258-3.016C7.363 15.821 9.575 15 12 15s4.637.821 6.258 1.984"></path>
-	</g>
-</svg>
-            <svg xmlns="http://www.w3.org/2000/svg" width="18px" height="18px" viewBox="0 0 24 24">
+            <svg class="nav-links" data-target="dashboard-section" xmlns="http://www.w3.org/2000/svg" width="18px" height="18px" viewBox="0 0 24 24">
+	            <g fill="#008000">
+		            <path d="M11.47 3.841a.75.75 0 0 1 1.06 0l8.69 8.69a.75.75 0 1 0 1.06-1.061l-8.689-8.69a2.25 2.25 0 0 0-3.182 0l-8.69 8.69a.75.75 0 1 0 1.061 1.06z"></path>
+		            <path d="m12 5.432l8.159 8.159q.045.044.091.086v6.198c0 1.035-.84 1.875-1.875 1.875H15a.75.75 0 0 1-.75-.75v-4.5a.75.75 0 0 0-.75-.75h-3a.75.75 0 0 0-.75.75V21a.75.75 0 0 1-.75.75H5.625a1.875 1.875 0 0 1-1.875-1.875v-6.198l.091-.086z"></path>
+	            </g>
+            </svg>
+            <svg class="nav-links" data-target="profile-section" xmlns="http://www.w3.org/2000/svg" width="18px" height="18px" viewBox="0 0 24 24">
+	            <g fill="none" fillRule="evenodd">
+		            <path d="m12.594 23.258l-.012.002l-.071.035l-.02.004l-.014-.004l-.071-.036q-.016-.004-.024.006l-.004.01l-.017.428l.005.02l.01.013l.104.074l.015.004l.012-.004l.104-.074l.012-.016l.004-.017l-.017-.427q-.004-.016-.016-.018m.264-.113l-.014.002l-.184.093l-.01.01l-.003.011l.018.43l.005.012l.008.008l.201.092q.019.005.029-.008l.004-.014l-.034-.614q-.005-.019-.02-.022m-.715.002a.02.02 0 0 0-.027.006l-.006.014l-.034.614q.001.018.017.024l.015-.002l.201-.093l.01-.008l.003-.011l.018-.43l-.003-.012l-.01-.01z"></path>
+		            <path fill="#008000" d="M12 2C6.477 2 2 6.477 2 12s4.477 10 10 10s10-4.477 10-10S17.523 2 12 2M8.5 9.5a3.5 3.5 0 1 1 7 0a3.5 3.5 0 0 1-7 0m9.758 7.484A7.99 7.99 0 0 1 12 20a7.99 7.99 0 0 1-6.258-3.016C7.363 15.821 9.575 15 12 15s4.637.821 6.258 1.984"></path>
+	            </g>
+            </svg>
+            <svg class="nav-links" data-target="notifications-section" xmlns="http://www.w3.org/2000/svg" width="18px" height="18px" viewBox="0 0 24 24">
 	            <path fill="#008000" d="M12 22c1.1 0 2-.9 2-2h-4a2 2 0 0 0 2 2m6-6v-5c0-3.07-1.64-5.64-4.5-6.32V4c0-.83-.67-1.5-1.5-1.5s-1.5.67-1.5 1.5v.68C7.63 5.36 6 7.92 6 11v5l-1.29 1.29c-.63.63-.19 1.71.7 1.71h13.17c.89 0 1.34-1.08.71-1.71z"></path>
             </svg>
             <svg xmlns="http://www.w3.org/2000/svg" width="18px" height="18px" viewBox="0 0 24 24">
@@ -36,15 +38,21 @@
 <!----===========================Sidebar Section====================================== -->
 
         <section class="sidebar"> 
-            
-            <div class="profile">
-                <img src="../../assets/images/images (4).png" alt="admin-profile-picture" id="admin-profile-photo">
-                <div class="profile-content">
+
+            <div class="hamburger">
+                <button id="hamburger-toogle" class="sidebar-hamburger">
+                    <svg xmlns="http://www.w3.org/2000/svg" width="24px" height="24px" viewBox="0 0 24 24">
+	                    <path fill="none" stroke="#fff" stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M5 17h14M5 12h14M5 7h14" />
+                    </svg>
+                </button>
+            </div>
+            <div class="profile" data-target="profile-section">
+                <img src="../../assets/images/images (4).png" alt="admin-profile-picture" id="admin-profile-photo" class="nav-links" data-target="profile-section">
+                <div id="profile-content" class="nav-links" data-target="profile-section">
                     <h2 id="admin-name">Admin Name</h2>
                     <p>Administrator</p>
                 </div>
             </div>
-
             <div class="group">
                 <h3>Reports</h3>
                 <nav>
@@ -76,7 +84,6 @@
                     </button>
                 </nav>
             </div>
-
             <div class="group">
                 <h3>Manage</h3>
                 <nav>
@@ -92,7 +99,6 @@
                     </button>
                 </nav>
             </div>
-
             <div class="group">
                 <h3>Other</h3>
                 <nav>
@@ -126,21 +132,6 @@
                 </svg>
                 <h1>Dashboard</h1>
             </div>
-            <div class="navigation">
-            <div class="nav-map">
-                <svg xmlns="http://www.w3.org/2000/svg" width="15" height="15" viewBox="0 0 20 20">
-	                <path fill="#008000" d="M10.707 2.293a1 1 0 0 0-1.414 0l-7 7a1 1 0 0 0 1.414 1.414L4 10.414V17a1 1 0 0 0 1 1h2a1 1 0 0 0 1-1v-2a1 1 0 0 1 1-1h2a1 1 0 0 1 1 1v2a1 1 0 0 0 1 1h2a1 1 0 0 0 1-1v-6.586l.293.293a1 1 0 0 0 1.414-1.414z" />
-                </svg>
-                <button data-target="dashboard-section"="nav-links">Home</button>
-            </div>
-                <span>></span>
-            <div class="nav-map">
-                <svg xmlns="http://www.w3.org/2000/svg" width="15" height="15" viewBox="0 0 24 24">
-	                <path fill="#008000" d="M3 13h8V3H3zm0 8h8v-6H3zm10 0h8V11h-8zm0-18v6h8V3z" />
-                </svg>
-                <button>Dashboard</button>
-            </div>
-        </div>
             <div class="cards">
                 <div class="card1">
                     <div class="card-info">
@@ -195,22 +186,6 @@
                 </svg>
                 <h1>Elections Management</h1>
             </div>
-            <div class="navigation">
-                <div class="nav-map">
-                    <svg xmlns="http://www.w3.org/2000/svg" width="15" height="15" viewBox="0 0 20 20">
-	                    <path fill="#6b8e23" d="M10.707 2.293a1 1 0 0 0-1.414 0l-7 7a1 1 0 0 0 1.414 1.414L4 10.414V17a1 1 0 0 0 1 1h2a1 1 0 0 0 1-1v-2a1 1 0 0 1 1-1h2a1 1 0 0 1 1 1v2a1 1 0 0 0 1 1h2a1 1 0 0 0 1-1v-6.586l.293.293a1 1 0 0 0 1.414-1.414z" />
-                    </svg>
-                    <button onclick="navigate('dashboard')">Home</button>
-                </div>
-                <span>></span>
-                <div class="nav-map">
-                    <svg xmlns="http://www.w3.org/2000/svg" width="15" height="15" viewBox="0 0 24 24">
-	                    <path fill="#6b8e23" d="M3 13h8V3H3zm0 8h8v-6H3zm10 0h8V11h-8zm0-18v6h8V3z" />
-                    </svg>
-                    <button onclick="navigate('elections')">Elections</button>
-                </div>
-            </div>
-           
             <div class="election-cards">
                 <div class="election-card">
                     <div class="card-header">
@@ -268,22 +243,6 @@
                 </svg>
                 <h1>Candidates</h1>
             </div>
-            <div class="navigation">
-                <div class="nav-map">
-                    <svg xmlns="http://www.w3.org/2000/svg" width="15" height="15" viewBox="0 0 20 20">
-	                    <path fill="#6b8e23" d="M10.707 2.293a1 1 0 0 0-1.414 0l-7 7a1 1 0 0 0 1.414 1.414L4 10.414V17a1 1 0 0 0 1 1h2a1 1 0 0 0 1-1v-2a1 1 0 0 1 1-1h2a1 1 0 0 1 1 1v2a1 1 0 0 0 1 1h2a1 1 0 0 0 1-1v-6.586l.293.293a1 1 0 0 0 1.414-1.414z" />
-                    </svg>
-                    <button onclick="navigate('dashboard')">Home</button>
-                </div>
-                <span>></span>
-                <div class="nav-map">
-                    <svg xmlns="http://www.w3.org/2000/svg" width="15" height="15" viewBox="0 0 24 24">
-	                    <path fill="#6b8e23" d="M3 13h8V3H3zm0 8h8v-6H3zm10 0h8V11h-8zm0-18v6h8V3z" />
-                    </svg>
-                    <button onclick="navigate('candidates')">Candidates</button>
-                </div>
-            </div>
-            
             <div class="candidates-table">
                 <div class="table-top">
                     <div class="selection">
@@ -407,8 +366,6 @@
                     </div>
                 </div>
             </div> 
-            
-           
         </section>
 
 <!----===========================Votes Section====================================== -->
@@ -419,21 +376,6 @@
 	                <path fill="#6b8e23" d="M3 13h8V3H3zm0 8h8v-6H3zm10 0h8V11h-8zm0-18v6h8V3z" />
                 </svg>
                 <h1>Votes</h1>
-            </div>
-            <div class="navigation">
-                <div class="nav-map">
-                    <svg xmlns="http://www.w3.org/2000/svg" width="15" height="15" viewBox="0 0 20 20">
-	                    <path fill="#6b8e23" d="M10.707 2.293a1 1 0 0 0-1.414 0l-7 7a1 1 0 0 0 1.414 1.414L4 10.414V17a1 1 0 0 0 1 1h2a1 1 0 0 0 1-1v-2a1 1 0 0 1 1-1h2a1 1 0 0 1 1 1v2a1 1 0 0 0 1 1h2a1 1 0 0 0 1-1v-6.586l.293.293a1 1 0 0 0 1.414-1.414z" />
-                    </svg>
-                    <button onclick="navigate('dashboard')">Home</button>
-                </div>
-                <span>></span>
-                <div class="nav-map">
-                    <svg xmlns="http://www.w3.org/2000/svg" width="15" height="15" viewBox="0 0 24 24">
-	                    <path fill="#6b8e23" d="M3 13h8V3H3zm0 8h8v-6H3zm10 0h8V11h-8zm0-18v6h8V3z" />
-                    </svg>
-                    <button onclick="navigate('votes')">Votes</button>
-                </div>
             </div>
             <div class="votes-cards">
                 <div class="votes-card">
@@ -480,22 +422,33 @@
                 </svg>
                 <h1>System Logs</h1>
             </div>
-            <div class="navigation">
-                <div class="nav-map">
-                    <svg xmlns="http://www.w3.org/2000/svg" width="15" height="15" viewBox="0 0 20 20">
-	                    <path fill="#6b8e23" d="M10.707 2.293a1 1 0 0 0-1.414 0l-7 7a1 1 0 0 0 1.414 1.414L4 10.414V17a1 1 0 0 0 1 1h2a1 1 0 0 0 1-1v-2a1 1 0 0 1 1-1h2a1 1 0 0 1 1 1v2a1 1 0 0 0 1 1h2a1 1 0 0 0 1-1v-6.586l.293.293a1 1 0 0 0 1.414-1.414z" />
-                    </svg>
-                    <button onclick="navigate('dashboard')">Home</button>
-                </div>
-                <span>></span>
-                <div class="nav-map">
-                    <svg xmlns="http://www.w3.org/2000/svg" width="15" height="15" viewBox="0 0 24 24">
-	                    <path fill="#6b8e23" d="M3 13h8V3H3zm0 8h8v-6H3zm10 0h8V11h-8zm0-18v6h8V3z" />
-                    </svg>
-                    <button onclick="navigate('systemLogs')">System Logs</button>
+            <div class="logs-header">
+                <h2>System Logs</h2>
+                <div class="logs-controls">
+                    <select id="logsFilter">
+                        <option value="all">All Logs</option>
+                        <option value="info">Info</option>
+                        <option value="warning">Warning</option>
+                        <option value="error">Error</option>
+                    </select>
+                    <input type="text" id="logsSearch" placeholder="Search logs..." />
                 </div>
             </div>
-
+            <div class="logs-table-wrapper">
+                <table class="logs-table">
+                    <thead>
+                        <tr>
+                        <th>Time</th>
+                        <th>Level</th>
+                        <th>Action</th>
+                        <th>User</th>
+                        <th>Description</th>
+                        </tr>
+                    </thead>
+                    <tbody id="logsBody">
+                    </tbody>
+                </table>
+            </div>
         </section>
 
 <!--=============================Notifications Section============================== -->
@@ -507,23 +460,46 @@
                 </svg>
                 <h1>Notifications</h1>
             </div>
-            <div class="navigation">
-                <div class="nav-map">
-                    <svg xmlns="http://www.w3.org/2000/svg" width="15" height="15" viewBox="0 0 20 20">
-	                    <path fill="#6b8e23" d="M10.707 2.293a1 1 0 0 0-1.414 0l-7 7a1 1 0 0 0 1.414 1.414L4 10.414V17a1 1 0 0 0 1 1h2a1 1 0 0 0 1-1v-2a1 1 0 0 1 1-1h2a1 1 0 0 1 1 1v2a1 1 0 0 0 1 1h2a1 1 0 0 0 1-1v-6.586l.293.293a1 1 0 0 0 1.414-1.414z" />
-                    </svg>
-                    <button onclick="navigate('dashboard')">Home</button>
-                </div>
-                <span>></span>
-                <div class="nav-map">
-                    <svg xmlns="http://www.w3.org/2000/svg" width="15" height="15" viewBox="0 0 24 24">
-	                    <path fill="#6b8e23" d="M3 13h8V3H3zm0 8h8v-6H3zm10 0h8V11h-8zm0-18v6h8V3z" />
-                    </svg>
-                    <button onclick="navigate('notifications')">Notifications</button>
+            <div class="notifications-header">
+                <h2>System Logs</h2>
+                <div class="notifications-controls">
+                    <select id="notificationsFilter">
+                        <option value="all">All Logs</option>
+                        <option value="info">Info</option>
+                        <option value="warning">Warning</option>
+                        <option value="error">Error</option>
+                    </select>
+                    <input type="text" id="notificationsSearch" placeholder="Search logs..." />
                 </div>
             </div>
-            
+            <div class="notifications-table-wrapper">
+                <table class="notifications-table">
+                    <thead>
+                        <tr>
+                        <th>Time</th>
+                        <th>Level</th>
+                        <th>Action</th>
+                        <th>User</th>
+                        <th>Description</th>
+                        </tr>
+                    </thead>
+                    <tbody id="notificationsBody">
+                    </tbody>
+                </table>
+            </div>
         </section>
+
+<!--=============================Profile Section============================== -->
+        
+        <section id="profile-section" class="page-section">
+            <div class="heading">
+                <svg xmlns="http://www.w3.org/2000/svg" width="30" height="30" viewBox="0 0 24 24">
+	                <path fill="#6b8e23" d="M3 13h8V3H3zm0 8h8v-6H3zm10 0h8V11h-8zm0-18v6h8V3z" />
+                </svg>
+                <h1>Profile</h1>
+            </div>
+        </section>
+
 <!--=============================Voters' Statistics Section============================== -->
         
         <section id="voter-statistics-section" class="page-section">
@@ -533,22 +509,6 @@
                 </svg>
                 <h1>Voters' Statistics</h1>
             </div>
-            <div class="navigation">
-                <div class="nav-map">
-                    <svg xmlns="http://www.w3.org/2000/svg" width="15" height="15" viewBox="0 0 20 20">
-	                    <path fill="#6b8e23" d="M10.707 2.293a1 1 0 0 0-1.414 0l-7 7a1 1 0 0 0 1.414 1.414L4 10.414V17a1 1 0 0 0 1 1h2a1 1 0 0 0 1-1v-2a1 1 0 0 1 1-1h2a1 1 0 0 1 1 1v2a1 1 0 0 0 1 1h2a1 1 0 0 0 1-1v-6.586l.293.293a1 1 0 0 0 1.414-1.414z" />
-                    </svg>
-                    <button onclick="navigate('dashboard')">Home</button>
-                </div>
-                <span>></span>
-                <div class="nav-map">
-                    <svg xmlns="http://www.w3.org/2000/svg" width="15" height="15" viewBox="0 0 24 24">
-	                    <path fill="#6b8e23" d="M3 13h8V3H3zm0 8h8v-6H3zm10 0h8V11h-8zm0-18v6h8V3z" />
-                    </svg>
-                    <button onclick="navigate('notifications')">Notifications</button>
-                </div>
-            </div>
-            
         </section>
 
 <!--=============================Notifications Section============================== -->
@@ -559,21 +519,6 @@
 	                <path fill="#6b8e23" d="M3 13h8V3H3zm0 8h8v-6H3zm10 0h8V11h-8zm0-18v6h8V3z" />
                 </svg>
                 <h1>Notifications</h1>
-            </div>
-            <div class="navigation">
-                <div class="nav-map">
-                    <svg xmlns="http://www.w3.org/2000/svg" width="15" height="15" viewBox="0 0 20 20">
-	                    <path fill="#6b8e23" d="M10.707 2.293a1 1 0 0 0-1.414 0l-7 7a1 1 0 0 0 1.414 1.414L4 10.414V17a1 1 0 0 0 1 1h2a1 1 0 0 0 1-1v-2a1 1 0 0 1 1-1h2a1 1 0 0 1 1 1v2a1 1 0 0 0 1 1h2a1 1 0 0 0 1-1v-6.586l.293.293a1 1 0 0 0 1.414-1.414z" />
-                    </svg>
-                    <button onclick="navigate('dashboard')">Home</button>
-                </div>
-                <span>></span>
-                <div class="nav-map">
-                    <svg xmlns="http://www.w3.org/2000/svg" width="15" height="15" viewBox="0 0 24 24">
-	                    <path fill="#6b8e23" d="M3 13h8V3H3zm0 8h8v-6H3zm10 0h8V11h-8zm0-18v6h8V3z" />
-                    </svg>
-                    <button onclick="navigate('notifications')">Notifications</button>
-                </div>
             </div>
         </section>
 
@@ -586,21 +531,6 @@
                 </svg>
                 <h1>Settings</h1>
             </div>
-            <div class="navigation">
-                <div class="nav-map">
-                    <svg xmlns="http://www.w3.org/2000/svg" width="15" height="15" viewBox="0 0 20 20">
-	                    <path fill="#6b8e23" d="M10.707 2.293a1 1 0 0 0-1.414 0l-7 7a1 1 0 0 0 1.414 1.414L4 10.414V17a1 1 0 0 0 1 1h2a1 1 0 0 0 1-1v-2a1 1 0 0 1 1-1h2a1 1 0 0 1 1 1v2a1 1 0 0 0 1 1h2a1 1 0 0 0 1-1v-6.586l.293.293a1 1 0 0 0 1.414-1.414z" />
-                    </svg>
-                    <button onclick="navigate('dashboard')">Home</button>
-                </div>
-                <span>></span>
-                <div class="nav-map">
-                    <svg xmlns="http://www.w3.org/2000/svg" width="15" height="15" viewBox="0 0 24 24">
-	                    <path fill="#6b8e23" d="M3 13h8V3H3zm0 8h8v-6H3zm10 0h8V11h-8zm0-18v6h8V3z" />
-                    </svg>
-                    <button onclick="navigate('settings')">Settings</button>
-                </div>
-            </div>
         </section>
 
 <!----===========================Profile Section====================================== -->
@@ -612,23 +542,8 @@
                 </svg>
                 <h1>Profile</h1>
             </div>
-            <div class="navigation">
-                <div class="nav-map">
-                    <svg xmlns="http://www.w3.org/2000/svg" width="15" height="15" viewBox="0 0 20 20">
-	                    <path fill="#6b8e23" d="M10.707 2.293a1 1 0 0 0-1.414 0l-7 7a1 1 0 0 0 1.414 1.414L4 10.414V17a1 1 0 0 0 1 1h2a1 1 0 0 0 1-1v-2a1 1 0 0 1 1-1h2a1 1 0 0 1 1 1v2a1 1 0 0 0 1 1h2a1 1 0 0 0 1-1v-6.586l.293.293a1 1 0 0 0 1.414-1.414z" />
-                    </svg>
-                    <button onclick="navigate('dashboard')">Home</button>
-                </div>
-                <span>></span>
-                <div class="nav-map">
-                    <svg xmlns="http://www.w3.org/2000/svg" width="15" height="15" viewBox="0 0 24 24">
-	                    <path fill="#6b8e23" d="M3 13h8V3H3zm0 8h8v-6H3zm10 0h8V11h-8zm0-18v6h8V3z" />
-                    </svg>
-                    <button onclick="navigate('profile')">Profile</button>
-                </div>
-            </div>
         </section> 
-        
+<!--=================================PopUp Form=====================================-->
         <div id="candidates-form-box" class="form-box" onclick="if(event.target.id==='candidates-form-box') closeCandidatesForm()">
         <form id="candidates-form">
                 <div class="form-header">
@@ -667,99 +582,6 @@
     </footer>
 
    <script src="https://cdn.jsdelivr.net/npm/chart.js"></script>
-    <script>
-
-//==============================Sections Navigation============================
-        
-        /* function navigate(page) {
-
-            //Get all page sections
-            const sections = document.querySelectorAll(".page-section");
-
-            //hide all sections
-
-            sections.forEach(function (section) {
-                section.style.display = "none";
-            });
-
-            //Show the selected section
-
-            const targetSelection = document.getElementById(page + "-section");
-            if (targetSelection) {
-                targetSelection.style.display = "block";
-            }
-
-            //Initially show dashboard section
-
-            navigate('dashboard'); 
-        }*/
-    
-    document.addEventListener("DOMContentLoaded", function () {
-        const buttons = document.querySelectorAll(".nav-links");
-        const sections = document.querySelectorAll(".page-section");
-
-        buttons.forEach(btn => {
-            btn.addEventListener("click", function () {
-                const target = btn.dataset.target;
-
-                function hideAllSections() {
-                    sections.forEach(sec => sec.classList.remove("active"));
-                    document.getElementById(target).classList.add("active");
-                }
-               
-                sections.forEach(sec => sec.style.display = "none");
-                buttons.forEach(b => b.classList.remove("active"));
-
-                
-                document.getElementById(target).style.display = "flex";
-                this.classList.add("active");
-
-                window.onload = function () {
-                    showSection("dashboard");
-                }
-            });
-        });
-    });
-
-
-//=======================================Hidden Form===========================
-
-function openCandidatesForm() {
-    document.getElementById("candidates-form-box").classList.add("active");
-} 
-
-function closeCandidatesForm() {
-    document.getElementById("candidates-form-box").classList.remove("active");
-}
-
-//=======================+===============Graphs================================
-
-//chart1
-
-const ctx = document.getElementById('votesChart');
-
-  new Chart(ctx, {
-    type: 'bar',
-    data: {
-      labels: ['Candidate1', 'Candidate2', 'Candidate3', 'Candidate4', 'Candidate5', 'Candidate6'],
-      datasets: [{
-        label: 'Number of Votes',
-        data: [120, 190, 30, 50, 20, 30],
-        backgroundColor: 'rgb(0, 129, 0)',
-        borderColor: 'rgb(255, 255, 255)',
-        borderWidth: 1
-      }]
-    },
-    options: {
-      scales: {
-        y: {
-          beginAtZero: true
-        }
-      }
-    }
-  });
-
-    </script>
-    
+    <script src="../scripts/adminPanel.js"></script>
 </body>
 </html>
