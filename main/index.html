@@ -1,5 +1,6 @@
 <!DOCTYPE html>
 <html lang="en">
+
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
@@ -7,6 +8,7 @@
     <link rel="icon" type="image/x-icon" href="../assets/images/kiut-green.png">
     <title>KIUT</title>
 </head>
+
 <body>
 
     <header>
@@ -14,8 +16,8 @@
             <img src="../assets/images/kiut-green.png" alt="kiut-logo">
         </div>
         <nav>
-         <button type="button" class="sign-up"><a href="../src/pages/register.html">Register</a></button>
-         <button type="button"><a href="../src/pages/admin-login.html">Login</a></button>
+            <button type="button" class="sign-up"><a href="../src/pages/register.html">Register</a></button>
+            <button type="button"><a href="../src/pages/admin-login.html">Login</a></button>
         </nav>
     </header>
 
@@ -25,35 +27,129 @@
         <h3 style="color: green; margin-bottom: 40px">YOUR VOICE MATTERS, VOTE NOW.</h3>
         <h3 style="margin-bottom: 40px;">Candidates Preview</h3>
 
-        <div class="cards">
-            <div class="card">
-                <img src="../assets/images/images (4).png" alt="Candidate 1">
-                    <h3>Candidate 1</h3>
-                <h4>Position</h4>
-                    <p>Brief description of Candidate <br> Below here</p>
-                <button class="card-button"><a href="#">View Full Profile</a></button>
-            </div>
+        <div id="messageBox" class="message"></div>
 
-            <div class="card">
-                <img src="../assets/images/images (4).png" alt="Candidate 2">
-                    <h3>Candidate 2</h3>
-                <h4>Position</h4>
-                    <p>Brief description of Candidate <br> Below here</p>
-                <button class="card-button"><a href="#">View Full Profile</a></button>
-            </div>
-
-            <div class="card">
-                <img src="../assets/images/images (4).png" alt="Candidate 3">
-                    <h3>Candidate 3</h3>
-                <h4>Position</h4>
-                    <p>Brief description of Candidate <br> Below here</p>
-                <button class="card-button"><a href="#">View Full Profile</a></button>
+        <!-- PRESIDENTS -->
+        <div class="section">
+            <h3>Vote for President</h3>
+            <div class="cards">
+                <div class="card">
+                    <img src="assets/images/images (4).png">
+                    <h4>John Mrema</h4>
+                    <input type="radio" name="president">
+                </div>
+                <div class="card">
+                    <img src="images (4).png">
+                    <h4>Anna Joseph</h4>
+                    <input type="radio" name="president">
+                </div>
+                <div class="card">
+                    <img src="images (4).png">
+                    <h4>Peter Lucas</h4>
+                    <input type="radio" name="president">
+                </div>
             </div>
         </div>
 
+        <!-- FACULTY IT -->
+        <div class="faculty-box myFaculty">
+            <div class="faculty-title">Faculty of IT</div>
+            <div class="cards">
+                <div class="card"><img src="images (4).png">
+                    <h4>IT MP 1</h4><input type="radio" name="mp">
+                </div>
+                <div class="card"><img src="images (4).png">
+                    <h4>IT MP 2</h4><input type="radio" name="mp">
+                </div>
+                <div class="card"><img src="images (4).png">
+                    <h4>IT MP 3</h4><input type="radio" name="mp">
+                </div>
+            </div>
+            <div class="submit-row">
+                <button onclick="submitVote()">Submit Vote</button>
+            </div>
+        </div>
+
+        <!-- FACULTY SCIENCE -->
+        <div class="faculty-box">
+            <div class="faculty-title">Faculty of Science</div>
+            <div class="cards">
+                <div class="card"><img src="images (4).png">
+                    <h4>Science MP 1</h4>
+                </div>
+                <div class="card"><img src="images (4).png">
+                    <h4>Science MP 2</h4>
+                </div>
+                <div class="card"><img src="images (4).png">
+                    <h4>Science MP 3</h4>
+                </div>
+            </div>
+            <div class="submit-row">
+                <button disabled>Not Allowed</button>
+            </div>
+        </div>
+
+        <!-- FACULTY BUSINESS -->
+        <div class="faculty-box">
+            <div class="faculty-title">Faculty of Business</div>
+            <div class="cards">
+                <div class="card"><img src="images (4).png">
+                    <h4>Business MP 1</h4>
+                </div>
+                <div class="card"><img src="images (4).png">
+                    <h4>Business MP 2</h4>
+                </div>
+                <div class="card"><img src="images (4).png">
+                    <h4>Business MP 3</h4>
+                </div>
+            </div>
+            <div class="submit-row">
+                <button disabled>Not Allowed</button>
+            </div>
+        </div>
+
+        <!-- FACULTY EDUCATION -->
+        <div class="faculty-box">
+            <div class="faculty-title">Faculty of Education</div>
+            <div class="cards">
+                <div class="card"><img src="assets/images/images (4).png">
+                    <h4>Education MP 1</h4>
+                </div>
+                <div class="card"><img src="assets/images/images (4).png">
+                    <h4>Education MP 2</h4>
+                </div>
+                <div class="card"><img src="assets/images/images (4).png">
+                    <h4>Education MP 3</h4>
+                </div>
+            </div>
+            <div class="submit-row">
+                <button disabled>Not Allowed</button>
+            </div>
+        </div>
+
+        <!-- FACULTY ENGINEERING -->
+        <div class="faculty-box">
+            <div class="faculty-title">Faculty of Engineering</div>
+            <div class="cards">
+                <div class="card"><img src="assets/images/images (4).png">
+                    <h4>Engineering MP 1</h4>
+                </div>
+                <div class="card"><img src="assets/images/images (4).png">
+                    <h4>Engineering MP 2</h4>
+                </div>
+                <div class="card"><img src="assets/images/images (4).png">
+                    <h4>Engineering MP 3</h4>
+                </div>
+            </div>
+            <div class="submit-row">
+                <button disabled>Not Allowed</button>
+            </div>
+        </div>
+
+
         <div class="buttons">
-           <button class="more-button">Browse All Candidates</button>
-           <button class="more-button" style="background-color: white; color: green;">How To Vote</button>
+            <button class="more-button">Browse All Candidates</button>
+            <button class="more-button" style="background-color: white; color: green;">How To Vote</button>
         </div>
 
         <div class="info-cards">
@@ -83,7 +179,8 @@
 
             <div class="info-card">
                 <h3 class="info-h3">Important</h3>
-                <p class="info-p2">These elections are conducted in accordance with the university's regulations.<br> Any sign of misconduct will be dealt with accordingly.</p>
+                <p class="info-p2">These elections are conducted in accordance with the university's regulations.<br>
+                    Any sign of misconduct will be dealt with accordingly.</p>
             </div>
         </div>
 
@@ -91,7 +188,7 @@
 
     <footer>
 
-        <div class="footer-parts"> 
+        <div class="footer-parts">
             <img src="../assets/images/kiut-white.png" alt="footer_kiut_logo">
             <p>Kampala International University of Tanzania. <br> &copy; 2025. All Rights Reserved</p>
         </div>
@@ -112,7 +209,8 @@
                 <a href="https://kiut.ac.tz/admission/programmes/certificate_programmes">Certificates</a>
                 <a href="https://kiut.ac.tz/admission/programmes/diploma_programmes">Diploma</a>
                 <a href="https://kiut.ac.tz/admission/programmes/bachelor_programmes">Bachelor Degree</a>
-                <a href="https://kiut.ac.tz/admission/programmes/postgraduate_diploma_programmes">Postgraduate Diploma</a>
+                <a href="https://kiut.ac.tz/admission/programmes/postgraduate_diploma_programmes">Postgraduate
+                    Diploma</a>
                 <a href="https://kiut.ac.tz/admission/programmes/masters_programmes">Masters</a>
                 <a href="https://kiut.ac.tz/admission/programmes/short_courses">Short Courses</a>
             </div>
@@ -120,9 +218,9 @@
 
         <div class="footer-parts">
             <h3>Contact Information</h3>
-            <p>Kampala Road No. 2, Off Nyerere Road, 
+            <p>Kampala Road No. 2, Off Nyerere Road,
                 <br>Gongo la Mboto,
-                <br>P. O. Box 9790, Ilala 12110, 
+                <br>P. O. Box 9790, Ilala 12110,
                 <br> Dar es Salaam, Tanzania.
             </p>
             <div class="links">
@@ -134,8 +232,9 @@
                 <a href="mailto:admissions@kiut.ac.tz">admissions@kiut.ac.tz</a>
             </div>
         </div>
-       
+
     </footer>
-    
+
 </body>
+
 </html>
