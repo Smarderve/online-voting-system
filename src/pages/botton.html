@@ -1,0 +1,214 @@
+<!DOCTYPE html>
+<html lang="sw">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Dashboard of student View</title>
+
+    <link rel="stylesheet" href="../styles/styles.css" <style>
+
+    </style>
+</head>
+
+<body>
+
+    <div class="dashboard-container">
+
+        <section>
+            <h2 class="title">WAGOMBEA URAISI</h2>
+            <div class="grid-layout">
+                <div class="card">
+                    <img src="../../assets/images/images (4).png" alt="Rais 1">
+                    <h3>AMINA MOHAMED</h3>
+                    <button class="sela-btn"
+                        onclick="openSela('Amina Mohamed', 'Sela: Digitalization ya chuo, WIFI kila kona, na kuongeza nafasi za hostel kwa wanachuo wote.')">View
+                        Detai</button>
+                </div>
+                <div class="card">
+                    <img src="../../assets/images/images (4).png" alt="Rais 2">
+                    <h3>JOHN KAMAU</h3>
+                    <button class="sela-btn"
+                        onclick="openSela('John Kamau', 'Sela: Kuboresha bima ya afya ya wanafunzi, mikopo ya dharura, na michezo ya kila mwezi.')">View
+                        Detai</button>
+                </div>
+            </div>
+            <center>
+                <button class="kachague">votes</button>
+            </center>
+        </section>
+
+        <hr>
+
+        <h2 class="title">VOTERS IN ALL FUCULT</h2>
+
+        <div id="faculties-container">
+
+            <div class="faculty-item">
+                <div class="faculty-header" onclick="toggleFaculty('it-dept')">
+                    <span>FUCULT OF IT (ICT)</span>
+                    <div class="drop-icon">View voters &#9662;</div>
+                </div>
+                <div id="it-dept" class="faculty-content">
+                    <div class="grid-layout">
+                        <div class="card">
+                            <img src="../../assets/images/images (4).png">
+                            <h4>Sarah Adhiambo</h4>
+                            <button class="sela-btn"
+                                onclick="openSela('Sarah Adhiambo', 'Sela: Hackathons za kila mwezi na upatikanaji wa software za bure.')">View
+                                Detail</button>
+                        </div>
+                        <div class="card">
+                            <img src="../../assets/images/images (4).png">
+                            <h4>David Otieno</h4>
+                            <button class="sela-btn"
+                                onclick="openSela('David Otieno', 'Sela: Kurekebisha kompyuta mbovu na kuongeza kasi ya internet maabara.')">View
+                                Detail</button>
+                        </div>
+                        <div class="card">
+                            <img src="../../assets/images/images (4).png">
+                            <h4>David Otieno</h4>
+                            <button class="sela-btn"
+                                onclick="openSela('David Otieno', 'Sela: Kurekebisha kompyuta mbovu na kuongeza kasi ya internet maabara.')">View
+                                Detail</button>
+                        </div>
+                    </div>
+                </div>
+            </div>
+
+            <div class="faculty-item">
+                <div class="faculty-header" onclick="toggleFaculty('eng-dept')">
+                    <span>FUCULT OF LAW</span>
+                    <div class="drop-icon">View votes &#9662;</div>
+                </div>
+                <div id="eng-dept" class="faculty-content">
+                    <div class="grid-layout">
+                        <div class="card">
+                            <img src="../../assets/images/images (4).png">
+                            <h4>Peter Engineering</h4>
+                            <button class="sela-btn"
+                                onclick="openSela('Peter Engineering', 'Sela: Ziara za mafunzo viwandani na vifaa vipya vya maabara.')">View
+                                Detail</button>
+                        </div>
+                        <div class="card">
+                            <img src="../../assets/images/images (4).png">
+                            <h4>Peter Engineering</h4>
+                            <button class="sela-btn"
+                                onclick="openSela('Peter Engineering', 'Sela: Ziara za mafunzo viwandani na vifaa vipya vya maabara.')">View
+                                Detail</button>
+                        </div>
+                        <div class="card">
+                            <img src="../../assets/images/images (4).png">
+                            <h4>Peter Engineering</h4>
+                            <button class="sela-btn"
+                                onclick="openSela('Peter Engineering', 'Sela: Ziara za mafunzo viwandani na vifaa vipya vya maabara.')">View
+                                Detail</button>
+                        </div>
+                    </div>
+                </div>
+            </div>
+
+            <div class="faculty-item">
+                <div class="faculty-header" onclick="toggleFaculty('bus-dept')">
+                    <span>FUCULT OF BUSENESS</span>
+                    <div class="drop-icon">View votes &#9662;</div>
+                </div>
+                <div id="bus-dept" class="faculty-content">
+                    <div class="grid-layout">
+                        <div class="card">
+                            <img src="../../assets/images/images (4).png">
+                            <h4>Jane Business</h4>
+                            <button class="sela-btn"
+                                onclick="openSela('Jane Business', 'Sela: Kuanzisha kituo cha ujasiriamali kwa wanafunzi.')">View
+                                Detail</button>
+                        </div>
+                        <div class="card">
+                            <img src="../../assets/images/images (4).png">
+                            <h4>Jane Business</h4>
+                            <button class="sela-btn"
+                                onclick="openSela('Jane Business', 'Sela: Kuanzisha kituo cha ujasiriamali kwa wanafunzi.')">View
+                                Detail</button>
+                        </div>
+                        <div class="card">
+                            <img src="../../assets/images/images (4).png">
+                            <h4>Jane Business</h4>
+                            <button class="sela-btn"
+                                onclick="openSela('Jane Business', 'Sela: Kuanzisha kituo cha ujasiriamali kwa wanafunzi.')">View
+                                Detail</button>
+                        </div>
+                    </div>
+                </div>
+            </div>
+
+        </div>
+    </div>
+
+    <div id="selaModal" class="modal">
+        <div class="modal-content">
+            <span class="close-btn" onclick="closeModal()">&times;</span>
+            <h2 id="modalName" style="color: #5bc0be;"></h2>
+            <p id="modalText" style="line-height: 1.6; font-size: 1.1rem;"></p>
+        </div>
+    </div>
+
+
+
+
+    <footer>
+
+        <div class="footer-parts">
+            <img src="../../assets/images/kiut-white.png" alt="footer_kiut_logo">
+            <p>Kampala International University of Tanzania. <br> &copy; 2025. All Rights Reserved</p>
+        </div>
+
+        <div class="footer-parts">
+            <h3>About KIUT</h3>
+            <div class="links">
+                <a href="https://kiut.ac.tz/about">About Us</a>
+                <a href="https://kiut.ac.tz/about/governance/board_of_trustees">Governance</a>
+                <a href="https://kiut.ac.tz/about/about_kiut/contacts">Contact</a>
+                <a href="https://kiut.ac.tz/about/about_kiut/careers">Careers</a>
+            </div>
+        </div>
+
+        <div class="footer-parts">
+            <h3>KIUT Programmes</h3>
+            <div class="links">
+                <a href="https://kiut.ac.tz/admission/programmes/certificate_programmes">Certificates</a>
+                <a href="https://kiut.ac.tz/admission/programmes/diploma_programmes">Diploma</a>
+                <a href="https://kiut.ac.tz/admission/programmes/bachelor_programmes">Bachelor Degree</a>
+                <a href="https://kiut.ac.tz/admission/programmes/postgraduate_diploma_programmes">Postgraduate
+                    Diploma</a>
+                <a href="https://kiut.ac.tz/admission/programmes/masters_programmes">Masters</a>
+                <a href="https://kiut.ac.tz/admission/programmes/short_courses">Short Courses</a>
+            </div>
+        </div>
+
+        <div class="footer-parts">
+            <h3>Contact Information</h3>
+            <p>Kampala Road No. 2, Off Nyerere Road,
+                <br>Gongo la Mboto,
+                <br>P. O. Box 9790, Ilala 12110,
+                <br> Dar es Salaam, Tanzania.
+            </p>
+            <div class="links">
+                <a href="tel:+255782777775">+255 782 777 775</a>
+                <a href="tel:+255768000808">+255 768 000 808</a>
+            </div>
+            <div class="links">
+                <a href="mailto:info@kiut.ac.tz">info@kiut.ac.tz</a>
+                <a href="mailto:admissions@kiut.ac.tz">admissions@kiut.ac.tz</a>
+            </div>
+        </div>
+
+    </footer>
+
+
+
+
+
+    <script src="../scripts/script.js"></script>
+
+</body>
+
+</html>
