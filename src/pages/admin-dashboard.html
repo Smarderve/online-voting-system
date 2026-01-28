@@ -4,6 +4,9 @@
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <link rel="stylesheet" href="../styles/admin-panel.css">
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700&display=swap" rel="stylesheet">
     <link rel="icon" type="image/x-icon" href="../../assets/images/kiut-green.png">
     <title>Admin Dashboard</title>
 </head>
@@ -66,17 +69,17 @@
 	                        <path fill="#fff" d="M0 8V7l2-2h4l2 2v1M3 0v3h3L4 2M1 2l2-2l3 3l-2 2M2 6L1 7h6L6 6" />
                         </svg>Votes
                     </button>
-                    <button class="nav-links" data-target="voter-statistics-section">
+                    <!--<button class="nav-links" data-target="voter-statistics-section">
                         <svg xmlns="http://www.w3.org/2000/svg" width="18px" height="18px" viewBox="0 0 24 24">
 	                        <path fill="#fff" d="M4 3a1 1 0 0 1 1 1v13.5A1.5 1.5 0 0 0 6.5 19H20a1 1 0 1 1 0 2H6.5A3.5 3.5 0 0 1 3 17.5V4a1 1 0 0 1 1-1m15.5 3.75V18h-13a.5.5 0 0 1-.5-.5V9.161L8.165 8.08a.75.75 0 0 1 .715.025l3.82 2.246l5.6-4.2a.75.75 0 0 1 1.2.6"></path>
                         </svg>Voters' Statistics
-                    </button>
+                    </button>-->
                     <button class="nav-links" data-target="systemLogs-section">
                         <svg xmlns="http://www.w3.org/2000/svg" width="18px" height="18px" viewBox="0 0 24 24">
 	                        <path fill="#fff" d="M4 8.923h16V4.769H4zm0 5.154h16V9.923H4zm0 5.154h16v-4.154H4zM5.77 7.654V6.039h1.615v1.615zm0 5.154v-1.616h1.615v1.616zm0 5.154v-1.616h1.615v1.616z"></path>
                         </svg>System Logs
                     </button>
-                    <button class="nav-links" data-target="user-activity-section">
+                    <button class="nav-links" data-target="userActivity-section">
                         <svg xmlns="http://www.w3.org/2000/svg" width="18px" height="18px" viewBox="0 0 24 24">
 	                        <path fill="#fff" d="M11.5 2a5.5 5.5 0 1 0 0 11a5.5 5.5 0 0 0 0-11M18 12.5a5.5 5.5 0 1 0 0 11a5.5 5.5 0 0 0 0-11m1 7.914l-2-2v-2.662h2v1.834L20.414 19z"></path>
 	                        <path fill="#fff" d="M12.255 14A6.97 6.97 0 0 0 11 18c0 1.487.464 2.866 1.255 4H2v-2a6 6 0 0 1 6-6z"></path>
@@ -125,7 +128,7 @@
 
 <!----===========================Dashboard Section====================================== -->
         
-        <section id="dashboard-section" class="page-section">
+        <section id="dashboard-section" class="page-section active">
             <div class="heading">
                 <svg xmlns="http://www.w3.org/2000/svg" width="30" height="30" viewBox="0 0 24 24">
 	                <path fill="#6b8e23" d="M3 13h8V3H3zm0 8h8v-6H3zm10 0h8V11h-8zm0-18v6h8V3z" />
@@ -141,19 +144,11 @@
 	                        <path fill="#fff" d="m960 0l960 384v128h-128q0 26-20.5 45t-48.5 19H197q-28 0-48.5-19T128 512H0V384zM256 640h256v768h128V640h256v768h128V640h256v768h128V640h256v768h59q28 0 48.5 19t20.5 45v64H128v-64q0-26 20.5-45t48.5-19h59zm1595 960q28 0 48.5 19t20.5 45v128H0v-128q0-26 20.5-45t48.5-19z" />
                         </svg>
                     </div>
-                    <button class=".nav-links" data-target="elections-section">More info</button>
+                    <div class="card-button">
+                        <button class=".nav-links" data-target="elections-section">View Details</button>
+                    </div>
                 </div>
                 <div class="card2">
-                    <div class="card-info">
-                        <h1>10</h1>
-                        <p>No. of Positions</p>
-                        <svg xmlns="http://www.w3.org/2000/svg" width="100px" height="100px" viewBox="0 0 640 640">
-	                        <path fill="#fff" d="M320 64c35.3 0 64 28.7 64 64s-28.7 64-64 64s-64-28.7-64-64s28.7-64 64-64m96 312c0 25-12.7 47-32 59.9V480H256v-44.1C236.7 423 224 401 224 376v-40c0-53 43-96 96-96s96 43 96 96zm16 104v-27.3c19.9-22.5 32-52.2 32-84.7v-32c0-26.7-7.3-51.6-19.9-73.1c11.1-4.5 23.2-6.9 35.9-6.9c53 0 96 43 96 96v32c0 23.7-12.9 44.4-32 55.4V480zM96 439.4c-19.1-11-32-31.7-32-55.4v-32c0-53 43-96 96-96c12.7 0 24.8 2.5 35.9 6.9c-12.6 21.4-19.9 46.4-19.9 73.1v32c0 32.5 12.1 62.1 32 84.7V480H96zM160 96c30.9 0 56 25.1 56 56s-25.1 56-56 56s-56-25.1-56-56s25.1-56 56-56m320 0c30.9 0 56 25.1 56 56s-25.1 56-56 56s-56-25.1-56-56s25.1-56 56-56M56 528h528c13.3 0 24 10.7 24 24s-10.7 24-24 24H56c-13.3 0-24-10.7-24-24s10.7-24 24-24" />
-                        </svg>
-                    </div>
-                    <button class="nav-links" data-target="user-activity-section">More info</button>
-                </div>
-                <div class="card3">
                     <div class="card-info">
                         <h1>20</h1>
                         <p>No. of Candidates</p>
@@ -161,18 +156,33 @@
 	                        <path fill="#fff" d="M336 256c-20.56 0-40.44-9.18-56-25.84c-15.13-16.25-24.37-37.92-26-61c-1.74-24.62 5.77-47.26 21.14-63.76S312 80 336 80c23.83 0 45.38 9.06 60.7 25.52c15.47 16.62 23 39.22 21.26 63.63c-1.67 23.11-10.9 44.77-26 61C376.44 246.82 356.57 256 336 256m131.83 176H204.18a27.71 27.71 0 0 1-22-10.67a30.22 30.22 0 0 1-5.26-25.79c8.42-33.81 29.28-61.85 60.32-81.08C264.79 297.4 299.86 288 336 288c36.85 0 71 9 98.71 26.05c31.11 19.13 52 47.33 60.38 81.55a30.27 30.27 0 0 1-5.32 25.78A27.68 27.68 0 0 1 467.83 432M147 260c-35.19 0-66.13-32.72-69-72.93c-1.42-20.6 5-39.65 18-53.62c12.86-13.83 31-21.45 51-21.45s38 7.66 50.93 21.57c13.1 14.08 19.5 33.09 18 53.52c-2.87 40.2-33.8 72.91-68.93 72.91m65.66 31.45c-17.59-8.6-40.42-12.9-65.65-12.9c-29.46 0-58.07 7.68-80.57 21.62c-25.51 15.83-42.67 38.88-49.6 66.71a27.39 27.39 0 0 0 4.79 23.36A25.32 25.32 0 0 0 41.72 400h111a8 8 0 0 0 7.87-6.57c.11-.63.25-1.26.41-1.88c8.48-34.06 28.35-62.84 57.71-83.82a8 8 0 0 0-.63-13.39c-1.57-.92-3.37-1.89-5.42-2.89" />
                         </svg>
                     </div>
-                    <button class="nav-links" data-target="candidates-section">More info</button>
+                    <div class="card-button">
+                        <button class="nav-links" data-target="candidates-section">View Details</button>
+                    </div>
                 </div>
-                <div class="card4">
+                <div class="card3">
                     <div class="card-info">
                         <h1>120</h1>
                         <p>No. of Votes</p>
                         <svg xmlns="http://www.w3.org/2000/svg" width="100px" height="100px" viewBox="0 0 512 512">
 	                        <path fill="#fff" d="M494 21.621c-14.947 8.43-29.566 17.581-43.67 29.227l7.318 38.547C471.923 93.66 483.583 95.26 494 95.36zm-98.982 24.512c-15.283-.085-32.48 2.596-53.832 6.834l-.22.043l-.22.033c-14.77 2.177-40.794 12.065-66.465 38.867l44.27 11.766c.972-1.493 5.936-9.004 6.88-10.555q7.686 4.684 15.372 9.365c-12.475 20.475-26.742 35.556-43.934 54.522c-2.123 4.718.977 8.199 4.36 10.14c5.22 2.931 14.1 3.09 16.437 2.102c23.932-15.768 40.819-35.928 55.963-56.271l5.469.964c11.501 2.031 26.47 1.058 38.707-2.853c11.098-3.548 19.272-9.357 22.662-15.688L432.54 53.65c-12.044-5.214-24.039-7.442-37.523-7.517zM227.932 98.717l-29.436 115.986l9.643.297H311.27l.9-.209l6.804-27.092c-8.86 1.9-18.296-.217-26.557-4.855c-5.188-2.913-10.024-7.24-12.621-13.434c-7.797-19.938 15.857-37.297 28.724-52.75l-80.59-17.943zM69.562 201l-23 46h418.875l-23-46H334.195l-3.517 14H352v18H160v-18h19.852l3.552-14H69.563zM41 265v222h430V265zm14 14h402v194H55zm18 18v118.238l34.502-74.994l73.36 31.762l66.652-45.84l37.513 57.273l50.11-4.595l31.3-39.332L439 394.627V297zm169.543 54.43l-90.63 62.33l27.01 41.24h95.606l19.666-24.71zm-126.045 12.326L74.521 455h82.885l-30.193-46.098l36.144-24.857l-46.859-20.29zm253.065.732L297.533 455h140.54l.927-1.166v-36.602zm-49.944 33.854l-23.426 2.148l9.805 14.969z" />
                         </svg>
+                    </div>
+                    <div class="card-button">
+                        <button class="nav-links" data-target="votes-section">View Details</button>
                     </div>  
-                    <button class="nav-links" data-target="votes-section">More info</button>
                 </div>
+                <!--<div class="card4">
+                    <div class="card-info">
+                        <p>Voters' Statistics</p>
+                        <svg xmlns="http://www.w3.org/2000/svg" width="100px" height="100px" viewBox="0 0 24 24">
+	                        <path fill="#fff" d="M4 3a1 1 0 0 1 1 1v13.5A1.5 1.5 0 0 0 6.5 19H20a1 1 0 1 1 0 2H6.5A3.5 3.5 0 0 1 3 17.5V4a1 1 0 0 1 1-1m15.5 3.75V18h-13a.5.5 0 0 1-.5-.5V9.161L8.165 8.08a.75.75 0 0 1 .715.025l3.82 2.246l5.6-4.2a.75.75 0 0 1 1.2.6"></path>
+                        </svg>
+                    </div>
+                    <div class="card-button">
+                        <button class="nav-links" data-target="voters-statistics-section">View Details</button>
+                    </div>
+                </div>-->
             </div>
            
         </section>
@@ -228,10 +238,7 @@
                         <button type="submit" onclick="createElection()">Create Election</button>
                     </form>
                 </div>
-                
             </div>
-
-
         </section>
 
 <!----===========================Candidates Section====================================== -->
@@ -423,26 +430,27 @@
                 <h1>System Logs</h1>
             </div>
             <div class="logs-header">
-                <h2>System Logs</h2>
                 <div class="logs-controls">
+                    <h3>Filter by:</h3>
                     <select id="logsFilter">
                         <option value="all">All Logs</option>
                         <option value="info">Info</option>
                         <option value="warning">Warning</option>
                         <option value="error">Error</option>
                     </select>
-                    <input type="text" id="logsSearch" placeholder="Search logs..." />
-                </div>
+                </div> 
+                <input type="text" id="logsSearch" placeholder="Search..." />
             </div>
-            <div class="logs-table-wrapper">
+            <div class="system-logs-table">
                 <table class="logs-table">
                     <thead>
                         <tr>
+                        <th>Date</th>
                         <th>Time</th>
-                        <th>Level</th>
                         <th>Action</th>
                         <th>User</th>
                         <th>Description</th>
+                        <th>Type</th>
                         </tr>
                     </thead>
                     <tbody id="logsBody">
@@ -461,25 +469,24 @@
                 <h1>Notifications</h1>
             </div>
             <div class="notifications-header">
-                <h2>System Logs</h2>
                 <div class="notifications-controls">
+                    <h3>Filter by:</h3>
                     <select id="notificationsFilter">
-                        <option value="all">All Logs</option>
+                        <option value="all">All</option>
                         <option value="info">Info</option>
                         <option value="warning">Warning</option>
                         <option value="error">Error</option>
                     </select>
-                    <input type="text" id="notificationsSearch" placeholder="Search logs..." />
                 </div>
+                <input type="text" id="notificationsSearch" placeholder="Search..." />
             </div>
-            <div class="notifications-table-wrapper">
+            <div class="notifications-box">
                 <table class="notifications-table">
                     <thead>
                         <tr>
                         <th>Time</th>
-                        <th>Level</th>
-                        <th>Action</th>
-                        <th>User</th>
+                        <th>Message</th>
+                        <th>Source</th>
                         <th>Description</th>
                         </tr>
                     </thead>
@@ -489,7 +496,44 @@
             </div>
         </section>
 
-<!--=============================Profile Section============================== -->
+
+<!--================================User Activity-Section===========================-->
+
+        <section id="userActivity-section" class="page-section">            
+            <div class="heading">
+                <svg xmlns="http://www.w3.org/2000/svg" width="30" height="30" viewBox="0 0 24 24">
+	                <path fill="#6b8e23" d="M3 13h8V3H3zm0 8h8v-6H3zm10 0h8V11h-8zm0-18v6h8V3z" />
+                </svg>
+                <h1>User Activity</h1>
+            </div>
+            <div class="logs-header">
+                <div class="logs-controls">
+                    <h3>Filter by:</h3>
+                    <select id="activityFilter">
+                        <option value="all" >All</option>
+                        <option value="info" >Info</option>
+                        <option value="warning">Warning</option>
+                        <option value="error">Error</option>
+                    </select>
+                </div> 
+                <input type="text" id="searchBox" placeholder="Search..." />
+            </div>
+            <div class="system-logs-table">
+                <table class="logs-table">
+                    <thead>
+                        <tr>
+                        <th>Time</th>
+                        <th>Action</th>
+                        <th>Description</th>
+                        </tr>
+                    </thead>
+                    <tbody id="logsBody">
+                    </tbody>
+                </table>
+            </div>
+        </section>
+
+<!--=============================Profile Section============================== 
         
         <section id="profile-section" class="page-section">
             <div class="heading">
@@ -500,7 +544,7 @@
             </div>
         </section>
 
-<!--=============================Voters' Statistics Section============================== -->
+=============================Voters' Statistics Section============================== 
         
         <section id="voter-statistics-section" class="page-section">
             <div class="heading">
@@ -509,18 +553,7 @@
                 </svg>
                 <h1>Voters' Statistics</h1>
             </div>
-        </section>
-
-<!--=============================Notifications Section============================== -->
-        
-        <section id="notifications-section" class="page-section">
-            <div class="heading">
-                <svg xmlns="http://www.w3.org/2000/svg" width="30" height="30" viewBox="0 0 24 24">
-	                <path fill="#6b8e23" d="M3 13h8V3H3zm0 8h8v-6H3zm10 0h8V11h-8zm0-18v6h8V3z" />
-                </svg>
-                <h1>Notifications</h1>
-            </div>
-        </section>
+        </section>-->
 
 <!----===========================Settings Section====================================== -->
 
@@ -531,23 +564,93 @@
                 </svg>
                 <h1>Settings</h1>
             </div>
+            <div class="settings-layout">
+                <div class="settings-menu">
+                    <button class="settings-tab active" data-tab="profile-settings">Profile</button>
+                        <button class="settings-tab" data-tab="security-settings">Security</button>
+                    <button class="settings-tab" data-tab="theme-settings">Theme</button>
+                        <button class="settings-tab" data-tab="user-management">Users</button>
+                    <button class="settings-tab" data-tab="system-settings">System</button>
+                </div>
+                <div class="settings-content">
+                    <div class="settings-panel active" id="profile-settings">
+                        <h2>Profile Settings</h2>
+                            <label for="admin-name">Full Name</label>
+                        <input type="text" id="admin-name" placeholder="Admin Name">
+                            <label for="admin-email">Email</label>
+                        <input type="email" id="admin-email" placeholder="admin@email.com">
+                            <label for="admin-profile-picture">Profile Picture</label>
+                        <input type="file" id="admin-profile-picture">
+                        <button class="save-btn">Save Changes</button>
+                    </div>
+                    <div class="settings-panel" id="security-settings">
+                            <h2>Security</h2>
+                        <label for="current-admin-password">Current Password</label>
+                            <input type="password" id="current-admin-password">
+                        <label for="new-admin-password">New Password</label>
+                            <input type="password" id="new-admin-password">
+                        <label for="confirm-admin-password">Confirm Password</label>
+                            <input type="password" id="confirm-admin-password">
+                        <button class="save-btn">Update Password</button>
+                    </div>
+                    <div class="settings-panel" id="theme-settings">
+                        <h2>Theme Settings</h2>
+                        <div class="theme-option">
+                            <label for="light-theme">Light Mode</label>
+                            <input type="radio" class="theme-toggle" id="light-theme" name="light-theme" checked>
+                        </div>
+                        <div class="theme-option">
+                            <label for="dark-theme">Dark Mode</label>
+                            <input type="radio" class="theme-toggle" id="dark-theme" name="dark-theme">
+                        </div>
+                    </div>
+                    <div class="settings-panel" id="user-management">
+                        <h2>User Management</h2>
+                        <table class="users-table">
+                            <thead>
+                                <tr>
+                                    <th>Name</th>
+                                    <th>Role</th>
+                                    <th>Status</th>
+                                    <th>Action</th>
+                                </tr>
+                            </thead>
+                            <tbody>
+                                <tr>
+                                    <td>Admin One</td>
+                                    <td>Administrator</td>
+                                    <td>Active</td>
+                                    <td><button>Disable</button></td>
+                                </tr>
+                            </tbody>
+                        </table>
+                    </div>
+                    <div class="settings-panel" id="system-settings">
+                        <h2>System Settings</h2>
+                        <div class="system-item">
+                            <label for="enable-logs-toggle">Enable Logs</label>
+                            <input type="checkbox" id="enable-logs-toggle" checked>
+                        </div>
+                        <div class="system-item">
+                            <label for="multiple-elections-toggle">Allow Multiple Elections</label>
+                            <input type="checkbox" id="multiple-elections-toggle">
+                        </div>
+                        <button class="danger-btn">Reset Settings</button>
+                    </div>
+                </div>
+            </div>
         </section>
 
-<!----===========================Profile Section====================================== -->
-
-        <section id="profile-section" class="page-section">
-            <div class="heading">
-                <svg xmlns="http://www.w3.org/2000/svg" width="30" height="30" viewBox="0 0 24 24">
-	                <path fill="#6b8e23" d="M3 13h8V3H3zm0 8h8v-6H3zm10 0h8V11h-8zm0-18v6h8V3z" />
-                </svg>
-                <h1>Profile</h1>
-            </div>
-        </section> 
 <!--=================================PopUp Form=====================================-->
         <div id="candidates-form-box" class="form-box" onclick="if(event.target.id==='candidates-form-box') closeCandidatesForm()">
         <form id="candidates-form">
                 <div class="form-header">
                     <h2>Add New Candidate</h2>
+                    <button type="button" id="close-button" onclick="closeCandidatesForm()">
+                        <svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24">
+                            <path fill="#f00" d="M12 22C6.477 22 2 17.523 2 12S6.477 2 12 2s10 4.477 10 10s-4.477 10-10 10m0-11.414L9.172 7.757L7.757 9.172L10.586 12l-2.829 2.828l1.415 1.415L12 13.414l2.828 2.829l1.415-1.415L13.414 12l2.829-2.828l-1.415-1.415z" />
+                        </svg>
+                    </button>
                 </div>
                 <div class="form-group">
                     <label for="candidate-name">Name:</label>
@@ -573,7 +676,7 @@
                     <label for="photo">Photo:</label>
                     <input type="file" id="photo" name="photo" accept="image/*" required>
                 </div>
-                <button type="submit">Add Candidate</button>
+                <button type="submit" id="submit-button">Add Candidate</button>
             </form>
         </div>
     </main>

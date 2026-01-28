@@ -45,7 +45,7 @@
                 this.classList.add("active");
 
                 window.onload = function () {
-                    showSection("dashboard");
+                    showSection("dashboard-section");
                 }
             });
         });
@@ -97,3 +97,27 @@ const ctx = document.getElementById('votesChart');
         toggleBtn.addEventListener("click", function () {
             sidebar.classList.toggle("collapsed");
         });
+
+
+//==============================Settings Toggle============================
+
+// Settings tabs
+document.querySelectorAll('.settings-tab').forEach(tab => {
+    tab.addEventListener('click', () => {
+        document.querySelectorAll('.settings-tab').forEach(t => t.classList.remove('active'));
+        document.querySelectorAll('.settings-panel').forEach(p => p.classList.remove('active'));
+
+        tab.classList.add('active');
+        document.getElementById(tab.dataset.tab).classList.add('active');
+    });
+});
+
+//==================CAlendar Function=======================
+
+const startDate = document.getElementById("start-date");
+const endDate = document.getElementById("end-date");
+
+const today = new Date().toISOString().split("T")[0];
+startDate.setAttribute("min", today);
+endDate.setAttribute("min", today);
+
