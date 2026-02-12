@@ -60,6 +60,10 @@ header{
     margin-right: 10px;
 }
 
+.icons svg{
+    cursor: pointer;
+}
+
 main{
     flex: 1;
     display: flex;
@@ -80,7 +84,7 @@ main{
     display: flex;
     flex-direction: column;
     align-items: center;
-    transition: all 0.1s ease;
+    transition: all 0.3s ease;
 }
 
 .sidebar.collapsed{
@@ -100,10 +104,17 @@ main{
     margin: 0;
 }
 
-.sidebar.collapsed .group h3, .sidebar.collapsed .profile{
+.sidebar.collapsed .group h3{
     font-size: 0;
     justify-content: center;
     display: none;
+}
+.sidebar.collapsed .profile img, .sidebar.collapsed .profile{
+    font-size: 0;
+    justify-content: center;
+    width: 0px;
+    height: 0px;
+    padding: 0;
 }
 
 .sidebar.collapsed .nav-links{
@@ -145,7 +156,7 @@ main{
     gap: 10px;
     width: 200px;
     cursor: pointer;
-    transition: all 0.1s ease;
+    transition: all 0.3s ease;
 }
 
 .profile img{
@@ -328,22 +339,39 @@ button:focus{
     width: 100%;
     max-width: 190px;
     padding: 8px;
+    cursor: pointer;
+    transition: all 0.25s ease;
+}
+
+.cards button:active{
+    transform: scale(0.95);
 }
 
 .card1 button{
     background-color: rgb(63, 78, 35);
 }
 
+.card1 button:hover{
+    background-color: rgb(124, 179, 24);
+    box-shadow: 0 0 3px black;
+}
+
 .card2 button{
     background-color: rgb(43, 43, 43);
+}
+
+.card2 button:hover{
+    background-color: rgb(105, 104, 104);
+    box-shadow: 0 0 3px black;
 }
 
 .card3 button{
     background-color: rgb(129, 129, 2);
 }
 
-.card4 button{
-    background-color: rgb(179, 100, 4);
+.card3 button:hover{
+    background-color: rgba(197, 197, 29, 0.808);
+    box-shadow: 0 0 3px black;
 }
 
 /*==============================================================Candidates-Section=========================================================*/
@@ -423,7 +451,7 @@ button:focus{
     padding: 5px 10px 5px;
     margin-bottom: 10px;
     cursor: pointer;
-    transition: 0.3s all ease-in-out;
+    transition: 0.3s all ease;
 }
 
 .table-nav button:hover{
@@ -645,7 +673,8 @@ button:focus{
     background-color: white;
     border-radius: 2px;
     font-size: small;
-    width: 500px;
+    width: 100%;
+    max-width: 800px;
 }
 
 .card-body input:focus, .card-body select:focus{
@@ -661,7 +690,8 @@ button:focus{
 }
 
 .election-dates input, .card-body select{
-    width: 150px;
+    width: 80%;
+    max-width: 150px;
 }
 
 .date-box{
@@ -683,6 +713,15 @@ button:focus{
     font-size: small;
     font-weight: bold;
     cursor: pointer;
+    transition: all 0.3s ease;
+}
+
+.card-body button:hover{
+    background-color: rgb(14, 165, 14);
+}
+
+.card-body button:active{
+    transform: scale(0.95);
 }
 
 .card-body h2{
@@ -982,10 +1021,11 @@ canvas{
 }
 
 .settings-menu button.active, .settings-menu button.active:hover{
-    background-color: #6b8e23;
+    background-color: green;
     color: #fff;
     text-decoration: none;
 }
+
 .settings-menu button:hover {
     text-decoration: underline;
     color: darkgreen;
@@ -1052,22 +1092,32 @@ canvas{
 
 .save-btn {
     margin-top: 20px;
-    background: #6b8e23;
+    background: green;
     color: #fff;
     border: none;
     border-radius: 10px;
     padding: 12px 20px;
     cursor: pointer;
+    transition: all 0.3s ease;
 }
 
 .danger-btn {
     margin-top: 20px;
-    background: olive;
+    background: green;
     border-radius: 10px;
     color: #fff;
     border: none;
     padding: 12px 20px;
     cursor: pointer;
+    transition: all 0.1s ease;
+}
+
+.danger-btn:hover, .save-btn:hover{
+    background-color: rgb(12, 173, 12);
+}
+
+.danger-btn:active, .save-btn:active{
+    transform: scale(0.9);
 }
 
 .users-table {
@@ -1082,6 +1132,7 @@ canvas{
     background-color: red;
     color: white;
     padding: 3px 5px;
+    cursor: pointer;
 }
 
 .users-table th{
