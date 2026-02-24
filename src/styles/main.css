@@ -31,7 +31,8 @@ html{
 }
 
 body {
-    font-family: sans-serif;
+    font-family: 'Inter', sans-serif;
+    letter-spacing: -0.1px;
     background-color: whitesmoke;
     color: black;
     cursor: default;
@@ -45,7 +46,7 @@ main {
 
 
 header {
-    background-color: transparent;
+    background-color: white;
     position: fixed;
     top: 0;
     width: 100%;
@@ -63,36 +64,341 @@ header nav {
     margin-right: 20px;
 }
 
-nav button {
+nav a{
+    position: relative;
+    font-size: medium;
+    font-weight: 600;
+    text-decoration: none;
+    color: darkgreen;
+    margin: 0 10px;
+    transition: all 0.2s ease;
+}
+
+nav a::after{
+    content: "";
+    position: absolute;
+    left: 0;
+    bottom: 0;
+    width: 100%;
+    height: 2px;
+    background-color: darkgreen;
+    transform: scaleX(0);
+    transform-origin: center;
+    transition: transform 0.1s ease;
+}
+
+nav a:hover::after{
+    transform: scaleX(1);
+}
+
+nav .button:active{
+    transform: scale(0.97);
+}
+
+nav .button {
+    background-color: darkolivegreen;
+    color: white;
+    font-size: small;
     border: none;
-    background-color: white;
     box-shadow: 0 0 5px gray;
-    border-radius: 30px;
-    padding-left: 15px;
-    padding-right: 15px;
-    padding-top: 8px;
-    padding-bottom: 8px;
+    border-radius: 5px;
+    padding: 5px 10px;
     margin-left: 10px;
     transition: all 0.3s ease;
 }
 
-nav button a {
+/*--------------------Hero Section-------------------------*/
+
+main #hero-section {
+    height: 100vh;
+    display: flex;
+    justify-content: start;
+    align-items: center;
+    background: linear-gradient(rgba(0, 0, 0, 0.1), rgba(0, 0, 0, 0.5)), url('../../assets/images/kiut-building3.jpg');
+    background-size: cover;
+    background-position: center;
+    background-repeat: no-repeat;
+}
+
+#hero-section .hero-content {
+    font-family: 'Montserrat', sans-serif;
+    font-weight: 700;
+    letter-spacing: -0.5px;
+    text-align: start;
+    font-size: x-large;
+    color: white;
+    max-width: 600px;
+    padding: 20px;
+}
+
+.hero-content h1 #election-year{
+    color: rgb(67, 238, 67);
+}
+
+#hero-section .hero-content p {
+    font-family: sans-serif;
+    font-weight: 400;
+    font-size: medium;
+    margin-top: 20px;
+    color: rgba(255, 255, 255, 0.774);
+}
+/*--------------------Main Sections-------------------------*/
+
+#main-sections {
+    background: linear-gradient(180deg, rgba(255, 255, 255, 0.39), rgba(255, 255, 255, 0.568));
+    display: flex;
+    flex-direction: column;
+    justify-content: start;
+    align-items: start;
+    gap: 50px;
+    padding: 50px 20px;
+}
+
+/*--------------------News Section-------------------------*/
+
+#news-section, #about-section, #howItWorks-section, #contact-section {
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    align-items: center;
+    width: 100%;
+    padding: 20px;
+}
+
+#news-section h1 {
+    font-family: 'Inter', sans-serif;
+    font-weight: 700;
+    letter-spacing: -0.5px;
+    font-size: x-large;
+    color: green;
+    margin-bottom: 50px;
+}
+
+#news-section .news-items {
+    display: flex;
+    flex-direction: row;
+    justify-content: start;
+    align-items: start;
+    gap: 20px;
+}
+
+.news-item{
+    display: flex;
+    flex-direction: column;
+    justify-content: start;
+    align-items: start;
+    gap: 10px;
+    width: 100%;
+    max-width: 350px;
+    background-color: #ffffffec;
+    box-shadow: 0 0 5px gray;
+}
+
+.news-item img {
+    width: 100%;
+    height: 150px;
+    object-fit: cover;
+}
+
+.news-item h2{
+    font-family: 'Inter', sans-serif;
+    font-weight: 700;
+    letter-spacing: -0.5px;
+    font-size: 20px;
+    color: green;
+    padding: 5px 15px;
+}
+
+.news-item .news-date {
+    font-size: 11px;
+    color: rgba(0, 0, 0, 0.575);
+    padding: 0 15px;
+}
+
+.news-item p{
     font-size: small;
-    font-weight: medium;
-    text-decoration: none;
+    padding: 2px 15px;
+    font-family: sans-serif;
+    letter-spacing: -0.3px;
+    color: rgba(0, 0, 0, 0.849);
+}
+
+.news-item button {
+    border: none;
+    font-size: 12px;
+    font-weight: bold;
+    border-top: 1px solid grey;
+    background-color: white;
+    color: darkgreen;
+    width: 100%;
+    padding: 5px 10px;
+    margin: 5px 0 0;
+    cursor: pointer;
+    transition: all 0.2s ease;
+}
+
+/*--------------------About Section-------------------------*/
+
+#about-section .about-card {
+    background-color: white;
+    box-shadow: 0 0 5px gray;
+    padding: 20px;
+    width: 100%;
+    max-width: 700px;
+    height: auto;
+    text-align: center;
+}
+
+#about-section h1 {
+    font-family: 'Montserrat', sans-serif;
+    font-weight: 700;
+    letter-spacing: -0.5px;
+    font-size: x-large;
+    color: green;
+    margin-bottom: 50px;
+}
+
+.about-card p {
+    font-size: medium;
+    color: rgba(0, 0, 0, 0.849);
+    font-family: sans-serif;
+    letter-spacing: -0.3px;
+    line-height: 20px;
+}
+
+/*--------------------How it works Section-------------------------*/
+
+#howItWorks-section{
+    display: flex;
+    flex-direction: column;
+    justify-content: start;
+    align-items: start;
+}
+
+.participation{
+    display: flex;
+    flex-direction: column;
+    justify-content: start;
+    align-items: start;
+    gap: 10px;
+    max-width: 600px;
+}
+
+.participation h1 {
+    font-family: 'Inter', sans-serif;
+    font-weight: 700;
+    letter-spacing: -0.5px;
+    font-size: x-large;
     color: green;
 }
 
-nav .sign-up {
-    background-color: rgb(4, 187, 4);
+.participation .steps{
+    display: flex;
+    flex-direction: row;
+    justify-content: start;
+    align-items: start;
+    gap: 20px;
 }
 
-nav .sign-up a {
-    color: white;
+.steps .step {
+    background-color: rgba(248, 246, 246, 0.918);
+    display: flex;
+    flex-direction: column;
+    justify-content: start;
+    align-items: center;
+    padding: 15px;
+    box-shadow: 0 0 5px gray;
+    width: 100%;
+    max-width: 350px;
 }
 
-nav button:active {
-    transform: scale(0.9);
+.step h2 {
+    font-family: 'Inter', sans-serif;
+    font-weight: 700;
+    letter-spacing: -0.5px;
+    font-size: 20px;
+    padding: 5px;
+    color: rgb(6, 180, 6);
+}
+
+.step p {
+    font-size: small;
+    color: rgba(0, 0, 0, 0.849);
+    font-family: sans-serif;
+    letter-spacing: -0.3px;
+    text-align: center;
+    padding: 5px;
+}
+
+.notices, .security-notice{
+    margin-top: 20px;
+    background-color: white;
+    box-shadow: 0 0 5px gray;
+    padding: 15px;
+    max-width: 600px;
+}
+
+.notices h1, .security-notice h1 {
+    font-family: 'Inter', sans-serif;
+    font-weight: 700;
+    letter-spacing: -0.5px;
+    font-size: 20px;
+    padding: 5px;
+    color: green;
+}
+
+.notices ul {
+    list-style-type: disc;
+    padding-left: 20px;
+}
+
+.notices li, .security-notice p {
+    font-size: small;
+    color: rgba(0, 0, 0, 0.849);
+    font-family: sans-serif;
+    letter-spacing: -0.3px;
+    padding: 5px 15px;
+}
+
+.support-section {
+    margin-top: 20px;
+    background-color: white;
+    box-shadow: 0 0 5px gray;
+    padding: 15px;
+    max-width: 600px;
+}
+
+.support-section h1 {
+    font-family: 'Inter', sans-serif;
+    font-weight: 700;
+    letter-spacing: -0.5px;
+    font-size: 20px;
+    padding: 5px;
+    color: lightgreen;
+}
+
+.support-section p, .contact-info p {
+    font-size: small;
+    color: rgba(0, 0, 0, 0.849);
+    font-family: sans-serif;
+    letter-spacing: -0.3px;
+    padding: 5px 15px;
+}
+
+.support-section .contact-info{
+    display: flex;
+    flex-direction: column;
+    justify-content: start;
+    align-items: start;
+    gap: 5px;
+    margin-top: 10px;
+}
+
+.contact-info a {
+    text-decoration: none;
+    color: rgba(0, 0, 0, 0.849);
+    font-size: small;
+    transition: all 0.2s ease;
 }
 
 /*--------------------Footer Section-------------------------*/
@@ -102,9 +408,10 @@ footer {
     justify-content: start;
     align-items: start;
     gap: 50px;
-    background-color: green;
+    background-color: darkgreen;
     color: white;
     width: 100%;
+    height: 400px;
     padding: 5px;
     font-size: small;
 }
@@ -114,7 +421,7 @@ footer .footer-parts {
     flex-direction: column;
     justify-content: start;
     align-items: start;
-    margin: 0 15px;
+    margin: 0 30px;
 }
 
 .footer-parts img {
@@ -123,26 +430,27 @@ footer .footer-parts {
 }
 
 .footer-parts h3 {
-    margin-bottom: 10px;
-    font-size: medium;
+    margin: 0 0px 10px;
+    font-size: large;
     font-weight: 700;
 }
 
 .footer-parts p {
-    margin-bottom: 10px;
+    margin-bottom: 30px;
+    font-size: medium;
 }
 
 .footer-parts .links {
     display: flex;
     flex-direction: column;
     justify-content: center;
-    margin-bottom: 10px;
 }
 
 .footer-parts .links a {
     text-decoration: none;
+    font-size:medium;
     color: rgba(255, 255, 255, 0.774);
-    margin: 3px 0;
+    margin: 10px 0;
     cursor: default;
     transition: all 0.1s ease-in-out;
 }
