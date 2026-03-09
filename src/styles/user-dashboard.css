@@ -1,6 +1,12 @@
 /* ==== system style  ====== */
+html {
+    scroll-behavior: smooth;
+}
+
 body {
     margin: 0;
+    padding: 0;
+    overflow-x: hidden;
     font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
     background-image: linear-gradient(rgba(145, 228, 149, 0.75), rgba(105, 232, 105, 0.75)), url(photor1.jpg);
 }
@@ -360,12 +366,8 @@ body.dark-mode .marquee p {
     animation: pulse 3s ease-in-out infinite;
 }
 
-/* ============================= */
 /* RESPONSIVE NAVBAR */
-/* ============================= */
-
 @media (max-width: 992px) {
-
     .navbar-container {
         flex-wrap: wrap;
         gap: 10px;
