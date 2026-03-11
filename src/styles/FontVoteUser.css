@@ -178,7 +178,7 @@
       box-shadow: 0 0 10px rgba(0, 0, 0, 0.3);
       width: 350px;
       color: #333;
-      background-color: rgba(255, 255, 255, 0.95);
+      border-color: #fcfcfc;
   }
 
   .form-container h2 {
