@@ -6,102 +6,146 @@
     <title>University Voting System</title>
     <meta name="viewport" content="width=device-width, initial-scale=1">
     <link rel="stylesheet" href="../styles/FontVoteUser.css">
+    <link href="https://fonts.googleapis.com/icon?family=Material+Icons" rel="stylesheet">
 </head>
 
 <body>
 
-    <!--  HEADER  -->
-    <div class="header">
-        <div class="logo-text">Kiut University Voting System</div>
-
-        <div class="hamburger" onclick="toggleMenu()">
-            <div></div>
-            <div></div>
-            <div></div>
+    <!-- HEADER -->
+    <d<!-- HEADER -->
+        <div class="header">
+            <div class="logo-text">Kiut University Voting System</div>
+            <div class="hamburger" onclick="toggleMenu()">
+                <div></div>
+                <div></div>
+                <div></div>
+            </div>
+            <div class="nav-links" id="navLinks">
+                <a onclick="scrollToSection('home')">Home</a>
+                <a onclick="scrollToSection('about')">About</a>
+                <a onclick="scrollToSection('candidates')">Candidates</a>
+                <a onclick="scrollToSection('results')">Results</a>
+                <a onclick="scrollToSection('contact')">Contact</a>
+                <a onclick="showLoginForm()">Login/Register</a>
+            </div>
         </div>
 
-        <div class="nav-links" id="navLinks">
-            <a onclick="showSection('home')">Home</a>
-            <a onclick="showSection('about')">About</a>
-            <a onclick="showSection('candidates')">Candidates</a>
-            <a onclick="showSection('results')">Results</a>
-            <a onclick="showSection('contact')">Contact</a>
-            <a onclick="showSection('login')">Login</a>
+        <!-- HOME -->
+        <section id="home">
+            <h1>WELCOME KIUT TO UNIVERSITY VOTING</h1>
+            <p>Vote for your student leaders in a secure and fair platform.</p>
+            <div>
+                <button class="login-btn" onclick="showLoginForm()">Student Login/Register</button>
+                <button class="results-btn" onclick="scrollToSection('results')">View Results</button>
+            </div>
+            <div class="features">
+                <div class="feature"> Easy Student Login</div>
+                <div class="feature"> One Vote Per One candidate</div>
+                <div class="feature"> Live Result Updates</div>
+            </div>
+        </section>
+
+        <!-- ABOUT -->
+        <section id="about" style="background:#2E8B57;">
+            <h2>About System</h2>
+
+            <div class="cards-wrapper">
+                <div class="card vote" onclick="location.href='vote.html'">
+                    <span class="material-icons">how_to_vote</span>
+                    <h2>Vote</h2>
+                    <p>Cast your vote in the election securely.</p>
+                </div>
+
+                <div class="card results" onclick="location.href='results.html'">
+                    <span class="material-icons">bar_chart</span>
+                    <h2>Results</h2>
+                    <p>View the latest election results.</p>
+                </div>
+
+                <div class="card candidates" onclick="location.href='candidates.html'">
+                    <span class="material-icons">groups</span>
+                    <h2>Candidates</h2>
+                    <p>See all participating candidates.</p>
+                </div>
+
+                <div class="card about" onclick="location.href='about.html'">
+                    <span class="material-icons">info</span>
+                    <h2>About</h2>
+                    <p>Learn about our voting system.</p>
+                </div>
+
+                <div class="card contact" onclick="location.href='contact.html'">
+                    <span class="material-icons">contact_mail</span>
+                    <h2>Contact</h2>
+                    <p>Contact the election administrators.</p>
+                </div>
+
+                <div class="card faq" onclick="location.href='faq.html'">
+                    <span class="material-icons">help_outline</span>
+                    <h2>FAQ</h2>
+                    <p>Get answers to frequently asked questions.</p>
+                </div>
+            </div>
+
+            <button class="back-home-btn" onclick="scrollToSection('home')">
+                <span class="material-icons">home</span>
+                Back to Home
+            </button>
+        </section>
+
+        <!-- CANDIDATES -->
+        <section id="candidates" style="background:#4CAF50;">
+            <h2>Candidates</h2>
+            <p id="candidatesMessage">You must login to view candidates.</p>
+            <div id="candidateList">
+                <div class="feature">Candidate 1</div>
+                <div class="feature">Candidate 2</div>
+                <div class="feature">Candidate 3</div>
+            </div>
+        </section>
+
+        <!-- RESULTS -->
+        <section id="results" style="background:#2E8B57;">
+            <h2>Election Results</h2>
+            <p id="resultText">Live voting results will appear here.</p>
+        </section>
+
+        <!-- CONTACT -->
+        <section id="contact" style="background:#4CAF50;">
+            <h2>Contact</h2>
+            <p>Email: voting@university.ac.tz</p>
+        </section>
+
+        <!-- LOGIN / REGISTER MODAL -->
+        <div class="form-overlay" id="formOverlay">
+            <div class="form-container">
+                <!-- Login -->
+                <div id="loginForm">
+                    <h2>Login</h2>
+                    <input type="text" id="loginReg" placeholder="Registration Number">
+                    <input type="password" id="loginPass" placeholder="Password">
+                    <button onclick="studentLogin()">Login</button>
+                    <p>Don't have an account? <a onclick="showRegister()">Sign Up</a></p>
+                </div>
+                <!-- Register -->
+                <div id="registerForm" class="hidden">
+                    <h2>Create Account</h2>
+                    <input type="text" id="regName" placeholder="Full Name">
+                    <input type="email" id="regEmail" placeholder="Email Address">
+                    <input type="text" id="regNumber" placeholder="Student ID">
+                    <input type="tel" id="phoneNumber" placeholder="Phone Number">
+                    <input type="password" id="regPassword" placeholder="Password">
+                    <input type="password" id="confirmPassword" placeholder="Confirm Password">
+                    <button onclick="registerUser()">Create Account</button>
+                    <p>Already registered? <a onclick="showLogin()">Login</a></p>
+                </div>
+            </div>
         </div>
-    </div>
-
-    <!--  HOME  -->
-    <div id="home" class="section">
-        <h1>WELCOME KIUT TO UNIVERSITY VOTING</h1>
-        <p>Vote for your student leaders in a secure and fair platform.</p>
-        <div>
-            <button class="login-btn" onclick="showSection('login')">Student Login</button>
-            <button class="results-btn" onclick="showSection('results')">View Results</button>
-        </div>
-        <div class="features">
-            <div class="feature"> Easy Student Login</div>
-            <div class="feature"> One Vote Per One candidates</div>
-            <div class="feature"> Live Result Updates</div>
-        </div>
-    </div>
-
-    <!--  ABOUT  -->
-    <div id="about" class="section" style="background:#2E8B57;">
-        <h2>About System</h2>
-        <p>The University Voting System allows secure and transparent online elections.</p>
-    </div>
-
-    <!-- CANDIDATES -->
-    <div id="candidates" class="section" style="background:#4CAF50;">
-        <h2>Candidates</h2>
-        <p id="candidatesMessage">You must register and login to view candidates.</p>
-        <div id="candidateList">
-            <div class="feature">Hapa tuta weka page ya ku vote ambayo atavote hapa ile tuliyo aplode</div>
-
-            <button onclick="showSection('home')">Back to Home</button>
-        </div>
-    </div>
-
-    <!-- RESULTS  -->
-    <div id="results" class="section" style="background:#2E8B57;">
-        <h2>Election Results</h2>
-        <p>Live voting results will appear here.</p>
-    </div>
-
-    <!-- CONTACT  -->
-    <div id="contact" class="section" style="background:#4CAF50;">
-        <h2>Contact</h2>
-        <p>Email: voting@university.ac.tz</p>
-    </div>
-
-    <!--  LOGIN  -->
-    <div id="login" class="section">
-        <div class="form-container">
-            <h2>Student Login</h2>
-            <input type="text" id="loginReg" placeholder="Registration Number">
-            <input type="password" id="loginPass" placeholder="Password">
-            <button onclick="studentLogin()">Login</button>
-            <a onclick="showSection('register')">Don't have an account? Register here</a>
-        </div>
-    </div>
-
-    <!--  REGISTER  -->
-    <div id="register" class="section">
-        <div class="form-container">
-            <h2>Student Registration</h2>
-            <input type="text" id="regName" placeholder="Full Name">
-            <input type="email" id="regEmail" placeholder="Email">
-            <input type="text" id="regNumber" placeholder="Registration Number">
-            <input type="password" id="regPassword" placeholder="Password">
-            <button onclick="registerUser()">Register</button>
-            <a onclick="showSection('login')">Already have an account? Login here</a>
-        </div>
-    </div>
 
 
 
-    <!--  SCRIPTS -->
-    <script src="../scripts/FontVoteUser.js"></script>
+        <!--  SCRIPTS -->
+        <script src="../scripts/FontVoteUser.js"></script>
 
 </body>
 
