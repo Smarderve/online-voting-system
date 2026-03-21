@@ -1,183 +1,1068 @@
-<!DOCTYPE html>
+<!doctype html>
 <html lang="en">
-
-<head>
-    <meta charset="UTF-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <link rel="stylesheet" href="../src/styles/main.css">
-    <link rel="icon" type="image/x-icon" href="../assets/images/kiut-green.png">
-    <link rel="preconnect" href="https://fonts.googleapis.com">
-    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
-    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;600;700&display=swap" rel="stylesheet">
-    <link href="https://fonts.googleapis.com/css2?family=Montserrat:wght@400;700;900&display=swap" rel="stylesheet">
-    <title>KIUT</title>
-</head>
-
-<body>
-
-    <header>
-        <div class="logo">
-            <img src="../assets/images/kiut-green.png" alt="kiut-logo">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>KIUTSO Elections 2025/26</title>
+    <link rel="icon" href="../assets/images/kiut-white.png" type="image/png">
+    <link rel="preconnect" href="https://fonts.googleapis.com" />
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
+    <link href="https://fonts.googleapis.com/css2?family=Poppins:wght@300;400;500;600;700;800&display=swap" rel="stylesheet" />
+    <style>
+      * {
+        margin: 0;
+        padding: 0;
+        box-sizing: border-box;
+      }
+      :root {
+        --green-dark: #0d4a22;
+        --green: #166534;
+        --green-mid: #1a7a3c;
+        --green-bright: #22c55e;
+        --green-light: #dcfce7;
+        --gold: #f59e0b;
+        --gold-light: #fef3c7;
+        --white: #ffffff;
+        --off-white: #f9fafb;
+        --gray-50: #f8fafc;
+        --gray-100: #f1f5f9;
+        --gray-200: #e2e8f0;
+        --gray-500: #64748b;
+        --gray-700: #334155;
+        --text: #1e293b;
+        --sans: "Poppins", sans-serif;
+      }
+      html {
+        scroll-behavior: smooth;
+        overflow-x: hidden;
+      }
+      body {
+        font-family: var(--sans);
+        background: var(--off-white);
+        color: var(--text);
+        cursor: default;
+      }
+      ::-webkit-scrollbar {
+        width: 8px;
+      }
+      ::-webkit-scrollbar-thumb {
+        background: var(--green-mid);
+        border-radius: 10px;
+      }
+      ::-webkit-scrollbar-track {
+        background: var(--gray-100);
+      }
+      .nav {
+        position: fixed;
+        top: 0;
+        width: 100%;
+        z-index: 999;
+        transition: all 0.3s ease;
+        padding: 0 40px;
+      }
+      .nav.solid {
+        background: #fff;
+        box-shadow: 0 2px 20px rgba(0, 0, 0, 0.08);
+      }
+      .nav-inner {
+        max-width: 1200px;
+        margin: 0 auto;
+        height: 70px;
+        display: flex;
+        align-items: center;
+        justify-content: space-between;
+      }
+      .nav-brand {
+        display: flex;
+        align-items: center;
+        gap: 12px;
+        text-decoration: none;
+      }
+      .nav-logo img{
+        width: 64px;
+        height: 64px;
+        object-fit: contain;
+        filter: brightness(0) invert(1);
+        transition: filter 0.3s ease;
+      }
+      .nav.solid .nav-logo img{
+        filter: brightness(0) saturate(100%) invert(22%) sepia(60%) saturate(600%) hue-rotate(100deg) brightness(155%);
+      }
+      .nav-brand-text {
+        display: flex;
+        flex-direction: column;
+        line-height: 1.15;
+      }
+      .nav-brand-text .top {
+        font-size: 14px;
+        font-weight: 700;
+        color: var(--white);
+      }
+      .nav-brand-text .bot {
+        font-size: 10px;
+        font-weight: 400;
+        color: rgba(255, 255, 255, 0.65);
+        letter-spacing: 0.5px;
+      }
+      .nav.solid .nav-brand-text .top {
+        color: var(--green-dark);
+      }
+      .nav.solid .nav-brand-text .bot {
+        color: var(--gray-500);
+      }
+      .nav-actions {
+        display: flex;
+        align-items: center;
+        gap: 10px;
+      }
+      .nav-register {
+        padding: 9px 22px;
+        border: 2px solid rgba(255, 255, 255, 0.7);
+        border-radius: 8px;
+        color: #fff;
+        font-family: var(--sans);
+        font-size: 13px;
+        font-weight: 600;
+        text-decoration: none;
+        transition: all 0.2s;
+        background: transparent;
+      }
+      .nav-register:hover {
+        background: rgba(255, 255, 255, 0.15);
+        border-color: #fff;
+      }
+      .nav.solid .nav-register {
+        border-color: var(--green);
+        color: var(--green);
+      }
+      .nav.solid .nav-register:hover {
+        background: var(--green-light);
+      }
+      .nav-login {
+        padding: 9px 22px;
+        background: var(--gold);
+        border: none;
+        border-radius: 8px;
+        color: #78350f;
+        font-family: var(--sans);
+        font-size: 13px;
+        font-weight: 700;
+        text-decoration: none;
+        transition: all 0.2s;
+        cursor: pointer;
+      }
+      .nav-login:hover {
+        background: #fbbf24;
+        transform: translateY(-1px);
+        box-shadow: 0 4px 14px rgba(245, 158, 11, 0.4);
+      }
+      .nav-login:active {
+        transform: translateY(0);
+      }
+      .hero {
+        min-height: 100vh;
+        position: relative;
+        display: flex;
+        align-items: center;
+        overflow: hidden;
+      }
+      .hero-bg {
+        position: absolute;
+        inset: 0;
+        background:
+          linear-gradient(
+            160deg,
+            rgba(10, 50, 25, 0.88) 0%,
+            rgba(20, 90, 45, 0.78) 40%,
+            rgba(15, 70, 35, 0.82) 100%
+          ),
+          repeating-linear-gradient(
+            45deg,
+            rgba(255, 255, 255, 0.018) 0px,
+            rgba(255, 255, 255, 0.018) 1px,
+            transparent 1px,
+            transparent 12px
+          ),
+          repeating-linear-gradient(
+            -45deg,
+            rgba(255, 255, 255, 0.012) 0px,
+            rgba(255, 255, 255, 0.012) 1px,
+            transparent 1px,
+            transparent 20px
+          );
+        background-color: #0d4a22;
+      }
+      /* Bokeh-like light circles*/
+      .hero-bokeh {
+        position: absolute;
+        inset: 0;
+        overflow: hidden;
+        pointer-events: none;
+      }
+      .hero-bokeh span {
+        position: absolute;
+        border-radius: 50%;
+        background: rgba(255, 255, 255, 0.04);
+        animation: float 8s ease-in-out infinite;
+      }
+      .hero-bokeh span:nth-child(1) {
+        width: 300px;
+        height: 300px;
+        top: -80px;
+        right: 10%;
+        animation-delay: 0s;
+      }
+      .hero-bokeh span:nth-child(2) {
+        width: 200px;
+        height: 200px;
+        top: 30%;
+        right: 5%;
+        animation-delay: 2s;
+        background: rgba(34, 197, 94, 0.06);
+      }
+      .hero-bokeh span:nth-child(3) {
+        width: 150px;
+        height: 150px;
+        bottom: 15%;
+        left: 8%;
+        animation-delay: 4s;
+      }
+      .hero-bokeh span:nth-child(4) {
+        width: 400px;
+        height: 400px;
+        bottom: -100px;
+        right: -50px;
+        animation-delay: 1s;
+        background: rgba(34, 197, 94, 0.04);
+      }
+      .hero-bokeh span:nth-child(5) {
+        width: 100px;
+        height: 100px;
+        top: 20%;
+        left: 20%;
+        animation-delay: 3s;
+        background: rgba(245, 158, 11, 0.05);
+      }
+      /* Hero Section Curve */
+      .hero-section-curve {
+        position: absolute;
+        bottom: -2px;
+        left: 0;
+        right: 0;
+      }
+      .hero-section-curve svg {
+        width: 100%;
+        height: 80px;
+        display: block;
+      }
+      .hero-content {
+        position: relative;
+        z-index: 2;
+        max-width: 1200px;
+        margin: 0 auto;
+        padding: 120px 40px 100px;
+        width: 100%;
+        text-align: center;
+      }
+      .hero-tag {
+        display: inline-flex;
+        align-items: center;
+        gap: 10px;
+        background: rgba(255, 255, 255, 0.12);
+        border: 1.5px solid rgba(255, 255, 255, 0.25);
+        border-radius: 100px;
+        padding: 8px 20px;
+        margin-bottom: 32px;
+        -webkit-backdrop-filter: blur(6px);
+        backdrop-filter: blur(6px);
+        opacity: 0;
+        animation: popIn 0.5s 0.1s forwards;
+      }
+      .hero-tag-dot {
+        width: 8px;
+        height: 8px;
+        background: #4ade80;
+        border-radius: 50%;
+        box-shadow: 0 0 8px #4ade80;
+        animation: blink 2s infinite;
+      }
+      .hero-tag span {
+        font-size: 12px;
+        font-weight: 600;
+        color: #fff;
+        letter-spacing: 0.8px;
+        text-transform: uppercase;
+      }
+      .hero-title {
+        font-size: clamp(28px, 6vw, 52px);
+        font-weight: 600;
+        color: #fff;
+        line-height: 1.12;
+        margin-bottom: 20px;
+        letter-spacing: -1px;
+        opacity: 0;
+        animation: slideUp 0.65s 0.2s forwards;
+      }
+      .hero-title .highlight {
+        color: #4ade80;
+      }
+      .hero-title .gold-text {
+        color: var(--gold);
+      }
+      .hero-subtitle {
+        font-size: clamp(15px, 2vw, 18px);
+        font-weight: 300;
+        color: rgba(255, 255, 255, 0.72);
+        max-width: 580px;
+        margin: 0 auto 44px;
+        line-height: 1.75;
+        opacity: 0;
+        animation: slideUp 0.65s 0.35s forwards;
+      }
+      .hero-btns {
+        display: flex;
+        align-items: center;
+        justify-content: center;
+        gap: 14px;
+        flex-wrap: wrap;
+        opacity: 0;
+        animation: slideUp 0.65s 0.5s forwards;
+      }
+      .hero-btn-primary {
+        padding: 16px 40px;
+        background: #fff;
+        border: none;
+        border-radius: 10px;
+        color: var(--green-dark);
+        font-family: var(--sans);
+        font-size: 15px;
+        font-weight: 700;
+        text-decoration: none;
+        transition: all 0.25s;
+        display: inline-flex;
+        align-items: center;
+        gap: 8px;
+        cursor: pointer;
+      }
+      .hero-btn-primary:hover {
+        background: #f0fdf4;
+        transform: translateY(-2px);
+        box-shadow: 0 8px 30px rgba(0, 0, 0, 0.2);
+      }
+      .hero-btn-primary svg {
+        transition: transform 0.2s;
+      }
+      .hero-btn-primary:hover svg {
+        transform: translateX(4px);
+      }
+      .hero-btn-secondary {
+        padding: 16px 40px;
+        background: transparent;
+        border: 2px solid rgba(255, 255, 255, 0.45);
+        border-radius: 10px;
+        color: #fff;
+        font-family: var(--sans);
+        font-size: 15px;
+        font-weight: 500;
+        text-decoration: none;
+        transition: all 0.25s;
+        cursor: pointer;
+      }
+      .hero-btn-secondary:hover {
+        border-color: rgba(255, 255, 255, 0.85);
+        background: rgba(255, 255, 255, 0.1);
+      }
+      .section {
+        padding: 88px 40px;
+      }
+      .section-inner {
+        max-width: 1200px;
+        margin: 0 auto;
+      }
+      .section-label {
+        display: inline-block;
+        background: var(--green-light);
+        color: var(--green-dark);
+        font-size: 11px;
+        font-weight: 700;
+        letter-spacing: 2px;
+        text-transform: uppercase;
+        padding: 5px 14px;
+        border-radius: 100px;
+        margin-bottom: 14px;
+      }
+      .section-title {
+        font-size: clamp(26px, 3.5vw, 38px);
+        font-weight: 700;
+        color: var(--text);
+        line-height: 1.2;
+        margin-bottom: 10px;
+      }
+      .section-desc {
+        font-size: 15px;
+        color: var(--gray-500);
+        font-weight: 400;
+        line-height: 1.7;
+        max-width: 500px;
+      }
+      .section-header {
+        display: flex;
+        justify-content: space-between;
+        align-items: flex-end;
+        margin-bottom: 48px;
+        flex-wrap: wrap;
+        gap: 20px;
+      }
+      .cand-grid {
+        display: grid;
+        grid-template-columns: repeat(3, 1fr);
+        gap: 24px;
+        margin-bottom: 44px;
+      }
+      .cand-card {
+        background: #fff;
+        border-radius: 16px;
+        overflow: hidden;
+        box-shadow: 0 2px 12px rgba(0, 0, 0, 0.06);
+        border: 1px solid var(--gray-200);
+        transition: all 0.3s ease;
+      }
+      .cand-card:hover {
+        transform: translateY(-6px);
+        box-shadow: 0 16px 40px rgba(0, 0, 0, 0.12);
+        border-color: var(--green-bright);
+      }
+      .cand-card-photo {
+        height: 200px;
+        background: linear-gradient(145deg, var(--green-dark) 0%, var(--green-mid) 60%, #2d9e55 100%);
+        display: flex;
+        align-items: center;
+        justify-content: center;
+        position: relative;
+      }
+      .cand-avatar {
+        width: 180px;
+        height: 180px;
+        border-radius: 50%;
+        background: rgba(255, 255, 255, 0.2);
+        border: 4px solid rgba(255, 255, 255, 0.35);
+        display: flex;
+        align-items: center;
+        justify-content: center;
+        overflow: hidden;
+      }
+      .cand-avatar img {
+        width: 100%;
+        height: 100%;
+        object-fit: cover;
+      }
+      .cand-avatar .initials {
+        font-size: 32px;
+        font-weight: 700;
+        color: #fff;
+      }
+      .cand-position-badge {
+        position: absolute;
+        top: 16px;
+        right: 16px;
+        background: var(--gold);
+        color: #78350f;
+        font-size: 10px;
+        font-weight: 700;
+        padding: 5px 12px;
+        border-radius: 100px;
+        letter-spacing: 0.5px;
+        text-transform: uppercase;
+      }
+      .cand-card-body {
+        padding: 22px;
+      }
+      .cand-name {
+        font-size: 18px;
+        font-weight: 700;
+        color: var(--text);
+        margin-bottom: 3px;
+      }
+      .cand-role {
+        font-size: 12px;
+        font-weight: 600;
+        color: var(--green-mid);
+        text-transform: uppercase;
+        letter-spacing: 0.8px;
+        margin-bottom: 12px;
+      }
+      .cand-bio {
+        font-size: 13.5px;
+        color: var(--gray-500);
+        line-height: 1.65;
+        margin-bottom: 18px;
+      }
+      .cand-link {
+        display: inline-flex;
+        align-items: center;
+        gap: 6px;
+        font-size: 13px;
+        font-weight: 600;
+        color: var(--green);
+        text-decoration: none;
+        transition: gap 0.2s;
+      }
+      .cand-link:hover {
+        gap: 10px;
+        color: var(--green-dark);
+      }
+      .cand-link svg {
+        transition: transform 0.2s;
+      }
+      .cand-link:hover svg {
+        transform: translateX(2px);
+      }
+      .section-footer {
+        display: flex;
+        justify-content: center;
+        gap: 14px;
+        flex-wrap: wrap;
+      }
+      .btn-green {
+        padding: 13px 30px;
+        background: var(--green);
+        border: none;
+        border-radius: 10px;
+        color: #fff;
+        font-family: var(--sans);
+        font-size: 14px;
+        font-weight: 600;
+        text-decoration: none;
+        cursor: pointer;
+        transition: all 0.2s;
+      }
+      .btn-green:hover {
+        background: var(--green-dark);
+        transform: translateY(-1px);
+        box-shadow: 0 6px 20px rgba(22, 101, 52, 0.3);
+      }
+      .btn-outline {
+        padding: 13px 30px;
+        background: transparent;
+        border: 2px solid var(--gray-200);
+        border-radius: 10px;
+        color: var(--gray-700);
+        font-family: var(--sans);
+        font-size: 14px;
+        font-weight: 500;
+        text-decoration: none;
+        cursor: pointer;
+        transition: all 0.2s;
+      }
+      .btn-outline:hover {
+        border-color: var(--green);
+        color: var(--green);
+      }
+      .info-strip {
+        background: var(--green);
+        padding: 80px 40px;
+      }
+      .info-strip-inner {
+        max-width: 1200px;
+        margin: 0 auto;
+      }
+      .info-strip .section-label {
+        background: rgba(255, 255, 255, 0.15);
+        color: #fff;
+      }
+      .info-strip .section-title {
+        color: #fff;
+      }
+      .info-cards {
+        display: grid;
+        grid-template-columns: repeat(3, 1fr);
+        gap: 24px;
+        margin-top: 40px;
+      }
+      .info-card {
+        background: rgba(255, 255, 255, 0.08);
+        border: 1px solid rgba(255, 255, 255, 0.14);
+        border-radius: 16px;
+        padding: 32px;
+        transition: background 0.2s;
+      }
+      .info-card:hover {
+        background: rgba(255, 255, 255, 0.14);
+      }
+      .info-card-icon {
+        width: 50px;
+        height: 50px;
+        background: rgba(255, 255, 255, 0.12);
+        border-radius: 14px;
+        display: flex;
+        align-items: center;
+        justify-content: center;
+        margin-bottom: 20px;
+        color: #fff;
+      }
+      .info-card h3 {
+        font-size: 18px;
+        font-weight: 700;
+        color: #fff;
+        margin-bottom: 14px;
+      }
+      .info-card p, .info-card li {
+        font-size: 14px;
+        color: rgba(255, 255, 255, 0.68);
+        line-height: 1.75;
+      }
+      .step-list {
+        display: flex;
+        flex-direction: column;
+        gap: 12px;
+      }
+      .step-item {
+        display: flex;
+        align-items: center;
+        gap: 12px;
+      }
+      .step-num {
+        width: 28px;
+        height: 28px;
+        background: var(--gold);
+        color: #78350f;
+        font-size: 12px;
+        font-weight: 700;
+        border-radius: 50%;
+        display: flex;
+        align-items: center;
+        justify-content: center;
+        flex-shrink: 0;
+      }
+      .step-text {
+        font-size: 14px;
+        color: rgba(255, 255, 255, 0.68);
+      }
+      .date-list {
+        display: flex;
+        flex-direction: column;
+        gap: 0;
+      }
+      .date-item {
+        display: flex;
+        justify-content: space-between;
+        align-items: center;
+        padding: 10px 0;
+        border-bottom: 1px solid rgba(255, 255, 255, 0.1);
+        font-size: 13.5px;
+      }
+      .date-item:last-child {
+        border: none;
+      }
+      .date-item .label {
+        color: rgba(255, 255, 255, 0.6);
+      }
+      .date-item .val {
+        color: var(--gold);
+        font-weight: 600;
+      }
+      footer {
+        background: #0a1f12;
+        padding: 60px 40px 36px;
+      }
+      .footer-inner {
+        max-width: 1200px;
+        margin: 0 auto;
+      }
+      .footer-grid {
+        display: grid;
+        grid-template-columns: 1.8fr 1fr 1fr 1.4fr;
+        gap: 48px;
+        padding-bottom: 44px;
+        border-bottom: 1px solid rgba(255, 255, 255, 0.08);
+        margin-bottom: 28px;
+      }
+      .footer-brand p {
+        font-size: 20px;
+        font-weight: 700;
+        color: #fff;
+        margin-bottom: 10px;
+      }
+      .footer-brand small {
+        font-size: 13px;
+        color: rgba(255, 255, 255, 0.38);
+        line-height: 1.7;
+        display: block;
+      }
+      .footer-col h4 {
+        font-size: 11px;
+        font-weight: 600;
+        letter-spacing: 1.5px;
+        text-transform: uppercase;
+        color: rgba(255, 255, 255, 0.38);
+        margin-bottom: 16px;
+      }
+      .footer-col a {
+        display: block;
+        font-size: 13px;
+        color: rgba(255, 255, 255, 0.5);
+        text-decoration: none;
+        padding: 4px 0;
+        transition: color 0.15s;
+      }
+      .footer-col a:hover {
+        color: #fff;
+      }
+      .footer-col p {
+        font-size: 13px;
+        color: rgba(255, 255, 255, 0.4);
+        line-height: 1.75;
+      }
+      .footer-bottom {
+        display: flex;
+        justify-content: space-between;
+        font-size: 12px;
+        color: rgba(255, 255, 255, 0.25);
+        flex-wrap: wrap;
+        gap: 8px;
+      }
+      @keyframes slideUp {
+        from {
+          opacity: 0;
+          transform: translateY(24px);
+        }
+        to {
+          opacity: 1;
+          transform: translateY(0);
+        }
+      }
+      @keyframes popIn {
+        from {
+          opacity: 0;
+          transform: scale(0.9);
+        }
+        to {
+          opacity: 1;
+          transform: scale(1);
+        }
+      }
+      @keyframes float {
+        0%,
+        100% {
+          transform: translateY(0);
+        }
+        50% {
+          transform: translateY(-20px);
+        }
+      }
+      @keyframes blink {
+        0%,
+        100% {
+          opacity: 1;
+          transform: scale(1);
+        }
+        50% {
+          opacity: 0.5;
+          transform: scale(0.8);
+        }
+      }
+      .reveal {
+        opacity: 0;
+        transform: translateY(24px);
+        transition:
+          opacity 0.6s ease,
+          transform 0.6s ease;
+      }
+      .reveal.vis {
+        opacity: 1;
+        transform: none;
+      }
+      @media (max-width: 960px) {
+        .nav {
+          padding: 0 20px;
+        }
+        .hero-content {
+          padding: 110px 20px 90px;
+        }
+        .section {
+          padding: 64px 20px;
+        }
+        .info-strip {
+          padding: 64px 20px;
+        }
+        footer {
+          padding: 52px 20px 32px;
+        }
+        .cand-grid {
+          grid-template-columns: 1fr 1fr;
+        }
+        .info-cards {
+          grid-template-columns: 1fr;
+        }
+        .footer-grid {
+          grid-template-columns: 1fr 1fr;
+          gap: 32px;
+        }
+      }
+      @media (max-width: 640px) {
+        .cand-grid {
+          grid-template-columns: 1fr;
+        }
+        .section-header {
+          flex-direction: column;
+          align-items: flex-start;
+        }
+        .section-footer {
+          flex-direction: column;
+          align-items: center;
+        }
+        .footer-grid {
+          grid-template-columns: 1fr;
+        }
+        .hero-btns {
+          flex-direction: column;
+          align-items: center;
+        }
+        .hero-btn-primary, .hero-btn-secondary {
+          width: 100%;
+          max-width: 320px;
+          justify-content: center;
+        }
+      }
+    </style>
+  </head>
+  <body>
+    <nav class="nav" id="nav">
+      <div class="nav-inner">
+        <a href="#" class="nav-brand">
+          <div class="nav-logo"><img src="../assets/images/kiut-white.png" alt=""></div>
+          <div class="nav-brand-text">
+            <span class="top">Kampala International University of Tanzania.</span>
+            <span class="bot">KIUTSO Elections 2025/26</span>
+          </div>
+        </a>
+        <div class="nav-actions">
+          <a href="../src/pages/register.html" class="nav-register">Register</a>
+          <a href="../src/pages/admin-login.html" class="nav-login">Login to Vote</a>
         </div>
-        <nav>
-            <a href="#hero-section">Home</a>
-            <a href="#news-section">News</a>
-            <a href="#about-section">About</a>
-            <a href="#howItWorks-section">How it Works</a>
-            <a href="#support-section">Support</a>
-            <a href="#contact-section">Contact</a>
-            <a class="button" href="../src/pages/register.html">Register</a></button>
-            <a class="button" href="../src/pages/admin-login.html">Login</a>
-        </nav>
-    </header>
-
-    <main>
-        <section id="hero-section">
-            <div class="hero-content">
-                <h1>University Student Government Elections <span id="election-year">2025/26</span></h1>
-                <p>Election Date: <span id="election-date">May 16</span></p>
-                <p>Status: <span id="election-status">Upcoming</span></p>
+      </div>
+    </nav>
+    <section class="hero">
+      <div class="hero-bg"></div>
+      <div class="hero-bokeh">
+        <span></span><span></span><span></span><span></span><span></span>
+      </div>
+      <div class="hero-content">
+        <div class="hero-tag">
+          <span class="hero-tag-dot"></span>
+          <span>Voting Is Now Open</span>
+        </div>
+        <h1 class="hero-title">Your Vote Shapes<br /><span class="highlight">Our University's</span> Future</h1>
+        <p class="hero-subtitle">Participate in the Kampala International University of Tanzania Students' Organization Government Elections 2025/26. Register, browse the candidates, and cast your vote.</p>
+        <div class="hero-btns">
+          <a href="../src/pages/register.html" class="hero-btn-primary">
+            Register &amp; Vote
+            <svg width="18" height="18" fill="none" stroke="currentColor" stroke-width="2.5" viewBox="0 0 24 24">
+              <path d="M5 12h14M12 5l7 7-7 7" />
+            </svg>
+          </a>
+          <a href="#candidates" class="hero-btn-secondary">Browse Candidates</a>
+        </div>
+      </div>
+      <!-- White curve transition to next section -->
+      <div class="hero-section-curve">
+        <svg viewBox="0 0 1440 80" xmlns="http://www.w3.org/2000/svg" preserveAspectRatio="none">
+          <path d="M0,80 C360,0 1080,0 1440,80 L1440,80 L0,80 Z" fill="#f9fafb"/>
+        </svg>
+      </div>
+    </section>
+    <section class="section" id="candidates">
+      <div class="section-inner">
+        <div class="section-header">
+          <div>
+            <span class="section-label reveal">Candidates Preview</span>
+            <h2 class="section-title reveal">Meet the Candidates</h2>
+            <p class="section-desc reveal">Browse students running for leadership positions in the 2025/26 Students Government election.</p>
+          </div>
+        </div>
+        <div class="cand-grid">
+          <div class="cand-card reveal">
+            <div class="cand-card-photo">
+              <div class="cand-avatar">
+                <img src="../assets/images/images (4).png" alt="Candidate 1" onerror="this.style.display = 'none'; this.nextElementSibling.style.display = 'flex';"/>
+              </div>
+              <span class="cand-position-badge">President</span>
             </div>
-        </section>
-        <section id="main-sections">
-            <div id="news-section">
-                <h1>Latest News</h1>
-                <div class="news-items">
-                    <div class="news-item">
-                        <img src="../assets/images/kiut-building5.jpg" alt="news-img">
-                        <p class="news-date">March 1, 2025</p>
-                        <h2>Candidate Registration Opens</h2>
-                        <p>Student candidates can now register for the upcoming elections starting from March 1, 2025 to April 30, 2025.</p>
-                        <button type="button">READ MORE</button>
-                    </div>
-                    <div class="news-item">
-                        <img src="../assets/images/kiut-building5.jpg" alt="news-img">
-                        <p class="news-date">April 10, 2025</p>
-                        <h2>Voter Education Campaign Launched</h2>
-                        <p>A campaign to educate voters about the election process has been launched.</p>
-                        <button type="button">READ MORE</button>
-                    </div>
-                    <div class="news-item">
-                        <img src="../assets/images/kiut-building5.jpg" alt="news-img">
-                        <p class="news-date">May 5, 2025</p>
-                        <h2>Election Debate Scheduled</h2>
-                        <p>A debate between candidates will be held to discuss their platforms and policies.</p>
-                        <button type="button">READ MORE</button>
-                    </div>
-                    <div class="news-item">
-                        <img src="../assets/images/kiut-building5.jpg" alt="news-img">
-                        <p class="news-date">May 15, 2025</p>
-                        <h2>Election Day Preparation</h2>
-                        <p>Final preparations for election day are underway to ensure a smooth voting process.</p>
-                        <button type="button">READ MORE</button>
-                    </div>
-                </div>
+            <div class="cand-card-body">
+              <div class="cand-name">Candidate One</div>
+              <div class="cand-role">President</div>
+              <p class="cand-bio">Committed to academic excellence and promoting student welfare across all KIUT faculties.</p>
+              <a href="#" class="cand-link">View Full Profile
+                <svg width="14" height="14" fill="none" stroke="currentColor" stroke-width="2.5" viewBox="0 0 24 24">
+                  <path d="M5 12h14M12 5l7 7-7 7" />
+                </svg>
+              </a>
             </div>
-            <div id="about-section">
-                <h1>About the Elections</h1>
-                <div class="about-card">
-                    <p>The University Student Government Elections are held annually to elect representatives who will advocate for student interests and contribute to the development of our university community. The elections provide an opportunity for students to engage in the democratic process and have their voices heard.</p>
-                </div>
+          </div>
+          <div class="cand-card reveal" style="transition-delay: 0.1s">
+            <div class="cand-card-photo">
+              <div class="cand-avatar">
+                <img src="../assets/images/images (4).png" alt="Candidate 2" onerror=" this.style.display = 'none'; this.nextElementSibling.style.display = 'flex';"/>
+              </div>
+              <span class="cand-position-badge">President</span>
             </div>
-            <div id="howItWorks-section">
-                <div class="participation">
-                    <h1>How to Participate</h1>
-                    <div class="steps">
-                        <div class="step">
-                            <h2>Step 1: Register</h2>
-                            <p>Create your account to participate in the elections.</p>
-                        </div>
-                        <div class="step">
-                            <h2>Step 2: Vote</h2>
-                            <p>Cast your vote for your preferred candidates.</p>
-                        </div>
-                        <div class="step">
-                            <h2>Step 3: Results</h2>
-                            <p>View the election results after voting concludes.</p>
-                        </div>
-                    </div>
-                </div>
-                <div class="notices">
-                    <h1>Important Notices</h1>
-                    <ul>
-                        <li>Ensure your account is verified before the election date.</li>
-                        <li>Voting will be open from 8:00 AM to 6:00 PM on May 16.</li>
-                        <li>Results will be announced on May 17.</li>
-                    </ul>
-                </div>
-                <div class="security-notice">
-                    <h1>Security Notice</h1>
-                    <p>Your vote is confidential and secure. We use advanced encryption to protect your information.</p>
-                </div>
+            <div class="cand-card-body">
+              <div class="cand-name">Candidate Two</div>
+              <div class="cand-role">President</div>
+              <p class="cand-bio">Focused on transparent communication and strengthening the bond between students and administration.</p>
+              <a href="#" class="cand-link">View Full Profile
+                <svg width="14" height="14" fill="none" stroke="currentColor" stroke-width="2.5" viewBox="0 0 24 24">
+                  <path d="M5 12h14M12 5l7 7-7 7" />
+                </svg>
+              </a>
             </div>
-            <div id="support-section">
-                <h1>Need Help?</h1>
-                <p>If you have any questions or need assistance, please contact our support team.</p>
-                <div class="contact-info">
-                    <p>Email: <a href="mailto:support@kiut.ac.tz">support@kiut.ac.tz</a></p>
-                    <p>Phone: <a href="tel:+255782777775">+255 782 777 775</a></p>
-                </div>
+          </div>
+          <div class="cand-card reveal" style="transition-delay: 0.2s">
+            <div class="cand-card-photo">
+              <div class="cand-avatar">
+                <img src="../assets/images/images (4).png" alt="Candidate 3" onerror="this.style.display = 'none'; this.nextElementSibling.style.display = 'flex';"/>
+              </div>
+              <span class="cand-position-badge">President</span>
             </div>
-            <div id="contact-section">
-                <h1>Contact Us</h1>
-                <p>For any inquiries or feedback, please reach out to us through the following channels:</p>
-                <div class="contact-info">
-                    <p>Email: <a href="mailto:info@kiut.ac.tz">info@kiut.ac.tz</a></p>
-                    <p>Phone: <a href="tel:+255782777775">+255 782 777 775</a></p>
-                </div>
+            <div class="cand-card-body">
+              <div class="cand-name">Candidate Three</div>
+              <div class="cand-role">President</div>
+              <p class="cand-bio">Advocating for responsible and accountable management of student funds and shared resources.</p>
+              <a href="#" class="cand-link">View Full Profile
+                <svg width="14" height="14" fill="none" stroke="currentColor" stroke-width="2.5" viewBox="0 0 24 24">
+                  <path d="M5 12h14M12 5l7 7-7 7" />
+                </svg>
+              </a>
             </div>
-        </section>
-    </main>
-
+          </div>
+        </div>
+        <div class="section-footer reveal">
+          <a href="#" class="btn-green">Browse All Candidates</a>
+          <a href="#info" class="btn-outline">How to Vote</a>
+        </div>
+      </div>
+    </section>
+    <section class="info-strip" id="info">
+      <div class="info-strip-inner">
+        <span class="section-label reveal">Election Information</span>
+        <h2 class="section-title reveal">Everything You Need to Know</h2>
+        <div class="info-cards">
+          <div class="info-card reveal">
+            <div class="info-card-icon">
+              <svg width="24" height="24" fill="none" stroke="currentColor" stroke-width="2" viewBox="0 0 24 24">
+                <path d="M9 5H7a2 2 0 00-2 2v12a2 2 0 002 2h10a2 2 0 002-2V7a2 2 0 00-2-2h-2M9 5a2 2 0 002 2h2a2 2 0 002-2M9 5a2 2 0 012-2h2a2 2 0 012 2m-6 9l2 2 4-4"/>
+              </svg>
+            </div>
+            <h3>How to Vote</h3>
+            <div class="step-list">
+              <div class="step-item">
+                <div class="step-num">1</div>
+                <span class="step-text">Register with your University Registration Number</span>
+              </div>
+              <div class="step-item">
+                <div class="step-num">2</div>
+                <span class="step-text">Verify your identity via OTP code</span>
+              </div>
+              <div class="step-item">
+                <div class="step-num">3</div>
+                <span class="step-text">Review the candidates for each position</span>
+              </div>
+              <div class="step-item">
+                <div class="step-num">4</div>
+                <span class="step-text">Cast your vote</span>
+              </div>
+            </div>
+          </div>
+          <div class="info-card reveal" style="transition-delay: 0.1s">
+            <div class="info-card-icon">
+              <svg width="24" height="24" fill="none" stroke="currentColor" stroke-width="2" viewBox="0 0 24 24">
+                <rect x="3" y="4" width="18" height="18" rx="2" />
+                <line x1="16" y1="2" x2="16" y2="6" />
+                <line x1="8" y1="2" x2="8" y2="6" />
+                <line x1="3" y1="10" x2="21" y2="10" />
+              </svg>
+            </div>
+            <h3>Key Dates</h3>
+            <div class="date-list">
+              <div class="date-item">
+                <span class="label">Registration Opens</span>
+                <span class="val">Nov 20, 2026</span>
+              </div>
+              <div class="date-item">
+                <span class="label">Voting Opens</span>
+                <span class="val">Nov 25, 2026</span>
+              </div>
+              <div class="date-item">
+                <span class="label">Voting Closes</span>
+                <span class="val">Nov 25, 2026</span>
+              </div>
+              <div class="date-item">
+                <span class="label">Results Announced</span>
+                <span class="val">Nov 26, 2025</span>
+              </div>
+            </div>
+          </div>
+          <div class="info-card reveal" style="transition-delay: 0.2s">
+            <div class="info-card-icon">
+              <svg width="24" height="24" fill="none" stroke="currentColor" stroke-width="2" viewBox="0 0 24 24">
+                <path d="M12 22s8-4 8-10V5l-8-3-8 3v7c0 6 8 10 8 10z" />
+              </svg>
+            </div>
+            <h3>Election Integrity</h3>
+            <p>These elections are conducted in strict accordance with KIUT university regulations. All votes are securely recorded and each registered student may cast exactly one vote. Any misconduct will be handled under university disciplinary procedures.</p>
+          </div>
+        </div>
+      </div>
+    </section>
     <footer>
-
-        <div class="footer-parts">
-            <img src="../assets/images/kiut-white.png" alt="footer_kiut_logo">
-            <p>Kampala International University of Tanzania. <br> &copy; 2025. All Rights Reserved</p>
+      <div class="footer-inner">
+        <div class="footer-grid">
+          <div class="footer-brand">
+            <p>KIUTSO Elections 2025/26</p>
+            <small>Kampala International University of Tanzania.<br />Dar es Salaam, Tanzania.<br /> &copy; 2026. All Rights Reserved. </small>
+          </div>
+          <div class="footer-col">
+            <h4>About KIUT</h4>
+            <a href="https://kiut.ac.tz/about">About Us</a>
+            <a href="https://kiut.ac.tz/about/governance/board_of_trustees">Governance</a>
+            <a href="https://kiut.ac.tz/about/about_kiut/contacts">Contact</a>
+            <a href="https://kiut.ac.tz/about/about_kiut/careers">Careers</a>
+          </div>
+          <div class="footer-col">
+            <h4>Programmes</h4>
+            <a href="https://kiut.ac.tz/admission/programmes/certificate_programmes">Certificates</a>
+            <a href="https://kiut.ac.tz/admission/programmes/diploma_programmes">Diploma</a>
+            <a href="https://kiut.ac.tz/admission/programmes/bachelor_programmes">Bachelor Degree</a>
+            <a href="https://kiut.ac.tz/admission/programmes/masters_programmes">Masters</a>
+            <a href="https://kiut.ac.tz/admission/programmes/short_courses">Short Courses</a>
+          </div>
+          <div class="footer-col">
+            <h4>Contact</h4>
+            <p>Kampala Road No. 2, Off Nyerere Road,<br />Gongo la Mboto, P.O.Box 9790,<br />Ilala 12110, Dar es Salaam.</p>
+            <a href="tel:+255782777775" style="margin-top: 10px; display: block">+255 782 777 775</a>
+            <a href="mailto:info@kiut.ac.tz">info@kiut.ac.tz</a>
+          </div>
         </div>
-
-        <div class="footer-parts">
-            <h3>About KIUT</h3>
-            <div class="links">
-                <a href="https://kiut.ac.tz/about">About Us</a>
-                <a href="https://kiut.ac.tz/about/governance/board_of_trustees">Governance</a>
-                <a href="https://kiut.ac.tz/about/about_kiut/contacts">Contact</a>
-                <a href="https://kiut.ac.tz/about/about_kiut/careers">Careers</a>
-            </div>
+        <div class="footer-bottom">
+          <span>KIUTSO Elections 2025/26</span>
         </div>
-
-        <div class="footer-parts">
-            <h3>KIUT Programmes</h3>
-            <div class="links">
-                <a href="https://kiut.ac.tz/admission/programmes/certificate_programmes">Certificates</a>
-                <a href="https://kiut.ac.tz/admission/programmes/diploma_programmes">Diploma</a>
-                <a href="https://kiut.ac.tz/admission/programmes/bachelor_programmes">Bachelor Degree</a>
-                <a href="https://kiut.ac.tz/admission/programmes/postgraduate_diploma_programmes">Postgraduate
-                    Diploma</a>
-                <a href="https://kiut.ac.tz/admission/programmes/masters_programmes">Masters</a>
-                <a href="https://kiut.ac.tz/admission/programmes/short_courses">Short Courses</a>
-            </div>
-        </div>
-
-        <div class="footer-parts">
-            <h3>Contact Information</h3>
-            <p>Kampala Road No. 2, Off Nyerere Road,
-                <br>Gongo la Mboto,
-                <br>P. O. Box 9790, Ilala 12110,
-                <br> Dar es Salaam, Tanzania.
-            </p>
-            <div class="links">
-                <a href="tel:+255782777775">+255 782 777 775</a>
-                <a href="tel:+255768000808">+255 768 000 808</a>
-            </div>
-            <div class="links">
-                <a href="mailto:info@kiut.ac.tz">info@kiut.ac.tz</a>
-                <a href="mailto:admissions@kiut.ac.tz">admissions@kiut.ac.tz</a>
-            </div>
-        </div>
-
+      </div>
     </footer>
+    <script>
+      const nav = document.getElementById("nav");
+      window.addEventListener("scroll", () => {
+        nav.classList.toggle("solid", scrollY > 50);
+      });
+      nav.classList.add("solid");
 
-</body>
-
+      const obs = new IntersectionObserver(
+        (entries) =>
+          entries.forEach((e) => {
+            if (e.isIntersecting) e.target.classList.add("vis");
+          }),
+        { threshold: 0.12 },
+      );
+      document.querySelectorAll(".reveal").forEach((el) => obs.observe(el));
+    </script>
+  </body>
 </html>
