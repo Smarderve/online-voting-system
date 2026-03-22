@@ -31,17 +31,6 @@
         --err: #dc2626;
         --sans: "Poppins", sans-serif;
       }
-      html,body {
-        min-height: 100vh;
-        font-family: var(--sans);
-      }
-      body {
-        background: var(--off-white);
-        color: var(--text);
-        cursor: default;
-        display: flex;
-        flex-direction: column;
-      }
       ::-webkit-scrollbar {
         width: 8px;
       }
@@ -51,6 +40,19 @@
       }
       ::-webkit-scrollbar-track {
         background: var(--gray-100);
+      }
+      html,body {
+        min-height: 100vh;
+        font-family: var(--sans);
+        scrollbar-width: thin;
+        scrollbar-color: var(--green-mid) var(--gray-100);
+      }
+      body {
+        background: var(--off-white);
+        color: var(--text);
+        cursor: default;
+        display: flex;
+        flex-direction: column;
       }
       .nav {
         background: var(--green-dark);
@@ -423,7 +425,7 @@
             </svg>
           </button>
           <p class="card-note">Already registered? 
-            <a href="../pages/admin-login.html">Login</a>
+            <a href="../pages/login.html">Login</a>
           </p>
         </div>
         <div id="panel-2" class="panel">

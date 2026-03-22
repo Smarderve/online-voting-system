@@ -35,6 +35,8 @@
       html {
         scroll-behavior: smooth;
         overflow-x: hidden;
+        scrollbar-width: thin;
+        scrollbar-color: var(--green-mid) var(--gray-100);
       }
       body {
         font-family: var(--sans);
@@ -779,7 +781,10 @@
         .nav-brand-text .top {
         font-size: 10px;
         font-weight: 600;
-      }
+        }
+        .nav-brand-text .bot {
+        font-size: 9px;
+        }
         .hero-content {
           padding: 110px 20px 90px;
         }
@@ -804,6 +809,13 @@
         }
       }
       @media (max-width: 640px) {
+        .nav-brand-text .top {
+        font-size: 11px;
+        font-weight: 600;
+        }
+        .nav-brand-text .bot {
+        font-size: 9px;
+        }
         .cand-grid {
           grid-template-columns: 1fr;
         }
@@ -842,7 +854,7 @@
         </a>
         <div class="nav-actions">
           <a href="../src/pages/register.html" class="nav-register">Register</a>
-          <a href="../src/pages/admin-login.html" class="nav-login">Login</a>
+          <a href="../src/pages/login.html" class="nav-login">Login</a>
         </div>
       </div>
     </nav>
