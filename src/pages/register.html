@@ -1,106 +1,557 @@
-<!DOCTYPE html>
+<!doctype html>
 <html lang="en">
-<head>
-    <meta charset="UTF-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>KIUT</title>
-    <link rel="stylesheet" href="../styles/register.css">
-    <link rel="icon" type="image/x-icon" href="../../assets/images/kiut-green.png" >
-</head>
-<body>
-
-    <header>
-        <div class="logo">
-            <img src="../../assets/images/kiut-green.png" alt="KIUT Logo">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>Register Account</title>
+    <link rel="icon" href="../../assets/images/kiut-white.png" type="image/png">
+    <link rel="preconnect" href="https://fonts.googleapis.com" />
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
+    <link href="https://fonts.googleapis.com/css2?family=Poppins:wght@300;400;500;600;700;800&display=swap" rel="stylesheet"/>
+    <style>
+      * {
+        margin: 0;
+        padding: 0;
+        box-sizing: border-box;
+      }
+      :root {
+        --green-dark: #0d4a22;
+        --green: #166534;
+        --green-mid: #1a7a3c;
+        --green-light: #dcfce7;
+        --gold: #f59e0b;
+        --white: #ffffff;
+        --off-white: #f9fafb;
+        --gray-100: #f1f5f9;
+        --gray-200: #e2e8f0;
+        --gray-400: #94a3b8;
+        --gray-500: #64748b;
+        --gray-700: #334155;
+        --text: #1e293b;
+        --err: #dc2626;
+        --sans: "Poppins", sans-serif;
+      }
+      html,body {
+        min-height: 100vh;
+        font-family: var(--sans);
+      }
+      body {
+        background: var(--off-white);
+        color: var(--text);
+        cursor: default;
+        display: flex;
+        flex-direction: column;
+      }
+      ::-webkit-scrollbar {
+        width: 8px;
+      }
+      ::-webkit-scrollbar-thumb {
+        background: var(--green-mid);
+        border-radius: 10px;
+      }
+      ::-webkit-scrollbar-track {
+        background: var(--gray-100);
+      }
+      .nav {
+        background: var(--green-dark);
+        padding: 0 40px;
+        height: 66px;
+        display: flex;
+        align-items: center;
+        justify-content: space-between;
+        flex-shrink: 0;
+      }
+      .nav-brand {
+        display: flex;
+        align-items: center;
+        gap: 12px;
+        text-decoration: none;
+      }
+      .nav-logo-img {
+        height: 64px;
+        width: 64px;
+        object-fit: contain;
+        filter: brightness(0) invert(1);
+      }
+      .nav-brand-text span {
+        display: block;
+        line-height: 1.15;
+      }
+      .nav-brand-text .top {
+        font-size: 14px;
+        font-weight: 700;
+        color: #fff;
+      }
+      .nav-brand-text .bot {
+        font-size: 10px;
+        color: rgba(255, 255, 255, 0.55);
+        letter-spacing: 0.5px;
+      }
+      .nav-back {
+        display: flex;
+        align-items: center;
+        gap: 6px;
+        padding: 8px 18px;
+        border-radius: 8px;
+        color: #fff;
+        font-family: var(--sans);
+        font-size: 13px;
+        font-weight: 600;
+        text-decoration: none;
+        transition: all 0.2s;
+        border: 2px solid rgba(255, 255, 255, 0.7);
+        background: transparent;
+      }
+      .nav-back:hover {
+        border-color: #fff;
+        background: rgba(255, 255, 255, 0.1);
+      }
+      .page {
+        flex: 1;
+        display: flex;
+        align-items: center;
+        justify-content: center;
+        padding: 48px 24px;
+      }
+      .card {
+        background: #fff;
+        border-radius: 20px;
+        box-shadow: 0 4px 32px rgba(0, 0, 0, 0.08);
+        border: 1px solid var(--gray-200);
+        width: 100%;
+        max-width: 440px;
+        padding: 40px;
+      }
+      .card-header {
+        margin-bottom: 32px;
+      }
+      .card-header h2 {
+        font-size: 22px;
+        font-weight: 700;
+        color: var(--text);
+        margin-bottom: 6px;
+      }
+      .card-header p {
+        font-size: 13.5px;
+        color: var(--gray-500);
+        font-weight: 400;
+        line-height: 1.6;
+      }
+      .field {
+        margin-bottom: 20px;
+      }
+      .field label {
+        display: block;
+        font-size: 13px;
+        font-weight: 600;
+        color: var(--gray-700);
+        margin-bottom: 7px;
+      }
+      .field input {
+        width: 100%;
+        padding: 12px 16px;
+        background: var(--off-white);
+        border: 1.5px solid var(--gray-200);
+        border-radius: 10px;
+        font-family: var(--sans);
+        font-size: 14px;
+        color: var(--text);
+        outline: none;
+        transition: all 0.2s;
+      }
+      .field input:focus {
+        border-color: var(--green);
+        background: #fff;
+        box-shadow: 0 0 0 3px rgba(22, 101, 52, 0.1);
+      }
+      .field input.err {
+        border-color: var(--err);
+      }
+      .field-hint {
+        font-size: 11.5px;
+        color: var(--gray-400);
+        margin-top: 6px;
+      }
+      .toggle-row {
+        display: flex;
+        align-items: center;
+        gap: 8px;
+        margin-top: 8px;
+      }
+      .toggle-divider {
+        font-size: 12px;
+        color: var(--gray-400);
+      }
+      .toggle-btn {
+        background: none;
+        border: none;
+        font-family: var(--sans);
+        font-size: 12px;
+        font-weight: 600;
+        color: var(--green);
+        cursor: pointer;
+        padding: 0;
+        text-decoration: underline;
+        text-underline-offset: 2px;
+        transition: color 0.15s;
+      }
+      .toggle-btn:hover {
+        color: var(--green-dark);
+      }
+      .btn-primary {
+        width: 100%;
+        padding: 13px;
+        background: var(--green);
+        border: none;
+        border-radius: 10px;
+        color: #fff;
+        font-family: var(--sans);
+        font-size: 14px;
+        font-weight: 600;
+        cursor: pointer;
+        transition: all 0.2s;
+        display: flex;
+        align-items: center;
+        justify-content: center;
+        gap: 8px;
+        margin-top: 8px;
+      }
+      .btn-primary:hover {
+        background: var(--green-dark);
+        transform: translateY(-1px);
+        box-shadow: 0 5px 18px rgba(22, 101, 52, 0.25);
+      }
+      .btn-primary:active {
+        transform: scale(0.98);
+      }
+      .btn-ghost {
+        width: 100%;
+        padding: 11px;
+        background: transparent;
+        border: 1.5px solid var(--gray-200);
+        border-radius: 10px;
+        color: var(--gray-500);
+        font-family: var(--sans);
+        font-size: 13px;
+        font-weight: 500;
+        cursor: pointer;
+        transition: all 0.2s;
+        margin-top: 10px;
+        display: flex;
+        align-items: center;
+        justify-content: center;
+        gap: 6px;
+      }
+      .btn-ghost:hover {
+        border-color: var(--gray-400);
+        color: var(--gray-700);
+      }
+      .card-note {
+        text-align: center;
+        font-size: 13px;
+        color: var(--gray-500);
+        margin-top: 20px;
+      }
+      .card-note a {
+        color: var(--green);
+        font-weight: 600;
+        text-decoration: none;
+      }
+      .card-note a:hover {
+        color: var(--green-dark);
+        text-decoration: underline;
+      }
+      .panel {
+        display: none;
+      }
+      .panel.show {
+        display: block;
+        animation: fadeSlide 0.3s ease;
+      }
+      @keyframes fadeSlide {
+        from {
+          opacity: 0;
+          transform: translateX(10px);
+        }
+        to {
+          opacity: 1;
+          transform: translateX(0);
+        }
+      }
+      .otp-sent {
+        font-size: 13.5px;
+        color: var(--gray-500);
+        text-align: center;
+        margin-bottom: 24px;
+        line-height: 1.65;
+      }
+      .otp-sent strong {
+        color: var(--text);
+        font-weight: 600;
+      }
+      .otp-grid {
+        display: flex;
+        justify-content: center;
+        gap: 10px;
+        margin-bottom: 28px;
+      }
+      .otp-box {
+        width: 54px;
+        height: 60px;
+        border: 2px solid var(--gray-200);
+        border-radius: 10px;
+        background: var(--off-white);
+        text-align: center;
+        font-family: var(--sans);
+        font-size: 22px;
+        font-weight: 700;
+        color: var(--text);
+        outline: none;
+        transition: all 0.2s;
+        caret-color: transparent;
+      }
+      .otp-box:focus {
+        border-color: var(--green);
+        background: #fff;
+        box-shadow: 0 0 0 3px rgba(22, 101, 52, 0.1);
+      }
+      .otp-box.filled {
+        border-color: var(--green);
+        background: #fff;
+      }
+      .otp-box.err {
+        border-color: var(--err);
+      }
+      .timer-wrap {
+        text-align: center;
+        margin-bottom: 8px;
+      }
+      .timer-txt {
+        font-size: 13px;
+        color: var(--gray-400);
+      }
+      .timer-txt strong {
+        color: var(--green);
+        font-weight: 600;
+      }
+      .resend-btn {
+        background: none;
+        border: none;
+        font-family: var(--sans);
+        font-size: 13px;
+        font-weight: 600;
+        color: var(--green);
+        cursor: pointer;
+        text-decoration: underline;
+        text-underline-offset: 2px;
+        display: none;
+      }
+      .resend-btn:hover {
+        color: var(--green-dark);
+      }
+      @media (max-width: 500px) {
+        .nav {
+          padding: 0 20px;
+        }
+        .page {
+          padding: 24px 16px;
+        }
+        .card {
+          padding: 28px 24px;
+        }
+        .otp-box {
+          width: 44px;
+          height: 52px;
+          font-size: 18px;
+        }
+      }
+    </style>
+  </head>
+  <body>
+    <nav class="nav">
+      <a href="../../main/index.html" class="nav-brand">
+        <img src="../../assets/images/kiut-white.png" alt="KIUT" class="nav-logo-img" onerror="this.style.display = 'none'"/>
+        <div class="nav-brand-text">
+          <span class="top">Kampala International University of Tanzania</span>
+          <span class="bot">KIUTSO Elections 2025/26</span>
         </div>
-        <button><a href="../../main/index.html">Home</a></button>
-    </header>
-
-    <section>
-
-        <form id="register-form">
-            <h2>Register</h2>
-                <label for="RegNo">Registration No:</label>
-            <input type="text" id="RegNo" name="RegNo" required>
-            <div id="email-box">
-                <label for="email">Email:</label>
-                    <input type="email" id="email" name="email" required>
-                <a href="#" class="toggle-link" onclick="toggleContact('phone')">Use Phone instead</a>
+      </a>
+      <a href="../../main/index.html" class="nav-back">
+        <svg width="14" height="14" fill="none" stroke="currentColor" stroke-width="2.5" viewBox="0 0 24 24">
+          <path d="M19 12H5M12 19l-7-7 7-7" />
+        </svg>Home
+      </a>
+    </nav>
+    <div class="page">
+      <div class="card">
+        <div id="panel-1" class="panel show">
+          <div class="card-header">
+            <h2>Register to Vote</h2>
+            <p>Enter your details below.</p>
+          </div>
+          <div class="field">
+            <label for="reg">Registration Number:</label>
+            <input type="text" id="reg" autocomplete="off"/>
+          </div>
+          <div id="email-field" class="field">
+            <label for="email">Email Address:</label>
+            <input type="email" id="email"/>
+            <div class="toggle-row">
+              <span class="toggle-divider">or</span>
+              <button class="toggle-btn" onclick="toggleContact('phone')">Use phone number instead</button>
             </div>
-            <div id="phone-box">
-                <label for="phone" class="phone">Phone Number:</label>
-                    <input type="tel" id="phone" name="phone">
-                <a href="#" class="toggle-link" onclick="toggleContact('email')">Use Email instead</a>
+          </div>
+          <div id="phone-field" class="field" style="display: none">
+            <label for="phone">Phone Number:</label>
+            <input type="tel" id="phone" />
+            <div class="toggle-row">
+              <span class="toggle-divider">or</span>
+              <button class="toggle-btn" onclick="toggleContact('email')">Use email instead</button>
             </div>
-                <button type="button" class="button" onclick="handleContinue()">Continue</button>
-        </form>
-
-        <form id="otp-form">
-            <h2>Verify</h2>
-                <p>We have sent a code to your <span id="phone-number">phone number </span><Span id="email">email.</Span></p>
-            <div class="otp-inputs">
-                <input type="text" class="otp-box" maxlength="1" oninput="moveNext(this, 0)" onkeydown="moveBack(event, 0)" required>
-                    <input type="text" class="otp-box" maxlength="1" oninput="moveNext(this, 1)" onkeydown="moveBack(event, 1)" required>
-                <input type="text" class="otp-box" maxlength="1" oninput="moveNext(this, 2)" onkeydown="moveBack(event, 2)" required>
-                    <input type="text" class="otp-box" maxlength="1" oninput="moveNext(this, 3)" onkeydown="moveBack(event, 3)" required>
-                <input type="text" class="otp-box" maxlength="1" oninput="moveNext(this, 4)" onkeydown="moveBack(event, 4)" required>
-                    <input type="text" class="otp-box" maxlength="1" oninput="moveNext(this, 5)" onkeydown="moveBack(event, 5)" required>
-            </div>
-                <button type="button" class="button">Confirm</button>
-            <div id="otp-timer">Resend code in <span id="timerSeconds">60</span>s</div>
-                <button type="button" id="resend-otp" onclick="handleContinue()">Resend code</button>
-        </form>
-
-    </section>
-
-    <footer>
-
-        <div class="footer-parts"> 
-            <img src="../../assets/images/kiut-white.png" alt="footer_kiut_logo">
-            <p>Kampala International University of Tanzania. <br> &copy; 2025. All Rights Reserved</p>
+          </div>
+          <div class="field">
+            <label for="password">Password:</label>
+            <input type="password" id="password" autocomplete="off"/>
+          </div>
+          <div class="field">
+            <label for="confirm-password">Confirm Password:</label>
+            <input type="password" id="confirm-password" autocomplete="off"/>
+          </div>
+          <button class="btn-primary" onclick="goToOtp()">Continue
+            <svg width="15" height="15" fill="none" stroke="currentColor" stroke-width="2.5" viewBox="0 0 24 24">
+              <path d="M5 12h14M12 5l7 7-7 7" />
+            </svg>
+          </button>
+          <p class="card-note">Already registered? 
+            <a href="../pages/admin-login.html">Login</a>
+          </p>
         </div>
-
-        <div class="footer-parts">
-            <h3>About KIUT</h3>
-            <div class="links">
-                <a href="https://kiut.ac.tz/about">About Us</a>
-                <a href="https://kiut.ac.tz/about/governance/board_of_trustees">Governance</a>
-                <a href="https://kiut.ac.tz/about/about_kiut/contacts">Contact</a>
-                <a href="https://kiut.ac.tz/about/about_kiut/careers">Careers</a>
-            </div>
+        <div id="panel-2" class="panel">
+          <div class="card-header">
+            <h2>Enter Verification Code</h2>
+          </div>
+          <p class="otp-sent">We sent a 6-digit code to <strong id="contact-display"></strong>.</p>
+          <div class="otp-grid">
+            <input class="otp-box" maxlength="1" inputmode="numeric" oninput="otpNext(this, 0)" onkeydown="otpBack(event, 0)"/>
+            <input class="otp-box" maxlength="1" inputmode="numeric" oninput="otpNext(this, 1)" onkeydown="otpBack(event, 1)"/>
+            <input class="otp-box" maxlength="1" inputmode="numeric" oninput="otpNext(this, 2)" onkeydown="otpBack(event, 2)"/>
+            <input class="otp-box" maxlength="1" inputmode="numeric" oninput="otpNext(this, 3)" onkeydown="otpBack(event, 3)" />
+            <input class="otp-box" maxlength="1" inputmode="numeric" oninput="otpNext(this, 4)" onkeydown="otpBack(event, 4)" />
+            <input class="otp-box" maxlength="1" inputmode="numeric" oninput="otpNext(this, 5)" onkeydown="otpBack(event, 5)"/>
+          </div>
+          <div class="timer-wrap">
+            <span class="timer-txt" id="timer-txt">Resend code in <strong><span id="secs">60</span>s</strong></span>
+            <button class="resend-btn" id="resend-btn" onclick="resend()">Resend code</button>
+          </div>
+          <button class="btn-primary" onclick="confirmOtp()">Done</button>
+          <button class="btn-ghost" onclick="goBack()">
+            <svg width="14" height="14" fill="none" stroke="currentColor" stroke-width="2.5" viewBox="0 0 24 24">
+              <path d="M19 12H5M12 19l-7-7 7-7" />
+            </svg>Back
+          </button>
         </div>
+      </div>
+    </div>
+    <script>
+      let countdown,
+        usingPhone = false;
 
-        <div class="footer-parts">
-            <h3>KIUT Programmes</h3>
-            <div class="links">
-                <a href="https://kiut.ac.tz/admission/programmes/certificate_programmes">Certificates</a>
-                <a href="https://kiut.ac.tz/admission/programmes/diploma_programmes">Diploma</a>
-                <a href="https://kiut.ac.tz/admission/programmes/bachelor_programmes">Bachelor Degree</a>
-                <a href="https://kiut.ac.tz/admission/programmes/postgraduate_diploma_programmes">Postgraduate Diploma</a>
-                <a href="https://kiut.ac.tz/admission/programmes/masters_programmes">Masters</a>
-                <a href="https://kiut.ac.tz/admission/programmes/short_courses">Short Courses</a>
-            </div>
-        </div>
+      function toggleContact(to) {
+        usingPhone = to === "phone";
+        document.getElementById("email-field").style.display = usingPhone ? "none" : "";
+        document.getElementById("phone-field").style.display = usingPhone ? "" : "none";
+        document.getElementById("email").required = !usingPhone;
+        document.getElementById("phone").required = usingPhone;
+        if (usingPhone) document.getElementById("email").value = "";
+        else document.getElementById("phone").value = "";
+      }
 
-        <div class="footer-parts">
-            <h3>Contact Information</h3>
-            <p>Kampala Road No. 2, Off Nyerere Road, 
-                <br>Gongo la Mboto,
-                <br>P. O. Box 9790, Ilala 12110, 
-                <br> Dar es Salaam, Tanzania.
-            </p>
-            <div class="links">
-                <a href="tel:+255782777775">+255 782 777 775</a>
-                <a href="tel:+255768000808">+255 768 000 808</a>
-            </div>
-            <div class="links">
-                <a href="mailto:info@kiut.ac.tz">info@kiut.ac.tz</a>
-                <a href="mailto:admissions@kiut.ac.tz">admissions@kiut.ac.tz</a>
-            </div>
-        </div>
-       
-    </footer>
+      function goToOtp() {
+        const reg = document.getElementById("reg");
+        const contactEl = document.getElementById(
+          usingPhone ? "phone" : "email",
+        );
+        let ok = true;
+        if (!reg.value.trim()) {
+          reg.classList.add("err");
+          ok = false;
+        }
+        if (!contactEl.value.trim()) {
+          contactEl.classList.add("err");
+          ok = false;
+        }
+        if (!ok) return;
+        document.getElementById("contact-display").textContent = contactEl.value.trim();
+        document.getElementById("panel-1").classList.remove("show");
+        document.getElementById("panel-2").classList.add("show");
+        document.querySelectorAll(".otp-box")[0].focus();
+        startTimer(60);
+      }
 
-<script src="../scripts/register.js"></script>
-</body>
+      function goBack() {
+        clearInterval(countdown);
+        document.getElementById("panel-2").classList.remove("show");
+        document.getElementById("panel-1").classList.add("show");
+        document.querySelectorAll(".otp-box").forEach((b) => {
+          b.value = "";
+          b.classList.remove("filled", "err");
+        });
+      }
+
+      function startTimer(s) {
+        clearInterval(countdown);
+        let t = s;
+        document.getElementById("timer-txt").style.display = "";
+        document.getElementById("resend-btn").style.display = "none";
+        document.getElementById("secs").textContent = t;
+        countdown = setInterval(() => {
+          t--;
+          document.getElementById("secs").textContent = t;
+          if (t <= 0) {
+            clearInterval(countdown);
+            document.getElementById("timer-txt").style.display = "none";
+            document.getElementById("resend-btn").style.display = "inline";
+          }
+        }, 1000);
+      }
+
+      function resend() {
+        document.querySelectorAll(".otp-box").forEach((b) => {
+          b.value = "";
+          b.classList.remove("filled", "err");
+        });
+        document.querySelectorAll(".otp-box")[0].focus();
+        startTimer(60);
+      }
+
+      function otpNext(el, i) {
+        el.classList.toggle("filled", el.value.length > 0);
+        const boxes = document.querySelectorAll(".otp-box");
+        if (el.value.length === 1 && i < boxes.length - 1) boxes[i + 1].focus();
+      }
+
+      function otpBack(e, i) {
+        const boxes = document.querySelectorAll(".otp-box");
+        if (e.key === "Backspace" && boxes[i].value === "" && i > 0) {
+          boxes[i - 1].focus();
+          boxes[i - 1].classList.remove("filled");
+        }
+      }
+
+      function confirmOtp() {
+        const code = [...document.querySelectorAll(".otp-box")]
+          .map((b) => b.value)
+          .join("");
+        if (code.length < 6) {
+          document.querySelectorAll(".otp-box").forEach((b) => b.classList.add("err"));
+          return;
+        }
+        alert("Account created! Redirecting to login...");
+      }
+
+      document.querySelectorAll("input").forEach(
+        (i) =>i.addEventListener("input", () => i.classList.remove("err")),
+      );
+    </script>
+  </body>
 </html>
