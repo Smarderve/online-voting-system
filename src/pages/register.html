@@ -3,7 +3,7 @@
   <head>
     <meta charset="UTF-8" />
     <meta name="viewport" content="width=device-width, initial-scale=1.0" />
-    <title>Register Account</title>
+    <title>Register Account | KIUTSO Elections 2025/26</title>
     <link rel="icon" href="../../assets/images/kiut-white.png" type="image/png">
     <link rel="preconnect" href="https://fonts.googleapis.com" />
     <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
@@ -280,77 +280,6 @@
           transform: translateX(0);
         }
       }
-      .otp-sent {
-        font-size: 13.5px;
-        color: var(--gray-500);
-        text-align: center;
-        margin-bottom: 24px;
-        line-height: 1.65;
-      }
-      .otp-sent strong {
-        color: var(--text);
-        font-weight: 600;
-      }
-      .otp-grid {
-        display: flex;
-        justify-content: center;
-        gap: 10px;
-        margin-bottom: 28px;
-      }
-      .otp-box {
-        width: 54px;
-        height: 60px;
-        border: 2px solid var(--gray-200);
-        border-radius: 10px;
-        background: var(--off-white);
-        text-align: center;
-        font-family: var(--sans);
-        font-size: 22px;
-        font-weight: 700;
-        color: var(--text);
-        outline: none;
-        transition: all 0.2s;
-        caret-color: transparent;
-      }
-      .otp-box:focus {
-        border-color: var(--green);
-        background: #fff;
-        box-shadow: 0 0 0 3px rgba(22, 101, 52, 0.1);
-      }
-      .otp-box.filled {
-        border-color: var(--green);
-        background: #fff;
-      }
-      .otp-box.err {
-        border-color: var(--err);
-      }
-      .timer-wrap {
-        text-align: center;
-        margin-bottom: 8px;
-      }
-      .timer-txt {
-        font-size: 13px;
-        color: var(--gray-400);
-      }
-      .timer-txt strong {
-        color: var(--green);
-        font-weight: 600;
-      }
-      .resend-btn {
-        background: none;
-        border: none;
-        font-family: var(--sans);
-        font-size: 13px;
-        font-weight: 600;
-        color: var(--green);
-        cursor: pointer;
-        text-decoration: underline;
-        text-underline-offset: 2px;
-        display: none;
-      }
-      .resend-btn:hover {
-        color: var(--green-dark);
-      }
       @media (max-width: 960px) {
         .nav {
           padding: 0 20px;
@@ -389,11 +318,6 @@
         }
         .card {
           padding: 28px 24px;
-        }
-        .otp-box {
-          width: 44px;
-          height: 52px;
-          font-size: 18px;
         }
       }
     </style>
@@ -448,7 +372,7 @@
             <label for="confirm-password">Confirm Password:</label>
             <input type="password" id="confirm-password" autocomplete="off"/>
           </div>
-          <button class="btn-primary" onclick="goToOtp()">Continue
+          <button class="btn-primary" >Register Account
             <svg width="15" height="15" fill="none" stroke="currentColor" stroke-width="2.5" viewBox="0 0 24 24">
               <path d="M5 12h14M12 5l7 7-7 7" />
             </svg>
@@ -456,30 +380,6 @@
           <p class="card-note">Already registered? 
             <a href="../pages/login.html">Login</a>
           </p>
-        </div>
-        <div id="panel-2" class="panel">
-          <div class="card-header">
-            <h2>Enter Verification Code</h2>
-          </div>
-          <p class="otp-sent">We sent a 6-digit code to <strong id="contact-display"></strong>.</p>
-          <div class="otp-grid">
-            <input class="otp-box" maxlength="1" inputmode="numeric" oninput="otpNext(this, 0)" onkeydown="otpBack(event, 0)"/>
-            <input class="otp-box" maxlength="1" inputmode="numeric" oninput="otpNext(this, 1)" onkeydown="otpBack(event, 1)"/>
-            <input class="otp-box" maxlength="1" inputmode="numeric" oninput="otpNext(this, 2)" onkeydown="otpBack(event, 2)"/>
-            <input class="otp-box" maxlength="1" inputmode="numeric" oninput="otpNext(this, 3)" onkeydown="otpBack(event, 3)" />
-            <input class="otp-box" maxlength="1" inputmode="numeric" oninput="otpNext(this, 4)" onkeydown="otpBack(event, 4)" />
-            <input class="otp-box" maxlength="1" inputmode="numeric" oninput="otpNext(this, 5)" onkeydown="otpBack(event, 5)"/>
-          </div>
-          <div class="timer-wrap">
-            <span class="timer-txt" id="timer-txt">Resend code in <strong><span id="secs">60</span>s</strong></span>
-            <button class="resend-btn" id="resend-btn" onclick="resend()">Resend code</button>
-          </div>
-          <button class="btn-primary" onclick="confirmOtp()">Done</button>
-          <button class="btn-ghost" onclick="goBack()">
-            <svg width="14" height="14" fill="none" stroke="currentColor" stroke-width="2.5" viewBox="0 0 24 24">
-              <path d="M19 12H5M12 19l-7-7 7-7" />
-            </svg>Back
-          </button>
         </div>
       </div>
     </div>
@@ -495,89 +395,6 @@
         document.getElementById("phone").required = usingPhone;
         if (usingPhone) document.getElementById("email").value = "";
         else document.getElementById("phone").value = "";
-      }
-
-      function goToOtp() {
-        const reg = document.getElementById("reg");
-        const contactEl = document.getElementById(
-          usingPhone ? "phone" : "email",
-        );
-        let ok = true;
-        if (!reg.value.trim()) {
-          reg.classList.add("err");
-          ok = false;
-        }
-        if (!contactEl.value.trim()) {
-          contactEl.classList.add("err");
-          ok = false;
-        }
-        if (!ok) return;
-        document.getElementById("contact-display").textContent = contactEl.value.trim();
-        document.getElementById("panel-1").classList.remove("show");
-        document.getElementById("panel-2").classList.add("show");
-        document.querySelectorAll(".otp-box")[0].focus();
-        startTimer(60);
-      }
-
-      function goBack() {
-        clearInterval(countdown);
-        document.getElementById("panel-2").classList.remove("show");
-        document.getElementById("panel-1").classList.add("show");
-        document.querySelectorAll(".otp-box").forEach((b) => {
-          b.value = "";
-          b.classList.remove("filled", "err");
-        });
-      }
-
-      function startTimer(s) {
-        clearInterval(countdown);
-        let t = s;
-        document.getElementById("timer-txt").style.display = "";
-        document.getElementById("resend-btn").style.display = "none";
-        document.getElementById("secs").textContent = t;
-        countdown = setInterval(() => {
-          t--;
-          document.getElementById("secs").textContent = t;
-          if (t <= 0) {
-            clearInterval(countdown);
-            document.getElementById("timer-txt").style.display = "none";
-            document.getElementById("resend-btn").style.display = "inline";
-          }
-        }, 1000);
-      }
-
-      function resend() {
-        document.querySelectorAll(".otp-box").forEach((b) => {
-          b.value = "";
-          b.classList.remove("filled", "err");
-        });
-        document.querySelectorAll(".otp-box")[0].focus();
-        startTimer(60);
-      }
-
-      function otpNext(el, i) {
-        el.classList.toggle("filled", el.value.length > 0);
-        const boxes = document.querySelectorAll(".otp-box");
-        if (el.value.length === 1 && i < boxes.length - 1) boxes[i + 1].focus();
-      }
-
-      function otpBack(e, i) {
-        const boxes = document.querySelectorAll(".otp-box");
-        if (e.key === "Backspace" && boxes[i].value === "" && i > 0) {
-          boxes[i - 1].focus();
-          boxes[i - 1].classList.remove("filled");
-        }
-      }
-
-      function confirmOtp() {
-        const code = [...document.querySelectorAll(".otp-box")]
-          .map((b) => b.value)
-          .join("");
-        if (code.length < 6) {
-          document.querySelectorAll(".otp-box").forEach((b) => b.classList.add("err"));
-          return;
-        }
-        alert("Account created! Redirecting to login...");
       }
 
       document.querySelectorAll("input").forEach(
