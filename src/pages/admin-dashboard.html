@@ -1,690 +1,3869 @@
 <!DOCTYPE html>
 <html lang="en">
-<head>
-    <meta charset="UTF-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <link rel="stylesheet" href="../styles/admin-panel.css">
-    <link rel="preconnect" href="https://fonts.googleapis.com">
-    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
-    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700&display=swap" rel="stylesheet">
-    <link rel="icon" type="image/x-icon" href="../../assets/images/kiut-green.png">
-    <title>Admin Dashboard</title>
-</head>
-<body>
-
-    <header>
-        <div class="icons">
-            <svg class="nav-links" data-target="dashboard-section" xmlns="http://www.w3.org/2000/svg" width="18px" height="18px" viewBox="0 0 24 24">
-	            <g fill="#008000">
-		            <path d="M11.47 3.841a.75.75 0 0 1 1.06 0l8.69 8.69a.75.75 0 1 0 1.06-1.061l-8.689-8.69a2.25 2.25 0 0 0-3.182 0l-8.69 8.69a.75.75 0 1 0 1.061 1.06z"></path>
-		            <path d="m12 5.432l8.159 8.159q.045.044.091.086v6.198c0 1.035-.84 1.875-1.875 1.875H15a.75.75 0 0 1-.75-.75v-4.5a.75.75 0 0 0-.75-.75h-3a.75.75 0 0 0-.75.75V21a.75.75 0 0 1-.75.75H5.625a1.875 1.875 0 0 1-1.875-1.875v-6.198l.091-.086z"></path>
-	            </g>
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>Admin Dashboard | KIUTSO Elections</title>
+    <link rel="icon" href="../../assets/images/kiut-white.png" type="image/png"/>
+    <link rel="preconnect" href="https://fonts.googleapis.com" />
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
+    <link href="https://fonts.googleapis.com/css2?family=Poppins:wght@300;400;500;600;700;800&display=swap" rel="stylesheet"/>
+    <script src="https://cdn.jsdelivr.net/npm/chart.js"></script>
+    <style>
+      * {
+        margin: 0;
+        padding: 0;
+        box-sizing: border-box;
+      }
+      :root {
+        color-scheme: light dark;
+        --cd-dark: #c9cc00cb;
+        --gd: #052E1B;
+        --gd-light: #036235;
+        --g: #0a3018;
+        --gm: #0f4020;
+        --gb: #22c55e;
+        --gl: #dcfce7;
+        --gold: #f59e0b;
+        --gold-l: #fef9c3;
+        --red: #dc2626;
+        --red-l: #fef2f2;
+        --blue: #1d4ed8;
+        --blue-l: #eff6ff;
+        --white: #fff;
+        --black: #000;
+        --off: #f8fafc;
+        --gray: #f1f5f9;
+        --border: #e2e8f0;
+        --border-dark: rgba(0, 0, 0, 0.658);
+        --text: #1e293b;
+        --muted: #64748b;
+        --hint: #94a3b8;
+        --sb: 220px;
+        --sb-collapsed: 60px;
+        --topbar: 62px;
+        --sans: 'Poppins', sans-serif;
+        --shadow: 0 1px 8px rgba(0, 0, 0, 0.07);
+        --shadow-md: 0 4px 20px rgba(0, 0, 0, 0.1);
+        --shadow-lg: 0 8px 32px rgba(0, 0, 0, 0.14);
+        --r: 10px;
+        --rl: 14px;
+        --rxl: 18px;
+      }
+      html,body {
+        height: 100%;
+        font-family: var(--sans);
+        background: light-dark( var(--off), #0B1220);
+        color: var(--text);
+        cursor: default;
+        overflow-x: hidden;
+      }
+      ::-webkit-scrollbar {
+        width: 5px;
+        height: 5px;
+      }
+      ::-webkit-scrollbar-thumb {
+        background: var(--border);
+        border-radius: 6px;
+      }
+      ::-webkit-scrollbar-track {
+        background: transparent;
+      }
+      html {
+        scrollbar-width: thin;
+        scrollbar-color: var(--border) transparent;
+      }
+      a {
+        text-decoration: none;
+        color: inherit;
+      }
+      button {
+        cursor: pointer;
+        font-family: var(--sans);
+      }
+      input,select,textarea {
+        font-family: var(--sans);
+      }
+      /* LAYOUT */
+      .layout {
+        display: flex;
+        min-height: 100vh;
+      }
+      /* SIDEBAR  */
+      .sidebar {
+        width: var(--sb);
+        background: light-dark( var(--gd-light) , var(--gd) );
+        display: flex;
+        flex-direction: column;
+        position: fixed;
+        top: 0;
+        bottom: 0;
+        left: 0;
+        z-index: 200;
+        transition: width 0.25s ease;
+        overflow: hidden;
+      }
+      .sidebar.collapsed {
+        width: var(--sb-collapsed);
+      }
+      /* header row inside sidebar */
+      .sb-header {
+        height: var(--topbar);
+        display: flex;
+        align-items: center;
+        padding: 0 5px;
+        border-bottom: 1px solid rgba(255, 255, 255, 0.06);
+        flex-shrink: 0;
+        gap: 8px;
+        overflow: hidden;
+      }
+      .sb-toggle {
+        width: 38px;
+        height: 38px;
+        background: rgba(255, 255, 255, 0.06);
+        border: none;
+        border-radius: 8px;
+        display: flex;
+        align-items: center;
+        justify-content: center;
+        cursor: pointer;
+        flex-shrink: 0;
+        transition: background 0.2s;
+        color: rgba(255, 255, 255, 0.7);
+      }
+      .sb-toggle:hover {
+        background: rgba(255, 255, 255, 0.12);
+      }
+      .sb-logo-img {
+        height: 36px;
+        width: 36px;
+        object-fit: contain;
+        filter: brightness(0) invert(1);
+        flex-shrink: 0;
+      }
+      .sidebar.collapsed .sb-logo-img{
+        display: none;
+      }
+      .sb-brand {
+        display: flex;
+        flex-direction: column;
+        line-height: 1.2;
+        overflow: hidden;
+        white-space: nowrap;
+        transition: opacity 0.2s, width 0.2s;
+      }
+      .sidebar.collapsed .sb-brand {
+        opacity: 0;
+        width: 0;
+      }
+      .sb-brand .top {
+        font-size: 13px;
+        font-weight: 700;
+        color: #fff;
+      }
+      .sb-brand .bot {
+        font-size: 9px;
+        color: rgba(255, 255, 255, 0.835);
+        letter-spacing: 0.4px;
+      }
+      /* navbar */
+      .sb-nav {
+        flex: 1;
+        padding: 5px;
+        overflow-y: auto;
+        overflow-x: hidden;
+        display: flex;
+        flex-direction: column;
+        gap: 5px;
+        scrollbar-color: light-dark( rgba(184, 184, 3, 0.798), olive) transparent;
+      }
+      .sb-item {
+        display: flex;
+        align-items: center;
+        gap: 9px;
+        padding: 20px 10px;
+        border-radius: 8px;
+        cursor: pointer;
+        transition: all 0.18s;
+        background: none;
+        border: 1px solid transparent;
+        width: 100%;
+        text-align: left;
+        color: rgba(255, 255, 255, 0.719);
+        font-size: 13px;
+        font-weight: 400;
+        white-space: nowrap;
+        overflow: hidden;
+        position: relative;
+      }
+      .sb-item svg {
+        flex-shrink: 0;
+        opacity: 0.65;
+      }
+      .sb-item:hover {
+        background: rgba(255, 255, 255, 0.07);
+        color: rgba(255, 255, 255, 0.85);
+      }
+      .sb-item:hover svg {
+        opacity: 1;
+      }
+      .sb-item.active {
+        background: rgba(255, 255, 255, 0.11);
+        color: #fff;
+        font-weight: 500;
+        border-color: rgba(255, 255, 255, 0.08);
+      }
+      .sb-item.active svg {
+        opacity: 1;
+      }
+      .sb-item-label {
+        transition: opacity 0.2s, width 0.2s;
+        overflow: hidden;
+      }
+      .sidebar.collapsed .sb-item-label {
+        opacity: 0;
+        width: 0;
+      }
+      .sb-badge {
+        margin-left: auto;
+        background: var(--gold);
+        color: #78350f;
+        font-size: 9.5px;
+        font-weight: 700;
+        padding: 1px 6px;
+        border-radius: 100px;
+        transition: opacity 0.2s;
+        flex-shrink: 0;
+      }
+      .sidebar.collapsed .sb-badge {
+        opacity: 0;
+      }
+      /* tooltip on collapsed */
+      .sidebar.collapsed .sb-item:hover::after {
+        content: attr(data-label);
+        position: absolute;
+        left: calc(100% + 8px);
+        top: 50%;
+        transform: translateY(-50%);
+        background: var(--text);
+        color: #fff;
+        font-size: 12px;
+        font-weight: 500;
+        padding: 5px 10px;
+        border-radius: 6px;
+        white-space: nowrap;
+        z-index: 999;
+        box-shadow: var(--shadow-md);
+      }
+      .sb-bottom {
+        padding: 8px;
+        border-top: 1px solid rgba(255, 255, 255, 0.06);
+        flex-shrink: 0;
+      }
+      .sb-logout {
+        display: flex;
+        align-items: center;
+        gap: 9px;
+        padding: 9px 10px;
+        border-radius: 8px;
+        cursor: pointer;
+        background: none;
+        border: none;
+        color: rgba(255, 255, 255, 0.38);
+        font-size: 13px;
+        width: 100%;
+        text-align: left;
+        white-space: nowrap;
+        overflow: hidden;
+        transition: all 0.18s;
+      }
+      .sb-logout:hover {
+        background: rgba(220, 38, 38, 0.12);
+        color: #fca5a5;
+      }
+      .sb-logout svg {
+        flex-shrink: 0;
+        opacity: 0.6;
+      }
+      .sidebar.collapsed .sb-logout span {
+        opacity: 0;
+        width: 0;
+        overflow: hidden;
+      }
+      /* MAIN */
+      .main {
+        margin-left: var(--sb);
+        flex: 1;
+        display: flex;
+        flex-direction: column;
+        min-height: 100vh;
+        transition: margin-left 0.25s ease;
+      }
+      .sidebar.collapsed ~ .main {
+        margin-left: var(--sb-collapsed);
+      }
+      /*  TOPBAR */
+      .topbar {
+        height: var(--topbar);
+        background: light-dark( var(--white), #0F172A);
+        backdrop-filter: blur(10px);
+        border-bottom: 1px solid var(--border);
+        display: flex;
+        align-items: center;
+        justify-content: space-between;
+        padding: 0 24px;
+        position: sticky;
+        top: 0;
+        z-index: 100;
+        box-shadow: var(--shadow);
+        flex-shrink: 0;
+      }
+      .topbar-left {
+        display: flex;
+        align-items: center;
+        gap: 14px;
+      }
+      .mob-toggle {
+        display: none;
+        background: none;
+        border: none;
+        color: var(--text);
+        padding: 6px;
+        border-radius: 6px;
+      }
+      .topbar-title {
+        font-size: 16px;
+        font-weight: 700;
+        color: light-dark( var(--text), #fff);
+      }
+      .search-wrap {
+        display: flex;
+        align-items: center;
+        gap: 8px;
+        background: light-dark( var(--gray), #ffffffe1);
+        border: 1.5px solid var(--border);
+        border-radius: 8px;
+        padding: 7px 12px;
+        transition: border-color 0.2s;
+      }
+      .search-wrap:focus-within {
+        border-color: var(--g);
+        background: #fff;
+      }
+      .search-wrap svg {
+        color: light-dark( var(--hint), black);
+        flex-shrink: 0;
+      }
+      .search-wrap input {
+        background: none;
+        border: none;
+        outline: none;
+        font-family: var(--sans);
+        font-size: 13px;
+        color: var(--text);
+        width: 200px;
+      }
+      .search-wrap input::placeholder {
+        color: light-dark( var(--hint), black);
+      }
+      .topbar-right {
+        display: flex;
+        align-items: center;
+        gap: 8px;
+      }
+      .tb-btn {
+        width: 36px;
+        height: 36px;
+        background: light-dark( var(--gray), #ffffffe1);
+        border: 1.5px solid var(--border);
+        border-radius: 8px;
+        display: flex;
+        align-items: center;
+        justify-content: center;
+        cursor: pointer;
+        transition: all 0.2s;
+        position: relative;
+        color: light-dark( var(--muted), black);
+      }
+      .tb-btn:hover {
+        background: light-dark( #fff, var(--gray) );
+        border-color: var(--g);
+        color: var(--g);
+      }
+      .notif-count {
+        position: absolute;
+        top: 4px;
+        right: 4px;
+        background: var(--red);
+        color: #fff;
+        font-size: 9px;
+        font-weight: 700;
+        padding: 0 4px;
+        border-radius: 100px;
+        line-height: 1.6;
+        min-width: 15px;
+        text-align: center;
+      }
+      /* dropdown */
+      .notif-dropdown {
+        position: absolute;
+        top: calc(100% + 8px);
+        right: 0;
+        width: 310px;
+        background: light-dark( #fff, #ffffffe1 );
+        border: 1.5px solid var(--border);
+        border-radius: var(--rl);
+        box-shadow: var(--shadow-lg);
+        z-index: 300;
+        display: none;
+        overflow: hidden;
+      }
+      .notif-dropdown.open {
+        display: block;
+        animation: fdwn 0.18s ease;
+      }
+      @keyframes fdwn {
+        from {
+          opacity: 0;
+          transform: translateY(-6px);
+        }
+        to {
+          opacity: 1;
+          transform: none;
+        }
+      }
+      .nd-head {
+        padding: 13px 16px;
+        border-bottom: 1px solid var(--border);
+        display: flex;
+        justify-content: space-between;
+        align-items: center;
+      }
+      .nd-head h4 {
+        font-size: 13px;
+        font-weight: 600;
+        color: var(--text);
+      }
+      .nd-head a {
+        font-size: 11.5px;
+        color: var(--g);
+        font-weight: 500;
+        cursor: pointer;
+      }
+      .nd-item {
+        display: flex;
+        align-items: flex-start;
+        gap: 10px;
+        padding: 11px 16px;
+        border-bottom: 1px solid var(--border);
+        cursor: pointer;
+        transition: background 0.15s;
+      }
+      .nd-item:last-child {
+        border: none;
+      }
+      .nd-item:hover {
+        background: var(--gray);
+      }
+      .nd-item.unread {
+        background: #f0fdf4;
+      }
+      .nd-dot {
+        width: 7px;
+        height: 7px;
+        border-radius: 50%;
+        margin-top: 5px;
+        flex-shrink: 0;
+      }
+      .nd-dot.g {
+        background: var(--gb);
+      }
+      .nd-dot.w {
+        background: var(--gold);
+      }
+      .nd-dot.r {
+        background: var(--red);
+      }
+      .nd-text {
+        font-size: 12.5px;
+        color: var(--text);
+        line-height: 1.45;
+        font-weight: 400;
+      }
+      .nd-item.unread .nd-text {
+        font-weight: 600;
+      }
+      .nd-time {
+        font-size: 11px;
+        color: var(--hint);
+        margin-top: 2px;
+      }
+      .nd-footer {
+        padding: 10px;
+        text-align: center;
+        font-size: 12px;
+        color: var(--g);
+        font-weight: 500;
+        cursor: pointer;
+        background: var(--gray);
+      }
+      /* profile dropdown */
+      .profile-dropdown {
+        position: absolute;
+        top: calc(100% + 8px);
+        right: 0;
+        width: 200px;
+        background: #fff;
+        border: 1.5px solid var(--border);
+        border-radius: var(--r);
+        box-shadow: var(--shadow-lg);
+        z-index: 300;
+        display: none;
+        overflow: hidden;
+      }
+      .profile-dropdown.open {
+        display: block;
+        animation: fdwn 0.18s ease;
+      }
+      .pd-item {
+        display: flex;
+        align-items: center;
+        gap: 9px;
+        padding: 10px 14px;
+        font-size: 13px;
+        color: var(--text);
+        cursor: pointer;
+        transition: background 0.15s;
+      }
+      .pd-item:hover {
+        background: var(--gray);
+      }
+      .pd-item.danger {
+        color: var(--red);
+      }
+      .pd-div {
+        height: 1px;
+        background: var(--border);
+      }
+      /* CONTENT */
+      .content {
+        flex: 1;
+        padding: 24px;
+        overflow-y: auto;
+      }
+      .page-section {
+        display: none;
+      }
+      .page-section.active {
+        display: block;
+        animation: secin 0.22s ease;
+      }
+      @keyframes secin {
+        from {
+          opacity: 0;
+          transform: translateY(7px);
+        }
+        to {
+          opacity: 1;
+          transform: none;
+        }
+      }
+      .pg-head {
+        margin-bottom: 22px;
+        display: flex;
+        justify-content: space-between;
+        align-items: flex-start;
+        flex-wrap: wrap;
+        gap: 12px;
+      }
+      .pg-head-left h1 {
+        font-size: 21px;
+        font-weight: 700;
+        color: light-dark( var(--text), #ffffffee);
+      }
+      .pg-head-left p {
+        font-size: 13px;
+        color: light-dark( var(--muted), #fff);
+        margin-top: 3px;
+      }
+      /* CARDS  */
+      .card {
+        background: light-dark( #fff, var(--cd-dark) );
+        border-radius: var(--rl);
+        border: 1px solid light-dark( var(--border), var(--border-dark) );
+        box-shadow: var(--shadow);
+      }
+      .card-header {
+        padding: 15px 18px;
+        border-bottom: 1px solid light-dark( var(--border), var(--border-dark) );
+        display: flex;
+        justify-content: space-between;
+        align-items: center;
+      }
+      .card-header h3 {
+        font-size: 13.5px;
+        font-weight: 600;
+        color: light-dark( var(--text), black);
+      }
+      .card-body {
+        padding: 18px;
+      }
+      /* STATUS CARDS  */
+      .stat-grid {
+        display: grid;
+        grid-template-columns: repeat(5, 1fr);
+        gap: 14px;
+        margin-bottom: 18px;
+      }
+      .stat-card {
+        background: light-dark( #fff, var(--cd-dark) );
+        border-radius: var(--rl);
+        border: 1px solid light-dark( var(--border), var(--border-dark) );
+        padding: 18px 18px 16px;
+        box-shadow: var(--shadow);
+        transition: box-shadow 0.2s, transform 0.2s;
+      }
+      .stat-card:hover {
+        transform: translateY(-2px);
+        box-shadow: var(--shadow-md);
+      }
+      .stat-top {
+        display: flex;
+        justify-content: space-between;
+        align-items: flex-start;
+        margin-bottom: 14px;
+      }
+      .stat-icon {
+        width: 36px;
+        height: 36px;
+        border-radius: 9px;
+        display: flex;
+        align-items: center;
+        justify-content: center;
+      }
+      .stat-icon.g {
+        background: light-dark( var(--gl), black);
+        color:  light-dark( var(--g), white);
+      }
+      .stat-icon.w {
+        background: light-dark( var(--gold-l), black);
+        color: light-dark( #92400e, white);
+      }
+      .stat-icon.b {
+        background:  light-dark( var(--blue-l), black);
+        color: light-dark( var(--blue), white);
+      }
+      .stat-num {
+        font-size: 26px;
+        font-weight: 700;
+        color: light-dark( var(--text), black);
+        line-height: 1;
+        margin-bottom: 4px;
+      }
+      .stat-label {
+        font-size: 12px;
+        color: light-dark( var(--muted), black);
+      }
+      /* BADGES  */
+      .badge {
+        display: inline-flex;
+        align-items: center;
+        gap: 4px;
+        padding: 3px 9px;
+        border-radius: 100px;
+        font-size: 11px;
+        font-weight: 600;
+      }
+      .badge-g {
+        background: var(--gl);
+        color: light-dark( #166534, black);
+      }
+      .badge-gray {
+        background: var(--gray);
+        color: light-dark( var(--muted), black);
+      }
+      .badge-w {
+        background: var(--gold-l);
+        color: #92400e;
+      }
+      .badge-r {
+        background: var(--red-l);
+        color: var(--red);
+      }
+      .badge-b {
+        background: var(--blue-l);
+        color: var(--blue);
+      }
+      .bdot {
+        width: 6px;
+        height: 6px;
+        border-radius: 50%;
+        background: currentColor;
+      }
+      /* DASH GRID  */
+      .dash-grid {
+        display: grid;
+        grid-template-columns: 1.6fr 1fr;
+        gap: 14px;
+      }
+      /*  ACTIVITY FEED */
+      .activity-list {
+        display: flex;
+        flex-direction: column;
+      }
+      .act-item {
+        display: flex;
+        align-items: flex-start;
+        gap: 10px;
+        padding: 11px 0;
+        border-bottom: 1px solid light-dark( var(--border), var(--border-dark) );
+      }
+      .act-item:last-child {
+        border: none;
+      }
+      .act-dot {
+        width: 8px;
+        height: 8px;
+        border-radius: 50%;
+        margin-top: 5px;
+        flex-shrink: 0;
+      }
+      .act-dot.g {
+        background: light-dark( var(--gb), white);
+      }
+      .act-dot.w {
+        background: var(--gold);
+      }
+      .act-dot.r {
+        background: var(--red);
+      }
+      .act-text {
+        font-size: 13px;
+        color: light-dark( var(--text), black);
+        line-height: 1.5;
+      }
+      .act-time {
+        font-size: 11px;
+        color: light-dark( var(--hint), black);
+        margin-top: 2px;
+      }
+      /* BUTTONS */
+      .btn {
+        display: inline-flex;
+        align-items: center;
+        justify-content: center;
+        gap: 6px;
+        padding: 9px 18px;
+        border-radius: var(--r);
+        font-family: var(--sans);
+        font-size: 13px;
+        font-weight: 500;
+        cursor: pointer;
+        transition: all 0.2s;
+        border: none;
+      }
+      .btn-p {
+        background: var(--g);
+        color: #fff;
+      }
+      .btn-p:hover {
+        background: var(--gd);
+        transform: translateY(-1px);
+        box-shadow: 0 4px 14px rgba(10, 48, 24, 0.25);
+      }
+      .btn-d {
+        background: var(--red);
+        color: #fff;
+      }
+      .btn-d:hover {
+        background: #b91c1c;
+      }
+      .btn-gh {
+        background: transparent;
+        color: light-dark( var(--muted) , var(--black) );
+        border: 1.5px solid light-dark( var(--border) ,  var(--black);
+        box-shadow: 0 0 4px var(--black);
+      }
+      .btn-gh:hover {
+        border-color: var(--hint);
+        color: var(--text);
+      }
+      .btn-w {
+        background: var(--gold);
+        color: #78350f;
+      }
+      .btn-w:hover {
+        background: #d97706;
+      }
+      .btn-sm {
+        padding: 6px 12px;
+        font-size: 12px;
+      }
+      .btn-icon {
+        padding: 6px;
+        border-radius: 7px;
+        background: var(--gray);
+        border: 1.5px solid var(--border);
+        color: var(--muted);
+      }
+      .btn-icon:hover {
+        border-color: var(--g);
+        color: var(--g);
+        background: var(--gl);
+      }
+      .btn:active {
+        transform: scale(0.97);
+      }
+      /* TABLES  */
+      .tbl-wrap {
+        overflow-x: auto;
+      }
+      .tbl {
+        width: 100%;
+        border-collapse: collapse;
+        font-size: 13px;
+      }
+      .tbl th {
+        padding: 10px 14px;
+        text-align: left;
+        font-size: 11px;
+        font-weight: 600;
+        letter-spacing: 0.5px;
+        text-transform: uppercase;
+        color: var(--muted);
+        background: var(--gray);
+        border-bottom: 1px solid var(--border);
+        white-space: nowrap;
+      }
+      .tbl td {
+        padding: 12px 14px;
+        border-bottom: 1px solid var(--border);
+        vertical-align: middle;
+        color: var(--text);
+      }
+      .tbl tr:last-child td {
+        border: none;
+      }
+      .tbl tbody tr:hover td {
+        background: #fafafa;
+      }
+      .tbl-avatar-ph {
+        width: 30px;
+        height: 30px;
+        border-radius: 50%;
+        background: var(--gl);
+        display: flex;
+        align-items: center;
+        justify-content: center;
+        font-size: 11px;
+        font-weight: 700;
+        color: var(--g);
+      }
+      .tbl-name {
+        font-weight: 500;
+      }
+      .tbl-sub {
+        font-size: 11px;
+        color: var(--muted);
+        margin-top: 1px;
+      }
+      .tbl-actions {
+        display: flex;
+        gap: 5px;
+        align-items: center;
+      }
+      .tbl-toolbar {
+        display: flex;
+        justify-content: space-between;
+        align-items: center;
+        margin-bottom: 14px;
+        flex-wrap: wrap;
+        gap: 10px;
+      }
+      .tbl-toolbar-left {
+        display: flex;
+        align-items: center;
+        gap: 8px;
+        font-size: 13px;
+        color: var(--muted);
+        flex-wrap: wrap;
+      }
+      .tbl-toolbar-left select, .tbl-search input, .form-ctrl {
+        font-family: var(--sans);
+      }
+      .tbl-search {
+        display: flex;
+        align-items: center;
+        gap: 7px;
+        background: var(--gray);
+        border: 1.5px solid var(--border);
+        border-radius: 8px;
+        padding: 7px 12px;
+      }
+      .tbl-search:focus-within {
+        border-color: var(--g);
+        background: #fff;
+      }
+      .tbl-search svg {
+        color: var(--hint);
+        flex-shrink: 0;
+      }
+      .tbl-search input {
+        background: none;
+        border: none;
+        outline: none;
+        font-family: var(--sans);
+        font-size: 13px;
+        width: 180px;
+        color: var(--text);
+      }
+      .tbl-search input::placeholder {
+        color: var(--hint);
+      }
+      .tbl-footer {
+        display: flex;
+        justify-content: space-between;
+        align-items: center;
+        padding: 12px 0 0;
+        font-size: 12.5px;
+        color: var(--muted);
+        flex-wrap: wrap;
+        gap: 8px;
+      }
+      .pagination {
+        display: flex;
+        gap: 4px;
+      }
+      .pg-btn {
+        padding: 5px 11px;
+        border: 1.5px solid light-dark( var(--border) , var(--border-dark) );
+        border-radius: 6px;
+        background: none;
+        font-family: var(--sans);
+        font-size: 12px;
+        color: var(--text);
+        cursor: pointer;
+        transition: all 0.15s;
+      }
+      .pg-btn:hover, .pg-btn.cur {
+        border-color: light-dark( var(--g), var(--black) );
+        color: light-dark( var(--g), var(--black) );
+        background: light-dark( var(--gl), var(--gray) );
+      }
+      /* FORMS */
+      .form-group {
+        margin-bottom: 17px;
+      }
+      .form-group label {
+        display: block;
+        font-size: 12.5px;
+        font-weight: 600;
+        color: var(--text);
+        margin-bottom: 6px;
+      }
+      .form-ctrl {
+        width: 100%;
+        padding: 10px 14px;
+        background: var(--off);
+        border: 1.5px solid var(--border);
+        border-radius: var(--r);
+        font-family: var(--sans);
+        font-size: 13.5px;
+        color: var(--text);
+        outline: none;
+        transition: all 0.2s;
+      }
+      .form-ctrl:focus {
+        border-color: var(--g);
+        background: #fff;
+        box-shadow: 0 0 0 3px rgba(10, 48, 24, 0.07);
+      }
+      select.form-ctrl {
+        cursor: pointer;
+      }
+      textarea.form-ctrl {
+        resize: vertical;
+        min-height: 90px;
+      }
+      .form-hint {
+        font-size: 11.5px;
+        color: var(--hint);
+        margin-top: 5px;
+      }
+      .form-row {
+        display: grid;
+        grid-template-columns: 1fr 1fr;
+        gap: 14px;
+      }
+      /* MODAL */
+      .modal-overlay {
+        position: fixed;
+        inset: 0;
+        background: rgba(0, 0, 0, 0.45);
+        z-index: 500;
+        display: none;
+        align-items: center;
+        justify-content: center;
+        backdrop-filter: blur(3px);
+        padding: 20px;
+      }
+      .modal-overlay.open {
+        display: flex;
+        animation: oin 0.18s ease;
+      }
+      @keyframes oin {
+        from {
+          opacity: 0;
+        }
+        to {
+          opacity: 1;
+        }
+      }
+      .modal {
+        background: #fff;
+        border-radius: var(--rxl);
+        width: 100%;
+        max-width: 500px;
+        max-height: 90vh;
+        overflow-y: auto;
+        box-shadow: var(--shadow-lg);
+        animation: min 0.22s ease;
+      }
+      @keyframes min {
+        from {
+          opacity: 0;
+          transform: scale(0.94) translateY(8px);
+        }
+        to {
+          opacity: 1;
+          transform: none;
+        }
+      }
+      .modal-head {
+        padding: 17px 20px;
+        background: var(--gd);
+        display: flex;
+        justify-content: space-between;
+        align-items: center;
+        border-radius: var(--rxl) var(--rxl) 0 0;
+        position: sticky;
+        top: 0;
+      }
+      .modal-head h3 {
+        font-size: 14px;
+        font-weight: 600;
+        color: #fff;
+      }
+      .modal-close {
+        width: 27px;
+        height: 27px;
+        border-radius: 50%;
+        background: rgba(255, 255, 255, 0.14);
+        border: none;
+        color: #fff;
+        display: flex;
+        align-items: center;
+        justify-content: center;
+        cursor: pointer;
+        font-size: 16px;
+        transition: background 0.15s;
+      }
+      .modal-close:hover {
+        background: rgba(255, 255, 255, 0.24);
+      }
+      .modal-body {
+        padding: 20px;
+      }
+      .modal-foot {
+        padding: 13px 20px;
+        border-top: 1px solid var(--border);
+        display: flex;
+        justify-content: flex-end;
+        gap: 8px;
+      }
+      /* confirm modal form */
+      .modal.confirm .modal-body {
+        text-align: center;
+        padding: 28px 20px;
+      }
+      .modal.confirm .modal-body h4 {
+        font-size: 16px;
+        font-weight: 700;
+        color: var(--text);
+        margin-bottom: 8px;
+      }
+      .modal.confirm .modal-body p {
+        font-size: 13.5px;
+        color: var(--muted);
+        line-height: 1.6;
+      }
+      /*  ELECTION Section  */
+      .election-detail {
+        background: light-dark( var(--white) , var(--cd-dark) );
+        border-radius: var(--rl);
+        border: 1px solid light-dark( var(--border), var(--border-dark) );
+        overflow: hidden;
+        margin-bottom: 16px;
+      }
+      .ed-top {
+        background: linear-gradient(135deg, var(--gd) 0%, var(--gm) 100%);
+        padding: 18px 20px;
+        display: flex;
+        justify-content: space-between;
+        align-items: flex-start;
+        flex-wrap: wrap;
+        gap: 10px;
+      }
+      .ed-top h2 {
+        font-size: 16px;
+        font-weight: 700;
+        color: var(--white);
+      }
+      .ed-top p {
+        font-size: 12px;
+        color: light-dark( rgba(255, 255, 255, 0.55), var(--white) );
+        margin-top: 3px;
+      }
+      .ed-body {
+        padding: 18px 20px;
+      }
+      .ed-row {
+        display: flex;
+        justify-content: space-between;
+        padding: 9px 0;
+        border-bottom: 1px solid light-dark( var(--border), var(--border-dark) );
+        font-size: 13px;
+      }
+      .ed-row:last-child {
+        border: none;
+      }
+      .ed-label {
+        color: light-dark( var(--muted), var(--black) );
+        font-weight: 500;
+      }
+      .ed-value {
+        font-weight: 500;
+        color: light-dark( var(--muted), var(--black) );
+      }
+      .ed-actions {
+        display: flex;
+        gap: 8px;
+        margin-top: 16px;
+        flex-wrap: wrap;
+      }
+      /* CHART */
+      .chart-wrap {
+        position: relative;
+        height: 240px;
+      }
+      .chart-wrap-tall {
+        position: relative;
+        height: 300px;
+      }
+      /*  VOTER SECTION  */
+      .voter-panel {
+        position: fixed;
+        top: 0;
+        right: -390px;
+        width: 370px;
+        height: 100vh;
+        background: #fff;
+        border-left: 1px solid var(--border);
+        z-index: 400;
+        box-shadow: -4px 0 24px rgba(0, 0, 0, 0.1);
+        transition: right 0.28s ease;
+        display: flex;
+        flex-direction: column;
+      }
+      .voter-panel.open {
+        right: 0;
+      }
+      .vp-head {
+        padding: 16px 18px;
+        background: var(--gd);
+        display: flex;
+        justify-content: space-between;
+        align-items: center;
+        flex-shrink: 0;
+      }
+      .vp-head h3 {
+        font-size: 14px;
+        font-weight: 600;
+        color: #fff;
+      }
+      .vp-close {
+        background: rgba(255, 255, 255, 0.14);
+        border: none;
+        color: #fff;
+        width: 27px;
+        height: 27px;
+        border-radius: 50%;
+        display: flex;
+        align-items: center;
+        justify-content: center;
+        cursor: pointer;
+        font-size: 16px;
+      }
+      .vp-body {
+        flex: 1;
+        overflow-y: auto;
+        padding: 18px;
+      }
+      .vp-sec-title {
+        font-size: 10.5px;
+        font-weight: 600;
+        letter-spacing: 1.5px;
+        text-transform: uppercase;
+        color: var(--muted);
+        margin-bottom: 10px;
+        padding-bottom: 6px;
+        border-bottom: 1px solid var(--border);
+      }
+      .vp-sec {
+        margin-bottom: 18px;
+      }
+      .vp-row {
+        display: flex;
+        justify-content: space-between;
+        padding: 7px 0;
+        font-size: 13px;
+        border-bottom: 1px solid var(--border);
+      }
+      .vp-row:last-child {
+        border: none;
+      }
+      .vp-k {
+        color: var(--muted);
+      }
+      .vp-v {
+        font-weight: 500;
+        text-align: right;
+        max-width: 60%;
+      }
+      /* ANNOUNCEMENT */
+      .aud-pills {
+        display: flex;
+        gap: 8px;
+        flex-wrap: wrap;
+      }
+      .aud-pill {
+        padding: 7px 15px;
+        border-radius: 100px;
+        border: 1.5px solid var(--border);
+        font-size: 13px;
+        cursor: pointer;
+        background: none;
+        font-family: var(--sans);
+        color: var(--muted);
+        transition: all 0.2s;
+      }
+      .aud-pill.on {
+        background: var(--g);
+        border-color: var(--g);
+        color: #fff;
+      }
+      .ann-list {
+        display: flex;
+        flex-direction: column;
+        gap: 9px;
+        margin-top: 14px;
+      }
+      .ann-item {
+        background: var(--gray);
+        border-radius: var(--r);
+        padding: 13px;
+        border: 1px solid var(--border);
+      }
+      .ann-head {
+        display: flex;
+        justify-content: space-between;
+        margin-bottom: 5px;
+      }
+      .ann-subj {
+        font-size: 13.5px;
+        font-weight: 600;
+        color: var(--text);
+      }
+      .ann-ts {
+        font-size: 11px;
+        color: var(--hint);
+      }
+      .ann-meta {
+        font-size: 12px;
+        color: var(--muted);
+      }
+      /* REPORT CARDS */
+      .report-grid {
+        display: grid;
+        grid-template-columns: repeat(3, 1fr);
+        gap: 14px;
+      }
+      .report-card {
+        background: #fff;
+        border: 1px solid var(--border);
+        border-radius: var(--rl);
+        padding: 22px;
+        cursor: pointer;
+        transition: all 0.2s;
+        text-align: center;
+      }
+      .report-card:hover {
+        border-color: var(--g);
+        box-shadow: var(--shadow-md);
+        transform: translateY(-2px);
+      }
+      .rpt-icon {
+        width: 48px;
+        height: 48px;
+        border-radius: 13px;
+        display: flex;
+        align-items: center;
+        justify-content: center;
+        margin: 0 auto 14px;
+      }
+      .rpt-icon.g {
+        background: var(--gl);
+        color: var(--g);
+      }
+      .rpt-icon.w {
+        background: var(--gold-l);
+        color: #92400e;
+      }
+      .rpt-icon.b {
+        background: var(--blue-l);
+        color: var(--blue);
+      }
+      .report-card h3 {
+        font-size: 13.5px;
+        font-weight: 600;
+        color: var(--text);
+        margin-bottom: 6px;
+      }
+      .report-card p {
+        font-size: 12.5px;
+        color: var(--muted);
+        line-height: 1.6;
+      }
+      .report-actions {
+        display: flex;
+        gap: 8px;
+        justify-content: center;
+        margin-top: 14px;
+      }
+      /* NOTIFICATIONS */
+      .notif-filters {
+        display: flex;
+        gap: 8px;
+        margin-bottom: 14px;
+        flex-wrap: wrap;
+      }
+      .nf-btn {
+        padding: 6px 14px;
+        border-radius: 100px;
+        border: 1.5px solid var(--border);
+        font-family: var(--sans);
+        font-size: 12.5px;
+        background: none;
+        cursor: pointer;
+        color: var(--muted);
+        transition: all 0.2s;
+      }
+      .nf-btn.on {
+        background: var(--g);
+        border-color: var(--g);
+        color: #fff;
+      }
+      .notif-list {
+        display: flex;
+        flex-direction: column;
+      }
+      .notif-item {
+        display: flex;
+        align-items: flex-start;
+        gap: 12px;
+        padding: 13px 16px;
+        border-bottom: 1px solid var(--border);
+        cursor: pointer;
+        transition: background 0.15s;
+      }
+      .notif-item:last-child {
+        border: none;
+      }
+      .notif-item:hover {
+        background: var(--gray);
+      }
+      .notif-item.unread {
+        background: #f0fdf4;
+      }
+      .notif-dot {
+        width: 8px;
+        height: 8px;
+        border-radius: 50%;
+        margin-top: 5px;
+        flex-shrink: 0;
+      }
+      .notif-dot.g {
+        background: var(--gb);
+      }
+      .notif-dot.w {
+        background: var(--gold);
+      }
+      .notif-dot.r {
+        background: var(--red);
+      }
+      .notif-content {
+        flex: 1;
+      }
+      .notif-title {
+        font-size: 13.5px;
+        font-weight: 400;
+        color: var(--text);
+      }
+      .notif-item.unread .notif-title {
+        font-weight: 600;
+      }
+      .notif-desc {
+        font-size: 12px;
+        color: var(--muted);
+        margin-top: 2px;
+        line-height: 1.5;
+      }
+      .notif-ts {
+        font-size: 11px;
+        color: var(--hint);
+        margin-top: 3px;
+      }
+      /* SETTINGS SECTION */
+      .settings-grid {
+        display: grid;
+        grid-template-columns: 210px 1fr;
+        gap: 18px;
+      }
+      .settings-nav {
+        background: #fff;
+        border: 1px solid var(--border);
+        border-radius: var(--rl);
+        padding: 8px;
+        height: fit-content;
+      }
+      .sn-item {
+        display: flex;
+        align-items: center;
+        gap: 9px;
+        padding: 9px 11px;
+        border-radius: 8px;
+        cursor: pointer;
+        font-size: 13px;
+        color: var(--muted);
+        transition: all 0.2s;
+      }
+      .sn-item:hover {
+        background: var(--gray);
+        color: var(--text);
+      }
+      .sn-item.on {
+        background: var(--gl);
+        color: var(--g);
+        font-weight: 600;
+      }
+      .settings-panel {
+        display: none;
+      }
+      .settings-panel.on {
+        display: block;
+      }
+      .theme-opts {
+        display: flex;
+        gap: 10px;
+        flex-wrap: wrap;
+      }
+      .theme-opt {
+        display: flex;
+        align-items: center;
+        gap: 8px;
+        padding: 10px 18px;
+        border: 2px solid var(--border);
+        border-radius: var(--r);
+        cursor: pointer;
+        font-size: 13.5px;
+        color: var(--text);
+        background: none;
+        font-family: var(--sans);
+        transition: all 0.2s;
+      }
+      .theme-opt.on {
+        border-color: var(--g);
+        background: var(--gl);
+        color: var(--g);
+        font-weight: 600;
+      }
+      /* profile photo upload part */
+      .photo-upload-wrap {
+        display: flex;
+        align-items: center;
+        gap: 20px;
+        margin-bottom: 20px;
+      }
+      .photo-preview {
+        width: 80px;
+        height: 80px;
+        border-radius: 50%;
+        border: 3px solid var(--border);
+        background: var(--gl);
+        display: flex;
+        align-items: center;
+        justify-content: center;
+        font-size: 28px;
+        font-weight: 700;
+        color: var(--g);
+        overflow: hidden;
+        flex-shrink: 0;
+        position: relative;
+        cursor: pointer;
+      }
+      .photo-preview img {
+        width: 100%;
+        height: 100%;
+        object-fit: cover;
+        display: none;
+      }
+      .photo-preview-overlay {
+        position: absolute;
+        inset: 0;
+        background: rgba(0, 0, 0, 0.45);
+        display: flex;
+        align-items: center;
+        justify-content: center;
+        opacity: 0;
+        transition: opacity 0.2s;
+        border-radius: 50%;
+      }
+      .photo-preview:hover .photo-preview-overlay {
+        opacity: 1;
+      }
+      .photo-preview-overlay svg {
+        color: #fff;
+      }
+      .photo-upload-wrap input[type='file'] {
+        display: none;
+      }
+      /* PAST ELECTIONS SECTION*/
+      .past-grid {
+        display: grid;
+        grid-template-columns: repeat(auto-fill, minmax(270px, 1fr));
+        gap: 14px;
+      }
+      .past-card {
+        background: #fff;
+        border-radius: var(--rl);
+        border: 1px solid var(--border);
+        overflow: hidden;
+        cursor: pointer;
+        transition: all 0.2s;
+        box-shadow: var(--shadow);
+      }
+      .past-card:hover {
+        transform: translateY(-3px);
+        box-shadow: var(--shadow-md);
+        border-color: var(--g);
+      }
+      .past-top {
+        background: linear-gradient(135deg, var(--gd) 0%, var(--gm) 100%);
+        padding: 15px 17px;
+      }
+      .past-top h3 {
+        font-size: 14px;
+        font-weight: 700;
+        color: #fff;
+        margin-bottom: 3px;
+      }
+      .past-top p {
+        font-size: 11.5px;
+        color: rgba(255, 255, 255, 0.55);
+      }
+      .past-body {
+        padding: 13px 17px;
+      }
+      .past-row {
+        display: flex;
+        justify-content: space-between;
+        font-size: 12.5px;
+        padding: 5px 0;
+        border-bottom: 1px solid var(--border);
+      }
+      .past-row:last-child {
+        border: none;
+      }
+      .past-row span:first-child {
+        color: var(--muted);
+      }
+      .past-row span:last-child {
+        font-weight: 600;
+      }
+      .past-foot {
+        padding: 0 17px 13px;
+        display: flex;
+        gap: 8px;
+      }
+      /* logs badges */
+      .ll-info {
+        background: var(--gl);
+        color: #166534;
+      }
+      .ll-warn {
+        background: var(--gold-l);
+        color: #92400e;
+      }
+      .ll-err {
+        background: var(--red-l);
+        color: var(--red);
+      }
+      /* voter tabs */
+      .voter-tabs {
+        display: flex;
+        border-bottom: 2px solid var(--border);
+        margin-bottom: 14px;
+      }
+      .vt {
+        padding: 8px 17px;
+        font-size: 13px;
+        font-weight: 500;
+        color: var(--muted);
+        cursor: pointer;
+        border-bottom: 2px solid transparent;
+        margin-bottom: -2px;
+        background: none;
+        border-top: none;
+        border-left: none;
+        border-right: none;
+        font-family: var(--sans);
+        transition: all 0.2s;
+      }
+      .vt.on {
+        color: var(--g);
+        border-bottom-color: var(--g);
+      }
+      /* MOBILE BOTTOM NAVBAR  */
+      .bottom-nav {
+        display: none;
+        position: fixed;
+        bottom: 0;
+        left: 0;
+        right: 0;
+        background: #fff;
+        border-top: 1px solid var(--border);
+        z-index: 200;
+        box-shadow: 0 -2px 12px rgba(0, 0, 0, 0.07);
+      }
+      .bn-inner {
+        display: flex;
+        justify-content: space-around;
+        padding: 8px 0 max(8px, env(safe-area-inset-bottom));
+      }
+      .bn-item {
+        display: flex;
+        flex-direction: column;
+        align-items: center;
+        gap: 3px;
+        padding: 4px 10px;
+        cursor: pointer;
+        background: none;
+        border: none;
+        font-family: var(--sans);
+      }
+      .bn-item svg {
+        color: var(--hint);
+        transition: color 0.2s;
+      }
+      .bn-item span {
+        font-size: 9.5px;
+        color: var(--hint);
+        font-weight: 500;
+      }
+      .bn-item.on svg, .bn-item.on span {
+        color: var(--g);
+      }
+      /* mobile menu drawer */
+      .mob-drawer {
+        position: fixed;
+        inset: 0;
+        z-index: 300;
+        display: none;
+      }
+      .mob-drawer.open {
+        display: block;
+      }
+      .drawer-overlay {
+        position: absolute;
+        inset: 0;
+        background: rgba(0, 0, 0, 0.4);
+      }
+      .drawer-content {
+        position: absolute;
+        bottom: 0;
+        left: 0;
+        right: 0;
+        background: #fff;
+        border-radius: 18px 18px 0 0;
+        padding: 20px;
+        max-height: 68vh;
+        overflow-y: auto;
+        animation: dup 0.22s ease;
+      }
+      @keyframes dup {
+        from {
+          transform: translateY(100%);
+        }
+        to {
+          transform: none;
+        }
+      }
+      .drawer-handle {
+        width: 38px;
+        height: 4px;
+        background: var(--border);
+        border-radius: 100px;
+        margin: 0 auto 18px;
+      }
+      .drawer-items {
+        display: grid;
+        grid-template-columns: 1fr 1fr;
+        gap: 8px;
+      }
+      .drawer-item {
+        display: flex;
+        align-items: center;
+        gap: 9px;
+        padding: 11px 13px;
+        border-radius: var(--r);
+        border: 1.5px solid var(--border);
+        cursor: pointer;
+        background: none;
+        font-family: var(--sans);
+        font-size: 13px;
+        color: var(--text);
+        font-weight: 500;
+        transition: all 0.2s;
+      }
+      .drawer-item:hover, .drawer-item.on {
+        border-color: var(--g);
+        background: var(--gl);
+        color: var(--g);
+      }
+      @media (max-width: 1200px) {
+        .stat-grid {
+          grid-template-columns: repeat(3, 1fr);
+        }
+      }
+      @media (max-width: 1000px) {
+        .dash-grid {
+          grid-template-columns: 1fr;
+        }
+        .report-grid {
+          grid-template-columns: 1fr 1fr;
+        }
+      }
+      @media (max-width: 900px) {
+        .sidebar {
+          transform: translateX(-100%);
+        }
+        .sidebar.mob-open {
+          transform: translateX(0);
+        }
+        .main {
+          margin-left: 0 !important;
+          padding-bottom: 70px;
+        }
+        .mob-toggle {
+          display: flex;
+        }
+        .search-wrap input {
+          width: 130px;
+        }
+        .settings-grid {
+          grid-template-columns: 1fr;
+        }
+        .settings-nav {
+          display: flex;
+          gap: 4px;
+          overflow-x: auto;
+          padding: 6px;
+        }
+        .bottom-nav {
+          display: flex;
+        }
+      }
+      @media (max-width: 640px) {
+        .content {
+          padding: 14px;
+        }
+        .stat-grid {
+          grid-template-columns: 1fr 1fr;
+        }
+        .report-grid {
+          grid-template-columns: 1fr;
+        }
+        .form-row {
+          grid-template-columns: 1fr;
+        }
+        .past-grid {
+          grid-template-columns: 1fr;
+        }
+        .search-wrap {
+          display: none;
+        }
+      }
+    </style>
+  </head>
+  <body>
+    <div class="layout">
+      <aside class="sidebar" id="sidebar">
+        <div class="sb-header">
+          <button class="sb-toggle" onclick="toggleSidebar()" title="Toggle sidebar">
+            <svg width="16" height="16" fill="none" stroke="currentColor" stroke-width="2" viewBox="0 0 24 24">
+              <line x1="3" y1="6" x2="21" y2="6" />
+              <line x1="3" y1="12" x2="21" y2="12" />
+              <line x1="3" y1="18" x2="21" y2="18" />
             </svg>
-            <svg class="nav-links" data-target="profile-section" xmlns="http://www.w3.org/2000/svg" width="18px" height="18px" viewBox="0 0 24 24">
-	            <g fill="none" fillRule="evenodd">
-		            <path d="m12.594 23.258l-.012.002l-.071.035l-.02.004l-.014-.004l-.071-.036q-.016-.004-.024.006l-.004.01l-.017.428l.005.02l.01.013l.104.074l.015.004l.012-.004l.104-.074l.012-.016l.004-.017l-.017-.427q-.004-.016-.016-.018m.264-.113l-.014.002l-.184.093l-.01.01l-.003.011l.018.43l.005.012l.008.008l.201.092q.019.005.029-.008l.004-.014l-.034-.614q-.005-.019-.02-.022m-.715.002a.02.02 0 0 0-.027.006l-.006.014l-.034.614q.001.018.017.024l.015-.002l.201-.093l.01-.008l.003-.011l.018-.43l-.003-.012l-.01-.01z"></path>
-		            <path fill="#008000" d="M12 2C6.477 2 2 6.477 2 12s4.477 10 10 10s10-4.477 10-10S17.523 2 12 2M8.5 9.5a3.5 3.5 0 1 1 7 0a3.5 3.5 0 0 1-7 0m9.758 7.484A7.99 7.99 0 0 1 12 20a7.99 7.99 0 0 1-6.258-3.016C7.363 15.821 9.575 15 12 15s4.637.821 6.258 1.984"></path>
-	            </g>
-            </svg>
-            <svg class="nav-links" data-target="notifications-section" xmlns="http://www.w3.org/2000/svg" width="18px" height="18px" viewBox="0 0 24 24">
-	            <path fill="#008000" d="M12 22c1.1 0 2-.9 2-2h-4a2 2 0 0 0 2 2m6-6v-5c0-3.07-1.64-5.64-4.5-6.32V4c0-.83-.67-1.5-1.5-1.5s-1.5.67-1.5 1.5v.68C7.63 5.36 6 7.92 6 11v5l-1.29 1.29c-.63.63-.19 1.71.7 1.71h13.17c.89 0 1.34-1.08.71-1.71z"></path>
-            </svg>
-            <svg xmlns="http://www.w3.org/2000/svg" width="18px" height="18px" viewBox="0 0 24 24">
-	            <path fill="#008000" d="M5 5h7V3H3v18h9v-2H5z"></path>
-	            <path fill="#008000" d="m21 12l-4-4v3H9v2h8v3z"></path>
-            </svg>
+          </button>
+          <img src="../../assets/images/kiut-white.png" alt="KIUT" class="sb-logo-img" onerror="this.style.display='none'"/>
+          <div class="sb-brand">
+            <span class="top">KIUTSO Elections</span>
+            <span class="bot">Admin Dashboard</span>
+          </div>
         </div>
-    </header>
-
-    <main>
-
-<!----===========================Sidebar Section====================================== -->
-
-        <section class="sidebar"> 
-
-            <div class="hamburger">
-                <button id="hamburger-toogle" class="sidebar-hamburger">
-                    <svg xmlns="http://www.w3.org/2000/svg" width="24px" height="24px" viewBox="0 0 24 24">
-	                    <path fill="none" stroke="#fff" stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M5 17h14M5 12h14M5 7h14" />
+        <nav class="sb-nav">
+          <button class="sb-item active" data-section="overview" data-label="Overview" onclick="nav(this)">
+            <svg width="15" height="15" fill="none" stroke="currentColor" stroke-width="2" viewBox="0 0 24 24">
+              <rect x="3" y="3" width="7" height="7" rx="1" />
+              <rect x="14" y="3" width="7" height="7" rx="1" />
+              <rect x="3" y="14" width="7" height="7" rx="1" />
+              <rect x="14" y="14" width="7" height="7" rx="1" />
+            </svg>
+            <span class="sb-item-label">Overview</span>
+          </button>
+          <button class="sb-item" data-section="elections" data-label="Manage Elections" onclick="nav(this)">
+            <svg width="15" height="15" fill="none" stroke="currentColor" stroke-width="2" viewBox="0 0 24 24">
+              <rect x="2" y="7" width="20" height="14" rx="2" />
+              <path d="M16 3l-4-2-4 2" />
+            </svg>
+            <span class="sb-item-label">Manage Elections</span>
+          </button>
+          <button class="sb-item" data-section="positions" data-label="Positions Manager" onclick="nav(this)">
+            <svg width="15" height="15" fill="none" stroke="currentColor" stroke-width="2" viewBox="0 0 24 24">
+              <path d="M9 11l3 3L22 4" />
+              <path d="M21 12v7a2 2 0 01-2 2H5a2 2 0 01-2-2V5a2 2 0 012-2h11" />
+            </svg>
+            <span class="sb-item-label">Manage Positions</span>
+          </button>
+          <button class="sb-item" data-section="candidates" data-label="Manage Candidates" onclick="nav(this)">
+            <svg width="15" height="15" fill="none" stroke="currentColor" stroke-width="2" viewBox="0 0 24 24">
+              <path d="M17 21v-2a4 4 0 00-4-4H5a4 4 0 00-4 4v2" />
+              <circle cx="9" cy="7" r="4" />
+              <path d="M23 21v-2a4 4 0 00-3-3.87M16 3.13a4 4 0 010 7.75" />
+            </svg>
+            <span class="sb-item-label">Manage Candidates</span>
+          </button>
+          <button class="sb-item" data-section="results" data-label="Vote Results" onclick="nav(this)">
+            <svg width="15" height="15" fill="none" stroke="currentColor" stroke-width="2" viewBox="0 0 24 24">
+              <line x1="18" y1="20" x2="18" y2="10" />
+              <line x1="12" y1="20" x2="12" y2="4" />
+              <line x1="6" y1="20" x2="6" y2="14" />
+            </svg>
+            <span class="sb-item-label">Vote Results</span>
+            <span class="sb-badge">Live</span>
+          </button>
+          <button class="sb-item" data-section="past" data-label="Past Elections" onclick="nav(this)">
+            <svg width="15" height="15" fill="none" stroke="currentColor" stroke-width="2" viewBox="0 0 24 24">
+              <path d="M12 8v4l3 3m6-3a9 9 0 11-18 0 9 9 0 0118 0z" />
+            </svg>
+            <span class="sb-item-label">Past Elections</span>
+          </button>
+          <button class="sb-item" data-section="voters" data-label="Registered Voters" onclick="nav(this)">
+            <svg width="15" height="15" fill="none" stroke="currentColor" stroke-width="2" viewBox="0 0 24 24">
+              <path d="M17 21v-2a4 4 0 00-4-4H5a4 4 0 00-4 4v2" />
+              <circle cx="9" cy="7" r="4" />
+              <path d="M23 21v-2a4 4 0 00-3-3.87" />
+              <path d="M16 3.13a4 4 0 010 7.75" />
+            </svg>
+            <span class="sb-item-label">Registered Voters</span>
+          </button>
+          <button class="sb-item" data-section="announcements" data-label="Announcements" onclick="nav(this)">
+            <svg width="15" height="15" fill="none" stroke="currentColor" stroke-width="2" viewBox="0 0 24 24">
+              <polygon points="11 5 6 9 2 9 2 15 6 15 11 19 11 5" />
+              <line x1="15.54" y1="8.46" x2="19.07" y2="11.99" />
+              <line x1="19.07" y1="8.46" x2="15.54" y2="11.99" />
+            </svg>
+            <span class="sb-item-label">Announcements</span>
+          </button>
+          <button class="sb-item" data-section="notifications" data-label="Notifications" onclick="nav(this)">
+            <svg width="15" height="15" fill="none" stroke="currentColor" stroke-width="2" viewBox="0 0 24 24">
+              <path d="M18 8A6 6 0 006 8c0 7-3 9-3 9h18s-3-2-3-9" />
+              <path d="M13.73 21a2 2 0 01-3.46 0" />
+            </svg>
+            <span class="sb-item-label">Notifications</span>
+            <span class="sb-badge">3</span>
+          </button>
+          <button class="sb-item" data-section="reports" data-label="Reports" onclick="nav(this)">
+            <svg width="15" height="15" fill="none" stroke="currentColor" stroke-width="2" viewBox="0 0 24 24">
+              <path d="M14 2H6a2 2 0 00-2 2v16a2 2 0 002 2h12a2 2 0 002-2V8z" />
+              <polyline points="14 2 14 8 20 8" />
+              <line x1="16" y1="13" x2="8" y2="13" />
+              <line x1="16" y1="17" x2="8" y2="17" />
+            </svg>
+            <span class="sb-item-label">Reports</span>
+          </button>
+          <button class="sb-item" data-section="logs" data-label="System Logs" onclick="nav(this)">
+            <svg width="15" height="15" fill="none" stroke="currentColor" stroke-width="2" viewBox="0 0 24 24">
+              <path d="M4 6h16M4 10h16M4 14h16M4 18h7" />
+            </svg>
+            <span class="sb-item-label">System Logs</span>
+          </button>
+          <button class="sb-item" data-section="settings" data-label="Settings" onclick="nav(this)">
+            <svg width="15" height="15" fill="none" stroke="currentColor" stroke-width="2" viewBox="0 0 24 24" >
+              <circle cx="12" cy="12" r="3" />
+              <path d="M19.4 15a1.65 1.65 0 00.33 1.82l.06.06a2 2 0 010 2.83 2 2 0 01-2.83 0l-.06-.06a1.65 1.65 0 00-1.82-.33 1.65 1.65 0 00-1 1.51V21a2 2 0 01-4 0v-.09A1.65 1.65 0 009 19.4a1.65 1.65 0 00-1.82.33l-.06.06a2 2 0 01-2.83-2.83l.06-.06A1.65 1.65 0 004.68 15a1.65 1.65 0 00-1.51-1H3a2 2 0 010-4h.09A1.65 1.65 0 004.6 9a1.65 1.65 0 00-.33-1.82l-.06-.06a2 2 0 012.83-2.83l.06.06A1.65 1.65 0 009 4.68a1.65 1.65 0 001-1.51V3a2 2 0 014 0v.09a1.65 1.65 0 001 1.51 1.65 1.65 0 001.82-.33l.06-.06a2 2 0 012.83 2.83l-.06.06A1.65 1.65 0 0019.4 9a1.65 1.65 0 001.51 1H21a2 2 0 010 4h-.09a1.65 1.65 0 00-1.51 1z"/>
+            </svg>
+            <span class="sb-item-label">Settings</span>
+          </button>
+        </nav>
+        <div class="sb-bottom">
+          <button class="sb-logout" onclick="if(confirm('Logout?'))window.location.href='admin-login.html'">
+            <svg width="15" height="15" fill="none" stroke="currentColor" stroke-width="2" viewBox="0 0 24 24">
+              <path d="M9 21H5a2 2 0 01-2-2V5a2 2 0 012-2h4" />
+              <polyline points="16 17 21 12 16 7" />
+              <line x1="21" y1="12" x2="9" y2="12" />
+            </svg>
+            <span class="sb-item-label">Logout</span>
+          </button>
+        </div>
+      </aside>
+      <div class="main" id="main">
+        <header class="topbar">
+          <div class="topbar-left">
+            <button class="mob-toggle" onclick="document.getElementById('sidebar').classList.toggle('mob-open')">
+              <svg width="20" height="20" fill="none" stroke="currentColor" stroke-width="2" viewBox="0 0 24 24">
+                <line x1="3" y1="6" x2="21" y2="6" />
+                <line x1="3" y1="12" x2="21" y2="12" />
+                <line x1="3" y1="18" x2="21" y2="18" />
+              </svg>
+            </button>
+            <span class="topbar-title" id="topbar-title">Overview</span>
+          </div>
+          <div class="topbar-right">
+            <div class="search-wrap">
+              <svg width="13" height="13" fill="none" stroke="currentColor" stroke-width="2" viewBox="0 0 24 24">
+                <circle cx="11" cy="11" r="8" />
+                <path d="M21 21l-4.35-4.35" />
+              </svg>
+              <input type="text" placeholder="Search..." />
+            </div>
+            <div style="position: relative">
+              <button class="tb-btn" onclick="toggleDrop('notif-dd')">
+                <svg width="16" height="16" fill="none" stroke="currentColor" stroke-width="2" viewBox="0 0 24 24">
+                  <path d="M18 8A6 6 0 006 8c0 7-3 9-3 9h18s-3-2-3-9" />
+                  <path d="M13.73 21a2 2 0 01-3.46 0" />
+                </svg>
+                <span class="notif-count">3</span>
+              </button>
+              <div class="notif-dropdown" id="notif-dd">
+                <div class="nd-head">
+                  <h4>Notifications</h4>
+                  <a onclick="nav(document.querySelector('[data-section=notifications]'))">View all</a>
+                </div>
+                <div class="nd-item unread">
+                  <span class="nd-dot g"></span>
+                  <div>
+                    <div class="nd-text">Voting closes in 2 hours</div>
+                    <div class="nd-time">Just now</div>
+                  </div>
+                </div>
+                <div class="nd-item unread">
+                  <span class="nd-dot w"></span>
+                  <div>
+                    <div class="nd-text">Failed login attempt detected</div>
+                    <div class="nd-time">14 min ago</div>
+                  </div>
+                </div>
+                <div class="nd-item unread">
+                  <span class="nd-dot g"></span>
+                  <div>
+                    <div class="nd-text">120 students have registered</div>
+                    <div class="nd-time">1 hour ago</div>
+                  </div>
+                </div>
+                <div class="nd-item">
+                  <span class="nd-dot g"></span>
+                  <div>
+                    <div class="nd-text">Candidate profile updated</div>
+                    <div class="nd-time">2 hours ago</div>
+                  </div>
+                </div>
+                <div class="nd-footer" onclick="nav(document.querySelector('[data-section=notifications]'))">View all notifications
+                </div>
+              </div>
+            </div>
+            <div style="position: relative">
+              <button class="tb-btn" style=" width: auto; padding: 6px 12px; gap: 7px; display: flex; align-items: center;" onclick="toggleDrop('profile-dd')">
+                <div style=" width: 26px; height: 26px; border-radius: 50%; background: var(--gl); display: flex; align-items: center; justify-content: center; font-size: 11px; font-weight: 700; color: var(--g); overflow: hidden; ">
+                  <img id="topbarAvatarImg" src="" style=" display: none; width: 100%; height: 100%; object-fit: cover; "/>
+                  <span id="topbarAvatarLetter">A</span>
+                </div>
+                <span style=" font-size: 12.5px; font-weight: 500; color: var(--text); ">Admin</span>
+                <svg width="11" height="11" fill="none" stroke="currentColor" stroke-width="2" viewBox="0 0 24 24" >
+                  <polyline points="6 9 12 15 18 9" />
+                </svg>
+              </button>
+              <div class="profile-dropdown" id="profile-dd">
+                <div class="pd-item" onclick="nav(document.querySelector('[data-section=settings]'))">
+                  <svg width="13" height="13" fill="none" stroke="currentColor" stroke-width="2" viewBox="0 0 24 24">
+                    <path d="M20 21v-2a4 4 0 00-4-4H8a4 4 0 00-4 4v2" />
+                    <circle cx="12" cy="7" r="4" /></svg>My Profile
+                </div>
+                <div class="pd-div"></div>
+                <div class="pd-item danger" onclick="if(confirm('Logout?'))window.location.href='admin-login.html'">
+                  <svg width="13" height="13" fill="none" stroke="currentColor" stroke-width="2" viewBox="0 0 24 24">
+                    <path d="M9 21H5a2 2 0 01-2-2V5a2 2 0 012-2h4" />
+                    <polyline points="16 17 21 12 16 7" />
+                    <line x1="21" y1="12" x2="9" y2="12" /></svg>Logout
+                </div>
+              </div>
+            </div>
+          </div>
+        </header>
+        <!-- ═══ CONTENT ═══ -->
+        <div class="content">
+          <!-- OVERVIEW -->
+          <div id="sec-overview" class="page-section active">
+            <div class="pg-head">
+              <div class="pg-head-left">
+                <h1>Overview</h1>
+                <p>Welcome back. Current election summary.</p>
+              </div>
+              <span class="badge badge-g"><span class="bdot"></span>Voting Open</span>
+            </div>
+            <div class="stat-grid">
+              <div class="stat-card">
+                <div class="stat-top">
+                  <div class="stat-icon g">
+                    <svg width="17" height="17" fill="none" stroke="currentColor" stroke-width="2" viewBox="0 0 24 24">
+                      <path d="M17 21v-2a4 4 0 00-4-4H5a4 4 0 00-4 4v2" />
+                      <circle cx="9" cy="7" r="4" />
+                      <path d="M23 21v-2a4 4 0 00-3-3.87" />
+                      <path d="M16 3.13a4 4 0 010 7.75" />
                     </svg>
-                </button>
-            </div>
-            <div class="profile" data-target="profile-section">
-                <img src="../../assets/images/images (4).png" alt="admin-profile-picture" id="admin-profile-photo" class="nav-links" data-target="profile-section">
-                <div id="profile-content" class="nav-links" data-target="profile-section">
-                    <h2 id="admin-name">Admin Name</h2>
-                    <p>Administrator</p>
+                  </div>
+                  <span class="badge badge-g" style="font-size: 10px">+12 today</span>
                 </div>
-            </div>
-            <div class="group">
-                <h3>Reports</h3>
-                <nav>
-                    <button class="nav-links" data-target="dashboard-section">
-                        <svg xmlns="http://www.w3.org/2000/svg" width="16px" height="16px" viewBox="0 0 24 24">
-	                        <path fill="#fff" d="M14 9q-.425 0-.712-.288T13 8V4q0-.425.288-.712T14 3h6q.425 0 .713.288T21 4v4q0 .425-.288.713T20 9zM4 13q-.425 0-.712-.288T3 12V4q0-.425.288-.712T4 3h6q.425 0 .713.288T11 4v8q0 .425-.288.713T10 13zm10 8q-.425 0-.712-.288T13 20v-8q0-.425.288-.712T14 11h6q.425 0 .713.288T21 12v8q0 .425-.288.713T20 21zM4 21q-.425 0-.712-.288T3 20v-4q0-.425.288-.712T4 15h6q.425 0 .713.288T11 16v4q0 .425-.288.713T10 21z" />
-                        </svg>Dashboard
-                    </button>
-                    <button class="nav-links" data-target="votes-section">
-                        <svg xmlns="http://www.w3.org/2000/svg" width="18px" height="18px" viewBox="0 0 8 8">
-	                        <path fill="#fff" d="M0 8V7l2-2h4l2 2v1M3 0v3h3L4 2M1 2l2-2l3 3l-2 2M2 6L1 7h6L6 6" />
-                        </svg>Votes
-                    </button>
-                    <!--<button class="nav-links" data-target="voter-statistics-section">
-                        <svg xmlns="http://www.w3.org/2000/svg" width="18px" height="18px" viewBox="0 0 24 24">
-	                        <path fill="#fff" d="M4 3a1 1 0 0 1 1 1v13.5A1.5 1.5 0 0 0 6.5 19H20a1 1 0 1 1 0 2H6.5A3.5 3.5 0 0 1 3 17.5V4a1 1 0 0 1 1-1m15.5 3.75V18h-13a.5.5 0 0 1-.5-.5V9.161L8.165 8.08a.75.75 0 0 1 .715.025l3.82 2.246l5.6-4.2a.75.75 0 0 1 1.2.6"></path>
-                        </svg>Voters' Statistics
-                    </button>-->
-                    <button class="nav-links" data-target="systemLogs-section">
-                        <svg xmlns="http://www.w3.org/2000/svg" width="18px" height="18px" viewBox="0 0 24 24">
-	                        <path fill="#fff" d="M4 8.923h16V4.769H4zm0 5.154h16V9.923H4zm0 5.154h16v-4.154H4zM5.77 7.654V6.039h1.615v1.615zm0 5.154v-1.616h1.615v1.616zm0 5.154v-1.616h1.615v1.616z"></path>
-                        </svg>System Logs
-                    </button>
-                    <button class="nav-links" data-target="userActivity-section">
-                        <svg xmlns="http://www.w3.org/2000/svg" width="18px" height="18px" viewBox="0 0 24 24">
-	                        <path fill="#fff" d="M11.5 2a5.5 5.5 0 1 0 0 11a5.5 5.5 0 0 0 0-11M18 12.5a5.5 5.5 0 1 0 0 11a5.5 5.5 0 0 0 0-11m1 7.914l-2-2v-2.662h2v1.834L20.414 19z"></path>
-	                        <path fill="#fff" d="M12.255 14A6.97 6.97 0 0 0 11 18c0 1.487.464 2.866 1.255 4H2v-2a6 6 0 0 1 6-6z"></path>
-                        </svg>User Activity
-                    </button>
-                </nav>
-            </div>
-            <div class="group">
-                <h3>Manage</h3>
-                <nav>
-                    <button class="nav-links" data-target="elections-section">
-                        <svg xmlns="http://www.w3.org/2000/svg" width="17.15px" height="16px" viewBox="0 0 1920 1792">
-                            <path fill="#fff" d="m960 0l960 384v128h-128q0 26-20.5 45t-48.5 19H197q-28 0-48.5-19T128 512H0V384zM256 640h256v768h128V640h256v768h128V640h256v768h128V640h256v768h59q28 0 48.5 19t20.5 45v64H128v-64q0-26 20.5-45t48.5-19h59zm1595 960q28 0 48.5 19t20.5 45v128H0v-128q0-26 20.5-45t48.5-19z" />
-                        </svg>Elections
-                    </button>
-                    <button class="nav-links" data-target="candidates-section">
-                        <svg xmlns="http://www.w3.org/2000/svg" width="18px" height="18px" viewBox="0 0 512 512">
-                            <path fill="#fff" d="M336 256c-20.56 0-40.44-9.18-56-25.84c-15.13-16.25-24.37-37.92-26-61c-1.74-24.62 5.77-47.26 21.14-63.76S312 80 336 80c23.83 0 45.38 9.06 60.7 25.52c15.47 16.62 23 39.22 21.26 63.63c-1.67 23.11-10.9 44.77-26 61C376.44 246.82 356.57 256 336 256m131.83 176H204.18a27.71 27.71 0 0 1-22-10.67a30.22 30.22 0 0 1-5.26-25.79c8.42-33.81 29.28-61.85 60.32-81.08C264.79 297.4 299.86 288 336 288c36.85 0 71 9 98.71 26.05c31.11 19.13 52 47.33 60.38 81.55a30.27 30.27 0 0 1-5.32 25.78A27.68 27.68 0 0 1 467.83 432M147 260c-35.19 0-66.13-32.72-69-72.93c-1.42-20.6 5-39.65 18-53.62c12.86-13.83 31-21.45 51-21.45s38 7.66 50.93 21.57c13.1 14.08 19.5 33.09 18 53.52c-2.87 40.2-33.8 72.91-68.93 72.91m65.66 31.45c-17.59-8.6-40.42-12.9-65.65-12.9c-29.46 0-58.07 7.68-80.57 21.62c-25.51 15.83-42.67 38.88-49.6 66.71a27.39 27.39 0 0 0 4.79 23.36A25.32 25.32 0 0 0 41.72 400h111a8 8 0 0 0 7.87-6.57c.11-.63.25-1.26.41-1.88c8.48-34.06 28.35-62.84 57.71-83.82a8 8 0 0 0-.63-13.39c-1.57-.92-3.37-1.89-5.42-2.89" />
-                        </svg>Candidates
-                    </button>
-                </nav>
-            </div>
-            <div class="group">
-                <h3>Other</h3>
-                <nav>
-                    <button class="nav-links" data-target="notifications-section">
-                        <svg xmlns="http://www.w3.org/2000/svg" width="18px" height="18px" viewBox="0 0 24 24">
-	                        <path fill="#fff" d="M12 22c1.1 0 2-.9 2-2h-4a2 2 0 0 0 2 2m6-6v-5c0-3.07-1.64-5.64-4.5-6.32V4c0-.83-.67-1.5-1.5-1.5s-1.5.67-1.5 1.5v.68C7.63 5.36 6 7.92 6 11v5l-1.29 1.29c-.63.63-.19 1.71.7 1.71h13.17c.89 0 1.34-1.08.71-1.71z"></path>
-                        </svg>Notifications
-                    </button>
-                    <button class="nav-links" data-target="settings-section">
-                        <svg xmlns="http://www.w3.org/2000/svg" width="18px" height="18px" viewBox="0 0 24 24">
-                            <path fill="#fff" fill-rule="evenodd" d="M14.279 2.152C13.909 2 13.439 2 12.5 2s-1.408 0-1.779.152a2 2 0 0 0-1.09 1.083c-.094.223-.13.484-.145.863a1.62 1.62 0 0 1-.796 1.353a1.64 1.64 0 0 1-1.579.008c-.338-.178-.583-.276-.825-.308a2.03 2.03 0 0 0-1.49.396c-.318.242-.553.646-1.022 1.453c-.47.807-.704 1.21-.757 1.605c-.07.526.074 1.058.4 1.479c.148.192.357.353.68.555c.477.297.783.803.783 1.361s-.306 1.064-.782 1.36c-.324.203-.533.364-.682.556a2 2 0 0 0-.399 1.479c.053.394.287.798.757 1.605s.704 1.21 1.022 1.453c.424.323.96.465 1.49.396c.242-.032.487-.13.825-.308a1.64 1.64 0 0 1 1.58.008c.486.28.774.795.795 1.353c.015.38.051.64.145.863c.204.49.596.88 1.09 1.083c.37.152.84.152 1.779.152s1.409 0 1.779-.152a2 2 0 0 0 1.09-1.083c.094-.223.13-.483.145-.863c.02-.558.309-1.074.796-1.353a1.64 1.64 0 0 1 1.579-.008c.338.178.583.276.825.308c.53.07 1.066-.073 1.49-.396c.318-.242.553-.646 1.022-1.453c.47-.807.704-1.21.757-1.605a2 2 0 0 0-.4-1.479c-.148-.192-.357-.353-.68-.555c-.477-.297-.783-.803-.783-1.361s.306-1.064.782-1.36c.324-.203.533-.364.682-.556a2 2 0 0 0 .399-1.479c-.053-.394-.287-.798-.757-1.605s-.704-1.21-1.022-1.453a2.03 2.03 0 0 0-1.49-.396c-.242.032-.487.13-.825.308a1.64 1.64 0 0 1-1.58-.008a1.62 1.62 0 0 1-.795-1.353c-.015-.38-.051-.64-.145-.863a2 2 0 0 0-1.09-1.083M12.5 15c1.67 0 3.023-1.343 3.023-3S14.169 9 12.5 9s-3.023 1.343-3.023 3s1.354 3 3.023 3" clip-rule="evenodd"/>
-                        </svg>Settings
-                    </button>
-                    <button class="nav-links">
-                        <svg xmlns="http://www.w3.org/2000/svg" width="18px" height="18px" viewBox="0 0 24 24">
-	                        <path fill="#fff" d="M5 5h7V3H3v18h9v-2H5z"></path>
-	                        <path fill="#fff" d="m21 12l-4-4v3H9v2h8v3z"></path>
-                        </svg>Logout
-                    </button>
-                </nav>
-            </div>
-
-        </section>
-
-<!----===========================Dashboard Section====================================== -->
-        
-        <section id="dashboard-section" class="page-section active">
-            <div class="heading">
-                <svg xmlns="http://www.w3.org/2000/svg" width="30" height="30" viewBox="0 0 24 24">
-	                <path fill="#6b8e23" d="M3 13h8V3H3zm0 8h8v-6H3zm10 0h8V11h-8zm0-18v6h8V3z" />
-                </svg>
-                <h1>Dashboard</h1>
-            </div>
-            <div class="cards">
-                <div class="card1">
-                    <div class="card-info">
-                        <h1>1</h1>
-                        <p>Ongoing Elections</p>
-                        <svg xmlns="http://www.w3.org/2000/svg" width="107.15px" height="100px" viewBox="0 0 1920 1792">
-	                        <path fill="#fff" d="m960 0l960 384v128h-128q0 26-20.5 45t-48.5 19H197q-28 0-48.5-19T128 512H0V384zM256 640h256v768h128V640h256v768h128V640h256v768h128V640h256v768h59q28 0 48.5 19t20.5 45v64H128v-64q0-26 20.5-45t48.5-19h59zm1595 960q28 0 48.5 19t20.5 45v128H0v-128q0-26 20.5-45t48.5-19z" />
-                        </svg>
-                    </div>
-                    <div class="card-button">
-                        <button class="nav-links" data-target="elections-section">View Details</button>
-                    </div>
+                <div class="stat-num">300</div>
+                <div class="stat-label">Registered Voters</div>
+              </div>
+              <div class="stat-card">
+                <div class="stat-top">
+                  <div class="stat-icon g">
+                    <svg width="17" height="17" fill="none" stroke="currentColor" stroke-width="2" viewBox="0 0 24 24">
+                      <polyline points="9 11 12 14 22 4" />
+                      <path d="M21 12v7a2 2 0 01-2 2H5a2 2 0 01-2-2V5a2 2 0 012-2h11"/>
+                    </svg>
+                  </div>
+                  <span class="badge badge-g" style="font-size: 10px">Live</span>
                 </div>
-                <div class="card2">
-                    <div class="card-info">
-                        <h1>20</h1>
-                        <p>No. of Candidates</p>
-                        <svg xmlns="http://www.w3.org/2000/svg" width="100px" height="100px" viewBox="0 0 512 512">
-	                        <path fill="#fff" d="M336 256c-20.56 0-40.44-9.18-56-25.84c-15.13-16.25-24.37-37.92-26-61c-1.74-24.62 5.77-47.26 21.14-63.76S312 80 336 80c23.83 0 45.38 9.06 60.7 25.52c15.47 16.62 23 39.22 21.26 63.63c-1.67 23.11-10.9 44.77-26 61C376.44 246.82 356.57 256 336 256m131.83 176H204.18a27.71 27.71 0 0 1-22-10.67a30.22 30.22 0 0 1-5.26-25.79c8.42-33.81 29.28-61.85 60.32-81.08C264.79 297.4 299.86 288 336 288c36.85 0 71 9 98.71 26.05c31.11 19.13 52 47.33 60.38 81.55a30.27 30.27 0 0 1-5.32 25.78A27.68 27.68 0 0 1 467.83 432M147 260c-35.19 0-66.13-32.72-69-72.93c-1.42-20.6 5-39.65 18-53.62c12.86-13.83 31-21.45 51-21.45s38 7.66 50.93 21.57c13.1 14.08 19.5 33.09 18 53.52c-2.87 40.2-33.8 72.91-68.93 72.91m65.66 31.45c-17.59-8.6-40.42-12.9-65.65-12.9c-29.46 0-58.07 7.68-80.57 21.62c-25.51 15.83-42.67 38.88-49.6 66.71a27.39 27.39 0 0 0 4.79 23.36A25.32 25.32 0 0 0 41.72 400h111a8 8 0 0 0 7.87-6.57c.11-.63.25-1.26.41-1.88c8.48-34.06 28.35-62.84 57.71-83.82a8 8 0 0 0-.63-13.39c-1.57-.92-3.37-1.89-5.42-2.89" />
-                        </svg>
-                    </div>
-                    <div class="card-button">
-                        <button class="nav-links" data-target="candidates-section">View Details</button>
-                    </div>
+                <div class="stat-num">120</div>
+                <div class="stat-label">Votes Cast</div>
+              </div>
+              <div class="stat-card">
+                <div class="stat-top">
+                  <div class="stat-icon w">
+                    <svg width="17" height="17" fill="none" stroke="currentColor" stroke-width="2" viewBox="0 0 24 24">
+                      <line x1="18" y1="20" x2="18" y2="10" />
+                      <line x1="12" y1="20" x2="12" y2="4" />
+                      <line x1="6" y1="20" x2="6" y2="14" />
+                    </svg>
+                  </div>
                 </div>
-                <div class="card3">
-                    <div class="card-info">
-                        <h1>120</h1>
-                        <p>No. of Votes</p>
-                        <svg xmlns="http://www.w3.org/2000/svg" width="100px" height="100px" viewBox="0 0 512 512">
-	                        <path fill="#fff" d="M494 21.621c-14.947 8.43-29.566 17.581-43.67 29.227l7.318 38.547C471.923 93.66 483.583 95.26 494 95.36zm-98.982 24.512c-15.283-.085-32.48 2.596-53.832 6.834l-.22.043l-.22.033c-14.77 2.177-40.794 12.065-66.465 38.867l44.27 11.766c.972-1.493 5.936-9.004 6.88-10.555q7.686 4.684 15.372 9.365c-12.475 20.475-26.742 35.556-43.934 54.522c-2.123 4.718.977 8.199 4.36 10.14c5.22 2.931 14.1 3.09 16.437 2.102c23.932-15.768 40.819-35.928 55.963-56.271l5.469.964c11.501 2.031 26.47 1.058 38.707-2.853c11.098-3.548 19.272-9.357 22.662-15.688L432.54 53.65c-12.044-5.214-24.039-7.442-37.523-7.517zM227.932 98.717l-29.436 115.986l9.643.297H311.27l.9-.209l6.804-27.092c-8.86 1.9-18.296-.217-26.557-4.855c-5.188-2.913-10.024-7.24-12.621-13.434c-7.797-19.938 15.857-37.297 28.724-52.75l-80.59-17.943zM69.562 201l-23 46h418.875l-23-46H334.195l-3.517 14H352v18H160v-18h19.852l3.552-14H69.563zM41 265v222h430V265zm14 14h402v194H55zm18 18v118.238l34.502-74.994l73.36 31.762l66.652-45.84l37.513 57.273l50.11-4.595l31.3-39.332L439 394.627V297zm169.543 54.43l-90.63 62.33l27.01 41.24h95.606l19.666-24.71zm-126.045 12.326L74.521 455h82.885l-30.193-46.098l36.144-24.857l-46.859-20.29zm253.065.732L297.533 455h140.54l.927-1.166v-36.602zm-49.944 33.854l-23.426 2.148l9.805 14.969z" />
-                        </svg>
-                    </div>
-                    <div class="card-button">
-                        <button class="nav-links" data-target="votes-section">View Details</button>
-                    </div>  
+                <div class="stat-num">40%</div>
+                <div class="stat-label">Voter Turnout</div>
+              </div>
+              <div class="stat-card">
+                <div class="stat-top">
+                  <div class="stat-icon g">
+                    <svg width="17" height="17" fill="none" stroke="currentColor" stroke-width="2" viewBox="0 0 24 24" >
+                      <rect x="2" y="7" width="20" height="14" rx="2" />
+                      <path d="M16 3l-4-2-4 2" />
+                    </svg>
+                  </div>
                 </div>
-                <!--<div class="card4">
-                    <div class="card-info">
-                        <p>Voters' Statistics</p>
-                        <svg xmlns="http://www.w3.org/2000/svg" width="100px" height="100px" viewBox="0 0 24 24">
-	                        <path fill="#fff" d="M4 3a1 1 0 0 1 1 1v13.5A1.5 1.5 0 0 0 6.5 19H20a1 1 0 1 1 0 2H6.5A3.5 3.5 0 0 1 3 17.5V4a1 1 0 0 1 1-1m15.5 3.75V18h-13a.5.5 0 0 1-.5-.5V9.161L8.165 8.08a.75.75 0 0 1 .715.025l3.82 2.246l5.6-4.2a.75.75 0 0 1 1.2.6"></path>
-                        </svg>
-                    </div>
-                    <div class="card-button">
-                        <button class="nav-links" data-target="voters-statistics-section">View Details</button>
-                    </div>
-                </div>-->
+                <div class="stat-num" style="font-size: 15px; margin-top: 4px">
+                  <span class="badge badge-g"><span class="bdot"></span>Voting Open</span>
+                </div>
+                <div class="stat-label">Election Status</div>
+              </div>
+              <div class="stat-card">
+                <div class="stat-top">
+                  <div class="stat-icon g">
+                    <svg width="17" height="17" fill="none" stroke="currentColor" stroke-width="2" viewBox="0 0 24 24">
+                      <path d="M17 21v-2a4 4 0 00-4-4H5a4 4 0 00-4 4v2" />
+                      <circle cx="9" cy="7" r="4" />
+                    </svg>
+                  </div>
+                </div>
+                <div class="stat-num">20</div>
+                <div class="stat-label">Total Candidates</div>
+              </div>
             </div>
-           
-        </section>
-
-<!----===========================Elections Section====================================== -->
-
-        <section id="elections-section" class="page-section"> 
-            <div class="heading">
-                <svg xmlns="http://www.w3.org/2000/svg" width="30" height="30" viewBox="0 0 24 24">
-	                <path fill="#6b8e23" d="M3 13h8V3H3zm0 8h8v-6H3zm10 0h8V11h-8zm0-18v6h8V3z" />
-                </svg>
-                <h1>Elections Management</h1>
-            </div>
-            <div class="election-cards">
-                <div class="election-card">
-                    <div class="card-header">
-                        <h3>Current Election</h3>
-                    </div>
-                    <div class="card-body">
-                        <h2>Student Council Election 2024</h2>
-                        <p><strong>Start Date:</strong> June 1, 2024</p>
-                        <p><strong>End Date:</strong> June 7, 2024</p>
-                        <p><strong>Status:</strong> Ongoing</p>
-                        <div class="card-buttons">
-                            <button onclick="manageElection()">Manage Election</button>
-                            <button onclick="endElection()">End Election</button>
-                        </div>
-                    </div>
+            <div class="dash-grid">
+              <div class="card">
+                <div class="card-header">
+                  <h3>Hourly Voting Trend</h3>
+                  <span class="badge badge-g" style="font-size: 10px">Today</span>
                 </div>
-                <div class="election-card">
-                    <div class="card-header">
-                        <h3>Create New Election</h3>
-                    </div>
-                    <form class="card-body">
-                        <label for="election-name">Election Name</label>
-                        <input type="text" name="election-name" id="election-name" placeholder="e.g. Students Government Elections 2025/26">
-                        <div class="election-dates">
-                            <div class="date-box">
-                            <label for="start-date">Start Date</label>
-                            <input type="date" name="start-date" id="start-date" placeholder="Select Start Date">
-                            </div>
-                            <div class="date-box">
-                                <label for="end-date">End Date</label>
-                                <input type="date" name="end-date" id="end-date" placeholder="Select End Date">
-                            </div>
-                        </div>
-                        <label for="status">Status</label>
-                        <select name="status" id="status">
-                            <option value="upcoming">Upcoming</option>
-                            <option value="ongoing">Ongoing</option>
-                            <option value="completed">Completed</option>
-                        </select>
-                        <button type="submit" onclick="createElection()">Create Election</button>
-                    </form>
+                <div class="card-body">
+                  <div class="chart-wrap">
+                    <canvas id="trendChart"></canvas>
+                  </div>
                 </div>
-            </div>
-        </section>
-
-<!----===========================Candidates Section====================================== -->
-
-        <section id="candidates-section" class="page-section">
-            <div class="heading">
-                <svg xmlns="http://www.w3.org/2000/svg" width="30" height="30" viewBox="0 0 24 24">
-	                <path fill="#6b8e23" d="M3 13h8V3H3zm0 8h8v-6H3zm10 0h8V11h-8zm0-18v6h8V3z" />
-                </svg>
-                <h1>Candidates</h1>
-            </div>
-            <div class="candidates-table">
-                <div class="table-top">
-                    <div class="selection">
-                        <p>Show</p>
-                        <select name="entries" id="entries">
-                            <option value="5">5</option>
-                            <option value="10">10</option>
-                            <option value="15">15</option>
-                            <option value="20">20</option>
-                            <option value="25">25</option>
-                            <option value="30">30</option>
-                        </select>
-                        <p>Entries</p>
+              </div>
+              <div class="card">
+                <div class="card-header"><h3>Live Activity</h3></div>
+                <div class="card-body" style="padding: 0 18px">
+                  <div class="activity-list">
+                    <div class="act-item">
+                      <span class="act-dot g" style="margin-top: 6px"></span>
+                      <div>
+                        <div class="act-text">12 new votes cast for President position</div>
+                        <div class="act-time">2 min ago</div>
+                      </div>
                     </div>
-                    <button type="button" id="new-candidate" onclick="openCandidatesForm()">+ New</button>
+                    <div class="act-item">
+                      <span class="act-dot g" style="margin-top: 6px"></span>
+                      <div>
+                        <div class="act-text">Candidate profile updated by manager@kiut.ac.tz</div>
+                        <div class="act-time">14 min ago</div>
+                      </div>
+                    </div>
+                    <div class="act-item">
+                      <span class="act-dot r" style="margin-top: 6px"></span>
+                      <div>
+                        <div class="act-text">Failed login attempt - manager@kiut.ac.tz</div>
+                        <div class="act-time">31 min ago</div>
+                      </div>
+                    </div>
+                    <div class="act-item">
+                      <span class="act-dot g" style="margin-top: 6px"></span>
+                      <div>
+                        <div class="act-text">Announcement sent to 180 voters (Not Voted)</div>
+                        <div class="act-time">1 hour ago</div>
+                      </div>
+                    </div>
+                    <div class="act-item">
+                      <span class="act-dot g" style="margin-top: 6px"></span>
+                      <div>
+                        <div class="act-text">KIUTSO Election "2025/26" opened by admin@kiut.ac.tz</div>
+                        <div class="act-time">3 hours ago</div>
+                      </div>
+                    </div>
+                    <div class="act-item">
+                      <span class="act-dot g" style="margin-top: 6px"></span>
+                      <div>
+                        <div class="act-text">admin@kiut.ac.tz logged in successfully</div>
+                        <div class="act-time">3 hours ago</div>
+                      </div>
+                    </div>
+                  </div>
                 </div>
-                <table class="candidates-list">
+              </div>
+            </div>
+          </div>
+          <!-- MANAGE ELECTIONS -->
+          <div id="sec-elections" class="page-section">
+            <div class="pg-head">
+              <div class="pg-head-left">
+                <h1>Manage Elections</h1>
+                <p>Control the election lifecycle.</p>
+              </div>
+              <button class="btn btn-p" onclick="openModal('createElectionModal')">
+                <svg width="13" height="13" fill="none" stroke="currentColor" stroke-width="2.5" viewBox="0 0 24 24">
+                  <line x1="12" y1="5" x2="12" y2="19" />
+                  <line x1="5" y1="12" x2="19" y2="12" /></svg>New Election
+              </button>
+            </div>
+            <div class="election-detail">
+              <div class="ed-top">
+                <div>
+                  <h2>KIUTSO Elections 2025/26</h2>
+                  <p>Academic Year 2025/26</p>
+                </div>
+                <span class="badge badge-g"><span class="bdot"></span>Voting Open</span>
+              </div>
+              <div class="ed-body">
+                <div class="ed-row">
+                  <span class="ed-label">Start Date</span><span class="ed-value">November 25, 2025 08:00 AM</span>
+                </div>
+                <div class="ed-row">
+                  <span class="ed-label">End Date</span><span class="ed-value">November 26, 2025 06:00 PM</span>
+                </div>
+                <div class="ed-row">
+                  <span class="ed-label">Total Candidates</span><span class="ed-value">20</span>
+                </div>
+                <div class="ed-row">
+                  <span class="ed-label">Votes Cast</span><span class="ed-value">120 / 300 (40%)</span>
+                </div>
+                <div class="ed-actions">
+                  <button class="btn btn-w btn-sm" onclick="openModal('pauseModal')">Pause Voting</button>
+                  <button class="btn btn-d btn-sm" onclick="openModal('closeVotingModal')">Close Voting Early</button>
+                  <button class="btn btn-gh btn-sm" onclick="openModal('createElectionModal')">Edit Election</button>
+                </div>
+              </div>
+            </div>
+          </div> 
+          <!-- MANAGE POSITIONS -->
+          <div id="sec-positions" class="page-section">
+            <div class="pg-head">
+              <div class="pg-head-left">
+                <h1>Manage Positions</h1>
+                <p>Define election positions and voting rules.</p>
+              </div>
+              <button class="btn btn-p" onclick="openModal('addPositionModal')">
+                <svg width="13" height="13" fill="none" stroke="currentColor" stroke-width="2.5" viewBox="0 0 24 24">
+                  <line x1="12" y1="5" x2="12" y2="19" />
+                  <line x1="5" y1="12" x2="19" y2="12" /></svg>Add Position
+              </button>
+            </div>
+            <div class="card">
+              <div class="card-body">
+                <div class="tbl-wrap">
+                  <table class="tbl">
                     <thead>
-                        <tr>
-                            <th>No.</th>
-                            <th>Photo</th>
-                            <th>Name</th>
-                            <th>Position</th>
-                            <th>Party</th>
-                            <th>Department</th>
-                            <th>Course</th>
-                            <th>Year</th>
-                            <th>Action</th>
-                        </tr>
+                      <tr>
+                        <th>#</th>
+                        <th>Position Name</th>
+                        <th>Type</th>
+                        <th>Faculty</th>
+                        <th>Min</th>
+                        <th>Max</th>
+                        <th>Actions</th>
+                      </tr>
                     </thead>
                     <tbody>
-                        <tr>
-                            <td>1</td>
-                            <td><img src="../../assets/images/images (4).png" alt="sample"></td>
-                            <td>Candidate 1</td>
-                            <td>President</td>
-                            <td>CCM</td>
-                            <td>Finance</td>
-                            <td>Accounting</td>
-                            <td>3rd Year</td>
-                            <td class="actions-cell">
-                                <button onclick="editCandidate()">
-                                <svg xmlns="http://www.w3.org/2000/svg" width="18" height="18" viewBox="0 0 640 640">
-	                                <path fill="#6b8e23" d="M535.6 85.7c-21.9-21.9-57.3-21.9-79.2 0L432 110.1l97.9 97.9l24.4-24.4c21.9-21.9 21.9-57.3 0-79.2zm-299.2 220c-6.1 6.1-10.8 13.6-13.5 21.9l-29.6 88.8c-2.9 8.6-.6 18.1 5.8 24.6s15.9 8.7 24.6 5.8l88.8-29.6c8.2-2.7 15.7-7.4 21.9-13.5L496 241.9L398.1 144zM160 128c-53 0-96 43-96 96v256c0 53 43 96 96 96h256c53 0 96-43 96-96v-96c0-17.7-14.3-32-32-32s-32 14.3-32 32v96c0 17.7-14.3 32-32 32H160c-17.7 0-32-14.3-32-32V224c0-17.7 14.3-32 32-32h96c17.7 0 32-14.3 32-32s-14.3-32-32-32z" />
-                                </svg>Edit</button>
-                                <button onclick="deleteCandidate()">
-                                <svg xmlns="http://www.w3.org/2000/svg" width="18" height="18" viewBox="0 0 24 24">
-	                                <path fill="#6b8e23" d="M19 4h-3.5l-1-1h-5l-1 1H5v2h14M6 19a2 2 0 0 0 2 2h8a2 2 0 0 0 2-2V7H6z" />
-                                </svg>Delete</button>
-                            </td>
-                        </tr>
-                        <tr>
-                            <td>2</td>
-                            <td><img src="../../assets/images/images (4).png" alt="sample"></td>
-                            <td>Candidate 2</td>
-                            <td>President</td>
-                            <td>CCM</td>
-                            <td>Computing And IT</td>
-                            <td>Computer Science</td>
-                            <td>2nd Year</td>
-                            <td class="actions-cell">
-                                <button onclick="editCandidate()">
-                                <svg xmlns="http://www.w3.org/2000/svg" width="18" height="18" viewBox="0 0 640 640">
-	                                <path fill="#6b8e23" d="M535.6 85.7c-21.9-21.9-57.3-21.9-79.2 0L432 110.1l97.9 97.9l24.4-24.4c21.9-21.9 21.9-57.3 0-79.2zm-299.2 220c-6.1 6.1-10.8 13.6-13.5 21.9l-29.6 88.8c-2.9 8.6-.6 18.1 5.8 24.6s15.9 8.7 24.6 5.8l88.8-29.6c8.2-2.7 15.7-7.4 21.9-13.5L496 241.9L398.1 144zM160 128c-53 0-96 43-96 96v256c0 53 43 96 96 96h256c53 0 96-43 96-96v-96c0-17.7-14.3-32-32-32s-32 14.3-32 32v96c0 17.7-14.3 32-32 32H160c-17.7 0-32-14.3-32-32V224c0-17.7 14.3-32 32-32h96c17.7 0 32-14.3 32-32s-14.3-32-32-32z" />
-                                </svg>Edit</button>
-                                <button onclick="deleteCandidate()">
-                                <svg xmlns="http://www.w3.org/2000/svg" width="18" height="18" viewBox="0 0 24 24">
-	                                <path fill="#6b8e23" d="M19 4h-3.5l-1-1h-5l-1 1H5v2h14M6 19a2 2 0 0 0 2 2h8a2 2 0 0 0 2-2V7H6z" />
-                                </svg>Delete</button>
-                            </td>
-                        </tr>
-                        <tr>
-                            <td>3</td>
-                            <td><img src="../../assets/images/images (4).png" alt="sample"></td>
-                            <td>Candidate 3</td>
-                            <td>President</td>
-                            <td>CCM</td>
-                            <td>Finance</td>
-                            <td>Accounting</td>
-                            <td>3rd Year</td>
-                            <td class="actions-cell">
-                                <button onclick="editCandidate()">
-                                <svg xmlns="http://www.w3.org/2000/svg" width="18" height="18" viewBox="0 0 640 640">
-	                                <path fill="#6b8e23" d="M535.6 85.7c-21.9-21.9-57.3-21.9-79.2 0L432 110.1l97.9 97.9l24.4-24.4c21.9-21.9 21.9-57.3 0-79.2zm-299.2 220c-6.1 6.1-10.8 13.6-13.5 21.9l-29.6 88.8c-2.9 8.6-.6 18.1 5.8 24.6s15.9 8.7 24.6 5.8l88.8-29.6c8.2-2.7 15.7-7.4 21.9-13.5L496 241.9L398.1 144zM160 128c-53 0-96 43-96 96v256c0 53 43 96 96 96h256c53 0 96-43 96-96v-96c0-17.7-14.3-32-32-32s-32 14.3-32 32v96c0 17.7-14.3 32-32 32H160c-17.7 0-32-14.3-32-32V224c0-17.7 14.3-32 32-32h96c17.7 0 32-14.3 32-32s-14.3-32-32-32z" />
-                                </svg>Edit</button>
-                                <button onclick="deleteCandidate()">
-                                <svg xmlns="http://www.w3.org/2000/svg" width="18" height="18" viewBox="0 0 24 24">
-	                                <path fill="#6b8e23" d="M19 4h-3.5l-1-1h-5l-1 1H5v2h14M6 19a2 2 0 0 0 2 2h8a2 2 0 0 0 2-2V7H6z" />
-                                </svg>Delete</button>
-                            </td>
-                        </tr>
-                        <tr>
-                            <td>4</td>
-                            <td><img src="../../assets/images/images (4).png" alt="sample"></td>
-                            <td>Candidate 4</td>
-                            <td>President</td>
-                            <td>CCM</td>
-                            <td>Computing And IT</td>
-                            <td>Computer Science</td>
-                            <td>2nd Year</td>
-                            <td class="actions-cell">
-                                <button onclick="editCandidate()">
-                                <svg xmlns="http://www.w3.org/2000/svg" width="18" height="18" viewBox="0 0 640 640">
-	                                <path fill="#6b8e23" d="M535.6 85.7c-21.9-21.9-57.3-21.9-79.2 0L432 110.1l97.9 97.9l24.4-24.4c21.9-21.9 21.9-57.3 0-79.2zm-299.2 220c-6.1 6.1-10.8 13.6-13.5 21.9l-29.6 88.8c-2.9 8.6-.6 18.1 5.8 24.6s15.9 8.7 24.6 5.8l88.8-29.6c8.2-2.7 15.7-7.4 21.9-13.5L496 241.9L398.1 144zM160 128c-53 0-96 43-96 96v256c0 53 43 96 96 96h256c53 0 96-43 96-96v-96c0-17.7-14.3-32-32-32s-32 14.3-32 32v96c0 17.7-14.3 32-32 32H160c-17.7 0-32-14.3-32-32V224c0-17.7 14.3-32 32-32h96c17.7 0 32-14.3 32-32s-14.3-32-32-32z" />
-                                </svg>Edit</button>
-                                <button onclick="deleteCandidate()">
-                                <svg xmlns="http://www.w3.org/2000/svg" width="18" height="18" viewBox="0 0 24 24">
-	                                <path fill="#6b8e23" d="M19 4h-3.5l-1-1h-5l-1 1H5v2h14M6 19a2 2 0 0 0 2 2h8a2 2 0 0 0 2-2V7H6z" />
-                                </svg>Delete</button>
-                            </td>
-                        </tr>
+                      <tr>
+                        <td>1</td>
+                        <td class="tbl-name">President</td>
+                        <td><span class="badge badge-g">General</span></td>
+                        <td>
+                          <span style="color: var(--hint); font-size: 12px">All students</span>
+                        </td>
+                        <td>2</td>
+                        <td>6</td>
+                        <td>
+                          <div class="tbl-actions">
+                            <button class="btn btn-icon btn-sm">
+                              <svg width="13" height="13" fill="none" stroke="currentColor" stroke-width="2" viewBox="0 0 24 24">
+                                <path d="M11 4H4a2 2 0 00-2 2v14a2 2 0 002 2h14a2 2 0 002-2v-7"/>
+                                <path d="M18.5 2.5a2.121 2.121 0 013 3L12 15l-4 1 1-4 9.5-9.5z"/>
+                              </svg>
+                            </button>
+                            <button class="btn btn-icon btn-sm" style="color: var(--red)">
+                              <svg width="13" height="13" fill="none" stroke="currentColor" stroke-width="2" viewBox="0 0 24 24">
+                                <polyline points="3 6 5 6 21 6" />
+                                <path d="M19 6l-1 14a2 2 0 01-2 2H8a2 2 0 01-2-2L5 6"/>
+                              </svg>
+                            </button>
+                          </div>
+                        </td>
+                      </tr>
+                      <tr>
+                        <td>2</td>
+                        <td class="tbl-name">MP Computing and IT</td>
+                        <td><span class="badge badge-b">Faculty</span></td>
+                        <td>Computing and IT</td>
+                        <td>1</td>
+                        <td>4</td>
+                        <td>
+                          <div class="tbl-actions">
+                            <button class="btn btn-icon btn-sm">
+                              <svg width="13" height="13" fill="none" stroke="currentColor" stroke-width="2" viewBox="0 0 24 24">
+                                <path d="M11 4H4a2 2 0 00-2 2v14a2 2 0 002 2h14a2 2 0 002-2v-7"/>
+                                <path d="M18.5 2.5a2.121 2.121 0 013 3L12 15l-4 1 1-4 9.5-9.5z"/>
+                              </svg>
+                            </button>
+                            <button class="btn btn-icon btn-sm" style="color: var(--red)">
+                              <svg width="13" height="13" fill="none" stroke="currentColor" stroke-width="2" viewBox="0 0 24 24">
+                                <polyline points="3 6 5 6 21 6" />
+                                <path d="M19 6l-1 14a2 2 0 01-2 2H8a2 2 0 01-2-2L5 6" />
+                              </svg>
+                            </button>
+                          </div>
+                        </td>
+                      </tr>
+                      <tr>
+                        <td>3</td>
+                        <td class="tbl-name">MP Law</td>
+                        <td><span class="badge badge-b">Faculty</span></td>
+                        <td>Law</td>
+                        <td>1</td>
+                        <td>4</td>
+                        <td>
+                          <div class="tbl-actions">
+                            <button class="btn btn-icon btn-sm">
+                              <svg width="13" height="13" fill="none" stroke="currentColor" stroke-width="2" viewBox="0 0 24 24">
+                                <path d="M11 4H4a2 2 0 00-2 2v14a2 2 0 002 2h14a2 2 0 002-2v-7"/>
+                                <path d="M18.5 2.5a2.121 2.121 0 013 3L12 15l-4 1 1-4 9.5-9.5z"/>
+                              </svg>
+                            </button>
+                            <button class="btn btn-icon btn-sm" style="color: var(--red)">
+                              <svg width="13" height="13" fill="none" stroke="currentColor" stroke-width="2" viewBox="0 0 24 24">
+                                <polyline points="3 6 5 6 21 6" />
+                                <path d="M19 6l-1 14a2 2 0 01-2 2H8a2 2 0 01-2-2L5 6"/>
+                              </svg>
+                            </button>
+                          </div>
+                        </td>
+                      </tr>
                     </tbody>
-                </table>
-                <div class="table-bottom">
-                    <div class="number-entries">
-                        <p>Showing <span id="entriesstart">1</span> to <span id="entries-end">4</span> of <span id="total-entries">4</span> Entries</p>
-                    </div>
-                    <div class="table-nav">
-                        <button id="previous-btn" type="button"> < Previous</button>
-                        <button id="next-btn" type="button">Next ></button>
-                    </div>
+                  </table>
                 </div>
-            </div> 
-        </section>
-
-<!----===========================Votes Section====================================== -->
-
-        <section id="votes-section" class="page-section">
-            <div class="heading">
-                <svg xmlns="http://www.w3.org/2000/svg" width="30" height="30" viewBox="0 0 24 24">
-	                <path fill="#6b8e23" d="M3 13h8V3H3zm0 8h8v-6H3zm10 0h8V11h-8zm0-18v6h8V3z" />
-                </svg>
-                <h1>Votes</h1>
+              </div>
             </div>
-            <div class="votes-cards">
-                <div class="votes-card">
-                    <div class="votes-card-header">
-                        <h3>Votes Statistics</h3>
-                    </div>
-                    <div class="cards">
-                        <div class="card">
-                            <h2>120</h2>
-                            <p>Total Votes</p>
-                        </div>
-                        <div class="card">
-                            <h2>80</h2>
-                            <p>Valid Votes</p>
-                        </div>
-                        <div class="card">
-                            <h2>40</h2>
-                            <p>Invalid Votes</p>
-                        </div>
-                        <div class="card">
-                            <h2>300</h2>
-                            <p>Registered Voters</p>
-                        </div>
-                    </div>
-                </div>
-                <div class="votes-card">
-                    <div class="votes-card-header">
-                        <h3>Votes Results</h3>
-                    </div>
-                    <div class="card-body" id="chart1">
-                        <h3>Student Government Elections 2025/26</h3>
-                        <canvas id="votesChart"></canvas>
-                    </div>
-                </div>
+          </div>
+          <!-- MANAGE CANDIDATES -->
+          <div id="sec-candidates" class="page-section">
+            <div class="pg-head">
+              <div class="pg-head-left">
+                <h1>Manage Candidates</h1>
+                <p>Add, edit and disqualify candidates.</p>
+              </div>
+              <button class="btn btn-p" onclick="openModal('addCandidateModal')">
+                <svg width="13" height="13" fill="none" stroke="currentColor" stroke-width="2.5" viewBox="0 0 24 24">
+                  <line x1="12" y1="5" x2="12" y2="19" />
+                  <line x1="5" y1="12" x2="19" y2="12" />
+                </svg>Add Candidate
+              </button>
             </div>
-        </section>
-
-<!--================================System Logs-Section===========================-->
-
-        <section id="systemLogs-section" class="page-section">            
-            <div class="heading">
-                <svg xmlns="http://www.w3.org/2000/svg" width="30" height="30" viewBox="0 0 24 24">
-	                <path fill="#6b8e23" d="M3 13h8V3H3zm0 8h8v-6H3zm10 0h8V11h-8zm0-18v6h8V3z" />
-                </svg>
-                <h1>System Logs</h1>
-            </div>
-            <div class="logs-header">
-                <div class="logs-controls">
-                    <h3>Filter by:</h3>
-                    <select id="logsFilter">
-                        <option value="all">All Logs</option>
-                        <option value="info">Info</option>
-                        <option value="warning">Warning</option>
-                        <option value="error">Error</option>
+            <div class="card">
+              <div class="card-body">
+                <div class="tbl-toolbar">
+                  <div class="tbl-toolbar-left">Show
+                    <select class="form-ctrl" style="width: auto; padding: 6px 10px">
+                      <option>10</option>
+                      <option>25</option>
+                      <option>50</option>
+                    </select>entries
+                    <select class="form-ctrl" style="width: auto; padding: 6px 10px">
+                      <option>All Positions</option>
+                      <option>President</option>
+                      <option>MP - Computing &amp; IT</option>
+                      <option>MP - Law</option>
                     </select>
-                </div> 
-                <input type="text" id="logsSearch" placeholder="Search..." />
-            </div>
-            <div class="system-logs-table">
-                <table class="logs-table">
+                  </div>
+                  <div class="tbl-search">
+                    <svg width="13" height="13" fill="none" stroke="currentColor" stroke-width="2" viewBox="0 0 24 24">
+                      <circle cx="11" cy="11" r="8" />
+                      <path d="M21 21l-4.35-4.35" />
+                    </svg>
+                    <input type="text" placeholder="Search candidates..." />
+                  </div>
+                </div>
+                <div class="tbl-wrap">
+                  <table class="tbl">
                     <thead>
-                        <tr>
-                        <th>Date</th>
-                        <th>Time</th>
-                        <th>Action</th>
-                        <th>User</th>
-                        <th>Description</th>
-                        <th>Type</th>
-                        </tr>
+                      <tr>
+                        <th>#</th>
+                        <th>Photo</th>
+                        <th>Name</th>
+                        <th>Position</th>
+                        <th>Faculty</th>
+                        <th>Course</th>
+                        <th>Year</th>
+                        <th>Actions</th>
+                      </tr>
                     </thead>
-                    <tbody id="logsBody">
+                    <tbody>
+                      <tr>
+                        <td>1</td>
+                        <td>
+                          <div class="tbl-avatar-ph">C</div>
+                        </td>
+                        <td>
+                          <div class="tbl-name">Candidate One</div>
+                          <div class="tbl-sub">DCS/35231/2501/DT</div>
+                        </td>
+                        <td>
+                          <span class="badge badge-g" style="font-size: 10px">President</span>
+                        </td>
+                        <td>Computing &amp; IT</td>
+                        <td>DCS</td>
+                        <td>1st</td>
+                        <td>
+                          <div class="tbl-actions">
+                            <button class="btn btn-icon btn-sm">
+                              <svg width="13" height="13" fill="none" stroke="currentColor" stroke-width="2" viewBox="0 0 24 24">
+                                <path d="M11 4H4a2 2 0 00-2 2v14a2 2 0 002 2h14a2 2 0 002-2v-7"/>
+                                <path d="M18.5 2.5a2.121 2.121 0 013 3L12 15l-4 1 1-4 9.5-9.5z"/>
+                              </svg>
+                            </button>
+                            <button class="btn btn-icon btn-sm" style="color: var(--gold)" onclick="openModal('disqualifyModal')">
+                              <svg width="13" height="13" fill="none" stroke="currentColor" stroke-width="2" viewBox="0 0 24 24">
+                                <circle cx="12" cy="12" r="10" />
+                                <line x1="4.93" y1="4.93" x2="19.07" y2="19.07"/>
+                              </svg>
+                            </button>
+                            <button class="btn btn-icon btn-sm" style="color: var(--red)" onclick="openModal('deleteModal')">
+                              <svg width="13" height="13" fill="none" stroke="currentColor" stroke-width="2" viewBox="0 0 24 24">
+                                <polyline points="3 6 5 6 21 6" />
+                                <path d="M19 6l-1 14a2 2 0 01-2 2H8a2 2 0 01-2-2L5 6" />
+                              </svg>
+                            </button>
+                          </div>
+                        </td>
+                      </tr>
+                      <tr>
+                        <td>2</td>
+                        <td><div class="tbl-avatar-ph">C</div></td>
+                        <td>
+                          <div class="tbl-name">Candidate Two</div>
+                          <div class="tbl-sub">LLB/34045/2501/DT</div>
+                        </td>
+                        <td>
+                          <span class="badge badge-g" style="font-size: 10px">President</span>
+                        </td>
+                        <td>Law</td>
+                        <td>LLB</td>
+                        <td>2nd</td>
+                        <td>
+                          <div class="tbl-actions">
+                            <button class="btn btn-icon btn-sm">
+                              <svg width="13" height="13" fill="none" stroke="currentColor" stroke-width="2" viewBox="0 0 24 24">
+                                <path d="M11 4H4a2 2 0 00-2 2v14a2 2 0 002 2h14a2 2 0 002-2v-7"/>
+                                <path d="M18.5 2.5a2.121 2.121 0 013 3L12 15l-4 1 1-4 9.5-9.5z"/>
+                              </svg>
+                            </button>
+                            <button class="btn btn-icon btn-sm" style="color: var(--gold)" onclick="openModal('disqualifyModal')">
+                              <svg width="13" height="13" fill="none" stroke="currentColor" stroke-width="2" viewBox="0 0 24 24">
+                                <circle cx="12" cy="12" r="10" />
+                                <line x1="4.93" y1="4.93" x2="19.07" y2="19.07" />
+                              </svg>
+                            </button>
+                            <button class="btn btn-icon btn-sm" style="color: var(--red)" onclick="openModal('deleteModal')">
+                              <svg width="13" height="13" fill="none" stroke="currentColor" stroke-width="2" viewBox="0 0 24 24" >
+                                <polyline points="3 6 5 6 21 6" />
+                                <path d="M19 6l-1 14a2 2 0 01-2 2H8a2 2 0 01-2-2L5 6" />
+                              </svg>
+                            </button>
+                          </div>
+                        </td>
+                      </tr>
+                      <tr style="opacity: 0.55">
+                        <td>3</td>
+                        <td><div class="tbl-avatar-ph">C</div></td>
+                        <td>
+                          <div class="tbl-name">Candidate Three</div>
+                          <div class="tbl-sub">BCS/33012/2501/DT</div>
+                        </td>
+                        <td>
+                          <span class="badge badge-b" style="font-size: 10px" >MP - Computing &amp; IT</span>
+                        </td>
+                        <td>Computing &amp; IT</td>
+                        <td>BCS</td>
+                        <td>2nd</td>
+                        <td>
+                          <span class="badge badge-r" style="font-size: 10px">Disqualified</span>
+                        </td>
+                      </tr>
                     </tbody>
-                </table>
+                  </table>
+                </div>
+                <div class="tbl-footer">
+                  <span>Showing 1 to <span class="visible-entries">3</span> of <span class="total-entries">20 </span>entries</span>
+                  <div class="pagination">
+                    <button class="pg-btn">Prev</button
+                    ><button class="pg-btn cur">1</button
+                    ><button class="pg-btn">2</button
+                    ><button class="pg-btn">Next</button>
+                  </div>
+                </div>
+              </div>
             </div>
-        </section>
-
-<!--=============================Notifications Section============================== -->
-        
-        <section id="notifications-section" class="page-section">
-            <div class="heading">
-                <svg xmlns="http://www.w3.org/2000/svg" width="30" height="30" viewBox="0 0 24 24">
-	                <path fill="#6b8e23" d="M3 13h8V3H3zm0 8h8v-6H3zm10 0h8V11h-8zm0-18v6h8V3z" />
-                </svg>
+          </div>
+          <!-- VOTE RESULTS -->
+          <div id="sec-results" class="page-section">
+            <div class="pg-head">
+              <div class="pg-head-left">
+                <h1>Vote Results</h1>
+                <p>Live results updates</p>
+              </div>
+              <div style="display: flex; gap: 8px">
+                <button class="btn btn-gh btn-sm">Export PDF</button>
+                <button class="btn btn-gh btn-sm">Export Excel</button>
+              </div>
+            </div>
+            <div class="card" style="margin-bottom: 14px">
+              <div class="card-header">
+                <h3>Votes by Candidate</h3>
+                <select class="form-ctrl" style="width: auto; padding: 6px 10px; font-size: 12px">
+                  <option>All Positions</option>
+                  <option>President</option>
+                  <option>MP Computing &amp; IT</option>
+                </select>
+              </div>
+              <div class="card-body">
+                <div class="chart-wrap-tall">
+                  <canvas id="resultsChart"></canvas>
+                </div>
+              </div>
+            </div>
+            <div class="card">
+              <div class="card-header"><h3>Results Table</h3></div>
+              <div class="tbl-wrap">
+                <table class="tbl">
+                  <thead>
+                    <tr>
+                      <th>Rank</th>
+                      <th>Candidate</th>
+                      <th>Position</th>
+                      <th>Votes</th>
+                      <th>%</th>
+                      <th></th>
+                    </tr>
+                  </thead>
+                  <tbody>
+                    <tr>
+                      <td>
+                        <span class="badge badge-w">1st</span>
+                      </td>
+                      <td class="tbl-name">Candidate One</td>
+                      <td>President</td>
+                      <td>
+                        <strong>55</strong>
+                      </td>
+                      <td>45.8%</td>
+                      <td>
+                        <span class="badge badge-g">Leading</span>
+                      </td>
+                    </tr>
+                    <tr>
+                      <td>
+                        <span class="badge badge-gray">2nd</span>
+                      </td>
+                      <td class="tbl-name">Candidate Two</td>
+                      <td>President</td>
+                      <td>40</td>
+                      <td>33.3%</td>
+                      <td></td>
+                    </tr>
+                    <tr>
+                      <td>
+                        <span class="badge badge-gray">3rd</span>
+                      </td>
+                      <td class="tbl-name">Candidate Three</td>
+                      <td>President</td>
+                      <td>25</td>
+                      <td>20.8%</td>
+                      <td></td>
+                    </tr>
+                  </tbody>
+                </table>
+              </div>
+            </div>
+          </div>
+          <!-- REGISTERED VOTERS -->
+          <div id="sec-voters" class="page-section">
+            <div class="pg-head">
+              <div class="pg-head-left">
+                <h1>Registered Voters</h1>
+                <p>All registered student accounts.</p>
+              </div>
+              <div style="display: flex; gap: 8px">
+                <span class="badge badge-g">300 Total</span>
+                <span class="badge badge-gray">120 Voted</span>
+                <span class="badge badge-w">180 Not Yet</span>
+              </div>
+            </div>
+            <div class="card">
+              <div class="card-body">
+                <div class="tbl-toolbar">
+                  <div class="voter-tabs">
+                    <button class="vt on" onclick="filterV('all',this)">All (300)</button>
+                    <button class="vt" onclick="filterV('voted',this)">Voted (120)</button>
+                    <button class="vt" onclick="filterV('not',this)">Not Yet (180)</button>
+                  </div>
+                  <div style="display: flex; gap: 8px">
+                    <select class="form-ctrl" style="width: auto; padding: 7px 10px; font-size: 13px">
+                      <option>All Faculties</option>
+                      <option>Computing and IT</option>
+                      <option>Law</option>
+                      <option>Business Administration</option>
+                      <option>Health Allied Sciences</option>
+                    </select>
+                    <div class="tbl-search">
+                      <svg width="13" height="13" fill="none" stroke="currentColor" stroke-width="2" viewBox="0 0 24 24">
+                        <circle cx="11" cy="11" r="8" />
+                        <path d="M21 21l-4.35-4.35" />
+                      </svg>
+                      <input type="text" placeholder="Search by reg no..." />
+                    </div>
+                  </div>
+                </div>
+                <div class="tbl-wrap">
+                  <table class="tbl">
+                    <thead>
+                      <tr>
+                        <th>Reg Number</th>
+                        <th>Course</th>
+                        <th>Faculty</th>
+                        <th>Contact</th>
+                        <th>Registered</th>
+                        <th>Status</th>
+                        <th></th>
+                      </tr>
+                    </thead>
+                    <tbody>
+                      <tr>
+                        <td class="tbl-name">DCS/34231/2501/DT</td>
+                        <td>DCS</td>
+                        <td>Computing &amp; IT</td>
+                        <td>student@email.com</td>
+                        <td>Nov 20</td>
+                        <td>
+                          <span class="badge badge-g"><span class="bdot"></span>Voted</span>
+                        </td>
+                        <td>
+                          <button class="btn btn-gh btn-sm" onclick="openVoterPanel()">View</button>
+                        </td>
+                      </tr>
+                      <tr>
+                        <td class="tbl-name">LLB/32045/2501/DT</td>
+                        <td>LLB</td>
+                        <td>Law</td>
+                        <td>+255712345678</td>
+                        <td>Nov 20</td>
+                        <td>
+                          <span class="badge badge-w"><span class="bdot"></span>Not Voted</span>
+                        </td>
+                        <td>
+                          <button class="btn btn-gh btn-sm" onclick="openVoterPanel()">View</button>
+                        </td>
+                      </tr>
+                      <tr>
+                        <td class="tbl-name">BBA/35921/2501/DT</td>
+                        <td>BBA</td>
+                        <td>Business Admin</td>
+                        <td>student2@email.com</td>
+                        <td>Nov 21</td>
+                        <td>
+                          <span class="badge badge-g"><span class="bdot"></span>Voted</span>
+                        </td>
+                        <td>
+                          <button class="btn btn-gh btn-sm" onclick="openVoterPanel()">View</button>
+                        </td>
+                      </tr>
+                    </tbody>
+                  </table>
+                </div>
+                <div class="tbl-footer">
+                  <span>Showing 1 to <span class="visible-entries">3</span> of <span class="total-entries">300</span> entries</span>
+                  <div class="pagination">
+                    <button class="pg-btn">Prev</button>
+                    <button class="pg-btn cur">1</button>
+                    <button class="pg-btn">2</button>
+                    <button class="pg-btn">Next</button>
+                  </div>
+                </div>
+              </div>
+            </div>
+          </div>
+          <!-- ANNOUNCEMENTS -->
+          <div id="sec-announcements" class="page-section">
+            <div class="pg-head">
+              <div class="pg-head-left">
+                <h1>Announcements</h1>
+                <p>Send messages to registered voters.</p>
+              </div>
+            </div>
+            <div style="display: grid; grid-template-columns: 1fr 1fr; gap: 14px">
+              <div class="card">
+                <div class="card-header"><h3>Compose</h3></div>
+                <div class="card-body">
+                  <div class="form-group">
+                    <label>Subject</label>
+                    <input type="text" class="form-ctrl" placeholder="e.g. Voting Reminder"/>
+                  </div>
+                  <div class="form-group">
+                    <label>Message</label>
+                    <textarea class="form-ctrl" placeholder="Write your message..."></textarea>
+                  </div>
+                  <div class="form-group">
+                    <label>Send To</label>
+                    <div class="aud-pills">
+                      <button class="aud-pill on" onclick="selAud(this)">All Voters</button>
+                      <button class="aud-pill" onclick="selAud(this)">Voted</button>
+                      <button class="aud-pill" onclick="selAud(this)">Not Voted</button>
+                    </div>
+                    <p class="form-hint">Selected: All Voters - 300 recipients</p>
+                  </div>
+                  <button class="btn btn-p" style="width: 100%">Send Announcement</button>
+                </div>
+              </div>
+              <div class="card">
+                <div class="card-header"><h3>Sent History</h3></div>
+                <div class="card-body" style="padding: 12px">
+                  <div class="ann-list">
+                    <div class="ann-item">
+                      <div class="ann-head">
+                        <div class="ann-subj">Voting Reminder</div>
+                        <div class="ann-ts">Nov 25, 14:00</div>
+                      </div>
+                      <div class="ann-meta">Not Voted - 180 recipients</div>
+                    </div>
+                    <div class="ann-item">
+                      <div class="ann-head">
+                        <div class="ann-subj">Voting is Now Open</div>
+                        <div class="ann-ts">Nov 25, 08:00</div>
+                      </div>
+                      <div class="ann-meta">All Voters - 300 recipients</div>
+                    </div>
+                    <div class="ann-item">
+                      <div class="ann-head">
+                        <div class="ann-subj">Registration Reminder</div>
+                        <div class="ann-ts">Nov 22, 10:00</div>
+                      </div>
+                      <div class="ann-meta">All Voters - 250 recipients</div>
+                    </div>
+                  </div>
+                </div>
+              </div>
+            </div>
+          </div>
+          <!-- REPORTS -->
+          <div id="sec-reports" class="page-section">
+            <div class="pg-head">
+              <div class="pg-head-left">
+                <h1>Reports</h1>
+                <p>Generate and download election summaries.</p>
+              </div>
+            </div>
+            <div class="report-grid">
+              <div class="report-card">
+                <div class="rpt-icon g">
+                  <svg width="22" height="22" fill="none" stroke="currentColor" stroke-width="2" viewBox="0 0 24 24">
+                    <path d="M17 21v-2a4 4 0 00-4-4H5a4 4 0 00-4 4v2" />
+                    <circle cx="9" cy="7" r="4" />
+                  </svg>
+                </div>
+                <h3>Voter Turnout Report</h3>
+                <p>Participation by faculty and department - registered count, voted count, and turnout percentage.</p>
+                <div class="report-actions">
+                  <button class="btn btn-gh btn-sm">PDF</button>
+                  <button class="btn btn-gh btn-sm">Excel</button>
+                </div>
+              </div>
+              <div class="report-card">
+                <div class="rpt-icon w">
+                  <svg width="22" height="22" fill="none" stroke="currentColor" stroke-width="2" viewBox="0 0 24 24">
+                    <path d="M17 21v-2a4 4 0 00-4-4H5a4 4 0 00-4 4v2" />
+                    <circle cx="9" cy="7" r="4" />
+                    <path d="M23 21v-2a4 4 0 00-3-3.87" />
+                    <path d="M16 3.13a4 4 0 010 7.75" />
+                  </svg>
+                </div>
+                <h3>Candidate Summary Report</h3>
+                <p>All candidates with final vote counts, percentages, positions, and winner status. </p>
+                <div class="report-actions">
+                  <button class="btn btn-gh btn-sm">PDF</button>
+                  <button class="btn btn-gh btn-sm">Excel</button>
+                </div>
+              </div>
+              <div class="report-card">
+                <div class="rpt-icon b">
+                  <svg width="22" height="22" fill="none" stroke="currentColor" stroke-width="2" viewBox="0 0 24 24">
+                    <path d="M12 8v4l3 3m6-3a9 9 0 11-18 0 9 9 0 0118 0z" />
+                  </svg>
+                </div>
+                <h3>Election Timeline Report</h3>
+                <p>Chronological record of every election event from creation to results announcement.</p>
+                <div class="report-actions">
+                  <button class="btn btn-gh btn-sm">PDF</button>
+                  <button class="btn btn-gh btn-sm">Excel</button>
+                </div>
+              </div>
+            </div>
+          </div>
+          <!-- NOTIFICATIONS -->
+          <div id="sec-notifications" class="page-section">
+            <div class="pg-head">
+              <div class="pg-head-left">
                 <h1>Notifications</h1>
+                <p>3 unread.</p>
+              </div>
+              <button class="btn btn-gh btn-sm">Mark all as read</button>
             </div>
-            <div class="notifications-header">
-                <div class="notifications-controls">
-                    <h3>Filter by:</h3>
-                    <select id="notificationsFilter">
-                        <option value="all">All</option>
-                        <option value="info">Info</option>
-                        <option value="warning">Warning</option>
-                        <option value="error">Error</option>
-                    </select>
+            <div class="card">
+              <div class="card-body" style="padding: 0">
+                <div style="padding: 14px 16px; border-bottom: 1px solid var(--border);">
+                  <div class="notif-filters">
+                    <button class="nf-btn on">All</button>
+                    <button class="nf-btn">Info</button>
+                    <button class="nf-btn">Warning</button>
+                    <button class="nf-btn">Error</button>
+                  </div>
                 </div>
-                <input type="text" id="notificationsSearch" placeholder="Search..." />
+                <div class="notif-list">
+                  <div class="notif-item unread">
+                    <span class="notif-dot g"></span>
+                    <div class="notif-content">
+                      <div class="notif-title">Voting closes in 2 hours</div>
+                      <div class="notif-desc">Election "SG 2025/26" voting period ends at 6:00 PM today.</div>
+                      <div class="notif-ts">Just now</div>
+                    </div>
+                  </div>
+                  <div class="notif-item unread">
+                    <span class="notif-dot w"></span>
+                    <div class="notif-content">
+                      <div class="notif-title">Failed login attempt detected</div>
+                      <div class="notif-desc">3 consecutive failed attempts for manager@kiut.ac.tz</div>
+                      <div class="notif-ts">14 min ago</div>
+                    </div>
+                  </div>
+                  <div class="notif-item unread">
+                    <span class="notif-dot g"></span>
+                    <div class="notif-content">
+                      <div class="notif-title">Voter registration milestone</div>
+                      <div class="notif-desc">120 students have registered and casted their votes.</div>
+                      <div class="notif-ts">1 hour ago</div>
+                    </div>
+                  </div>
+                  <div class="notif-item">
+                    <span class="notif-dot g"></span>
+                    <div class="notif-content">
+                      <div class="notif-title">Candidate profile updated</div>
+                      <div class="notif-desc">Candidate updated by manager@kiut.ac.tz.</div>
+                      <div class="notif-ts">2 hours ago</div>
+                    </div>
+                  </div>
+                  <div class="notif-item">
+                    <span class="notif-dot g"></span>
+                    <div class="notif-content">
+                      <div class="notif-title">Election stage changed to Voting Open</div>
+                      <div class="notif-desc">Opened by admin@kiut.ac.tz.</div>
+                      <div class="notif-ts">3 hours ago</div>
+                    </div>
+                  </div>
+                </div>
+              </div>
             </div>
-            <div class="notifications-box">
-                <table class="notifications-table">
-                    <thead>
-                        <tr>
-                        <th>Time</th>
-                        <th>Message</th>
-                        <th>Source</th>
-                        <th>Description</th>
-                        </tr>
-                    </thead>
-                    <tbody id="notificationsBody">
-                    </tbody>
-                </table>
+          </div>
+          <!-- SYSTEM LOGS -->
+          <div id="sec-logs" class="page-section">
+            <div class="pg-head">
+              <div class="pg-head-left">
+                <h1>System Logs</h1>
+                <p>Complete audit trail - read-only.</p>
+              </div>
             </div>
-        </section>
-
-
-<!--================================User Activity-Section===========================-->
-
-        <section id="userActivity-section" class="page-section">            
-            <div class="heading">
-                <svg xmlns="http://www.w3.org/2000/svg" width="30" height="30" viewBox="0 0 24 24">
-	                <path fill="#6b8e23" d="M3 13h8V3H3zm0 8h8v-6H3zm10 0h8V11h-8zm0-18v6h8V3z" />
-                </svg>
-                <h1>User Activity</h1>
-            </div>
-            <div class="logs-header">
-                <div class="logs-controls">
-                    <h3>Filter by:</h3>
-                    <select id="activityFilter">
-                        <option value="all" >All</option>
-                        <option value="info" >Info</option>
-                        <option value="warning">Warning</option>
-                        <option value="error">Error</option>
+            <div class="card">
+              <div class="card-body">
+                <div class="tbl-toolbar">
+                  <div class="tbl-toolbar-left">
+                    <select class="form-ctrl" style="width: auto; padding: 7px 10px">
+                      <option>All Levels</option>
+                      <option>Info</option>
+                      <option>Warning</option>
+                      <option>Error</option>
                     </select>
-                </div> 
-                <input type="text" id="searchBox" placeholder="Search..." />
-            </div>
-            <div class="system-logs-table">
-                <table class="logs-table">
+                    <input type="date" class="form-ctrl" style="width: auto; padding: 7px 10px" />
+                    <input type="date" class="form-ctrl" style="width: auto; padding: 7px 10px"/>
+                  </div>
+                  <div class="tbl-search">
+                    <svg width="13" height="13" fill="none" stroke="currentColor" stroke-width="2" viewBox="0 0 24 24">
+                      <circle cx="11" cy="11" r="8" />
+                      <path d="M21 21l-4.35-4.35" />
+                    </svg>
+                    <input type="text" placeholder="Search logs..." />
+                  </div>
+                </div>
+                <div class="tbl-wrap">
+                  <table class="tbl">
                     <thead>
-                        <tr>
-                        <th>Time</th>
+                      <tr>
+                        <th>Timestamp</th>
+                        <th>Level</th>
                         <th>Action</th>
+                        <th>By</th>
                         <th>Description</th>
-                        </tr>
+                      </tr>
                     </thead>
-                    <tbody id="logsBody">
+                    <tbody>
+                      <tr>
+                        <td class="log-time" style="font-size: 12px; white-space: nowrap">Nov 25, 16:02:14</td>
+                        <td><span class="badge ll-info">Info</span></td>
+                        <td class="log-action" style="font-size: 12px">VOTE_CAST</td>
+                        <td class="log-by">system</td>
+                        <td class="log-description">Vote recorded - President - DCS/35231/2501/DT</td>
+                      </tr>
+                      <tr>
+                        <td class="log-time" style="font-size: 12px; white-space: nowrap">Nov 25, 15:48:22</td>
+                        <td><span class="badge ll-warn">Warning</span></td>
+                        <td class="log-action" style="font-size: 12px">LOGIN_FAIL</td>
+                        <td class="log-by">manager@kiut</td>
+                        <td class="log-description">Failed login - 5th attempt, account locked</td>
+                      </tr>
+                      <tr>
+                        <td class="log-time" style="font-size: 12px; white-space: nowrap">Nov 25, 15:30:05</td>
+                        <td><span class="badge ll-info">Info</span></td>
+                        <td class="log-action" style="font-size: 12px">CANDIDATE_EDIT</td>
+                        <td class="log-by">admin@kiut</td>
+                        <td class="log-description">Candidate profile updated</td>
+                      </tr>
+                      <tr>
+                        <td class="log-time" style="font-size: 12px; white-space: nowrap">Nov 25, 14:00:00</td>
+                        <td><span class="badge ll-info">Info</span></td>
+                        <td class="log-action" style="font-size: 12px">ANNOUNCEMENT_SENT</td>
+                        <td class="log-by">admin@kiut</td>
+                        <td class="log-description">"Voting Reminder" - 180 recipients (Not Voted)</td>
+                      </tr>
+                      <tr>
+                        <td class="log-time" style="font-size: 12px; white-space: nowrap">Nov 25, 08:00:00</td>
+                        <td><span class="badge ll-info">Info</span></td>
+                        <td class="log-action" style="font-size: 12px">ELECTION_OPEN</td>
+                        <td class="log-by">admin@kiut</td>
+                        <td class="log-description">Election "SG 2025/26" changed to Voting Open</td>
+                      </tr>
+                      <tr>
+                        <td class="log-time" style="font-size: 12px; white-space: nowrap">Nov 25, 07:55:10</td>
+                        <td><span class="badge ll-err">Error</span></td>
+                        <td class="log-action" style="font-size: 12px">CONNECTION_TIMEOUT</td>
+                        <td class="log-by ">system</td>
+                        <td class="log-description">Connection timeout - retried successfully</td>
+                      </tr>
                     </tbody>
-                </table>
+                  </table>
+                </div>
+                <div class="tbl-footer">
+                  <span>Showing 1 to <span class="visible-entries">6</span> of <span class="total-entries">248</span> entries</span>
+                  <div class="pagination">
+                    <button class="pg-btn prev">Prev</button>
+                    <button class="pg-btn cur">1</button>
+                    <button class="pg-btn next">2</button>
+                    <button class="pg-btn next-btn">Next</button>
+                  </div>
+                </div>
+              </div>
             </div>
-        </section>
-
-<!--=============================Profile Section============================== 
-        
-        <section id="profile-section" class="page-section">
-            <div class="heading">
-                <svg xmlns="http://www.w3.org/2000/svg" width="30" height="30" viewBox="0 0 24 24">
-	                <path fill="#6b8e23" d="M3 13h8V3H3zm0 8h8v-6H3zm10 0h8V11h-8zm0-18v6h8V3z" />
-                </svg>
-                <h1>Profile</h1>
+          </div>
+          <!-- PAST ELECTIONS -->
+          <div id="sec-past" class="page-section">
+            <div class="pg-head">
+              <div class="pg-head-left">
+                <h1>Past Elections</h1>
+                <p>Archive of completed election records.</p>
+              </div>
             </div>
-        </section>
-
-=============================Voters' Statistics Section============================== 
-        
-        <section id="voter-statistics-section" class="page-section">
-            <div class="heading">
-                <svg xmlns="http://www.w3.org/2000/svg" width="30" height="30" viewBox="0 0 24 24">
-	                <path fill="#6b8e23" d="M3 13h8V3H3zm0 8h8v-6H3zm10 0h8V11h-8zm0-18v6h8V3z" />
-                </svg>
-                <h1>Voters' Statistics</h1>
+            <div class="past-grid">
+              <div class="past-card">
+                <div class="past-top">
+                  <h3>KIUTSO Elections 2024/25</h3>
+                  <p>Oct 10, 2024</p>
+                </div>
+                <div class="past-body">
+                  <div class="past-row">
+                    <span>Registered</span><span>280</span>
+                  </div>
+                  <div class="past-row">
+                    <span>Votes Cast</span><span>198</span>
+                  </div>
+                  <div class="past-row">
+                    <span>Turnout</span><span>70.7%</span>
+                  </div>
+                </div>
+                <div class="past-foot">
+                  <button class="btn btn-gh btn-sm" style="flex: 1">
+                    View Results</button
+                  ><button class="btn btn-gh btn-sm">Export</button>
+                </div>
+              </div>
+              <div class="past-card">
+                <div class="past-top">
+                  <h3>KIUTSO Elections 2023/24</h3>
+                  <p>Nov 9, 2023</p>
+                </div>
+                <div class="past-body">
+                  <div class="past-row">
+                    <span>Registered</span><span>245</span>
+                  </div>
+                  <div class="past-row">
+                    <span>Votes Cast</span><span>160</span>
+                  </div>
+                  <div class="past-row">
+                    <span>Turnout</span><span>65.3%</span>
+                  </div>
+                </div>
+                <div class="past-foot">
+                  <button class="btn btn-gh btn-sm" style="flex: 1">View Results</button>
+                  <button class="btn btn-gh btn-sm">Export</button>
+                </div>
+              </div>
             </div>
-        </section>-->
-
-<!----===========================Settings Section====================================== -->
-
-        <section id="settings-section" class="page-section">
-            <div class="heading">
-                <svg xmlns="http://www.w3.org/2000/svg" width="30" height="30" viewBox="0 0 24 24">
-	                <path fill="#6b8e23" d="M3 13h8V3H3zm0 8h8v-6H3zm10 0h8V11h-8zm0-18v6h8V3z" />
-                </svg>
+          </div>
+          <!-- SETTINGS -->
+          <div id="sec-settings" class="page-section">
+            <div class="pg-head">
+              <div class="pg-head-left">
                 <h1>Settings</h1>
+                <p>System configuration and account management.</p>
+              </div>
             </div>
-            <div class="settings-layout">
-                <div class="settings-menu">
-                    <button class="settings-tab active" data-tab="profile-settings">Profile</button>
-                        <button class="settings-tab" data-tab="security-settings">Security</button>
-                    <button class="settings-tab" data-tab="theme-settings">Theme</button>
-                        <button class="settings-tab" data-tab="user-management">Users</button>
-                    <button class="settings-tab" data-tab="system-settings">System</button>
+            <div class="settings-grid">
+              <div class="settings-nav">
+                <div class="sn-item on" data-sp="profile" onclick="switchSettings(this)">
+                  <svg width="13" height="13" fill="none" stroke="currentColor" stroke-width="2" viewBox="0 0 24 24">
+                    <path d="M20 21v-2a4 4 0 00-4-4H8a4 4 0 00-4 4v2" />
+                    <circle cx="12" cy="7" r="4" /></svg>My Profile
                 </div>
-                <div class="settings-content">
-                    <div class="settings-panel active" id="profile-settings">
-                        <h2>Profile Settings</h2>
-                            <label for="admin-name">Full Name</label>
-                        <input type="text" id="admin-name" placeholder="Admin Name">
-                            <label for="admin-email">Email</label>
-                        <input type="email" id="admin-email" placeholder="admin@email.com">
-                            <label for="admin-profile-picture">Profile Picture</label>
-                        <input type="file" id="admin-profile-picture">
-                        <button class="save-btn">Save Changes</button>
+                <div class="sn-item" data-sp="theme" onclick="switchSettings(this)">
+                  <svg width="13" height="13" fill="none" stroke="currentColor" stroke-width="2" viewBox="0 0 24 24">
+                    <circle cx="12" cy="12" r="5" />
+                    <line x1="12" y1="1" x2="12" y2="3" />
+                    <line x1="12" y1="21" x2="12" y2="23" />
+                    <line x1="4.22" y1="4.22" x2="5.64" y2="5.64" />
+                    <line x1="18.36" y1="18.36" x2="19.78" y2="19.78" />
+                  </svg>Theme
+                </div>
+                <div class="sn-item" data-sp="datetime" onclick="switchSettings(this)">
+                  <svg width="13" height="13" fill="none" stroke="currentColor" stroke-width="2" viewBox="0 0 24 24" >
+                    <rect x="3" y="4" width="18" height="18" rx="2" />
+                    <line x1="16" y1="2" x2="16" y2="6"/>
+                    <line x1="8" y1="2" x2="8" y2="6"/>
+                    <line x1="3" y1="10" x2="21" y2="10"/>
+                  </svg>Date &amp; Time 
+                </div>
+                <div class="sn-item" data-sp="password" onclick="switchSettings(this)">
+                  <svg width="13" height="13" fill="none" stroke="currentColor" stroke-width="2" viewBox="0 0 24 24">
+                    <rect x="3" y="11" width="18" height="11" rx="2" />
+                    <path d="M7 11V7a5 5 0 0110 0v4" />
+                  </svg>Password
+                </div>
+                <div class="sn-item" data-sp="courses" onclick="switchSettings(this)">
+                  <svg width="13" height="13" fill="none" stroke="currentColor" stroke-width="2" viewBox="0 0 24 24">
+                    <path d="M2 3h6a4 4 0 014 4v14a3 3 0 00-3-3H2z" />
+                    <path d="M22 3h-6a4 4 0 00-4 4v14a3 3 0 013-3h7z" />
+                  </svg>Course Codes
+                </div>
+                <div class="sn-item" data-sp="admins" onclick="switchSettings(this)">
+                  <svg width="13" height="13" fill="none" stroke="currentColor" stroke-width="2" viewBox="0 0 24 24">
+                    <path d="M17 21v-2a4 4 0 00-4-4H5a4 4 0 00-4 4v2" />
+                    <circle cx="9" cy="7" r="4" />
+                    <path d="M23 21v-2a4 4 0 00-3-3.87" />
+                    <path d="M16 3.13a4 4 0 010 7.75" />
+                  </svg>Admin Accounts
+                </div>
+                <div
+                  class="sn-item"
+                  data-sp="sessions"
+                  onclick="switchSettings(this)">
+                  <svg width="13" height="13" fill="none" stroke="currentColor" stroke-width="2" viewBox="0 0 24 24">
+                    <rect x="2" y="3" width="20" height="14" rx="2" />
+                    <line x1="8" y1="21" x2="16" y2="21" />
+                    <line x1="12" y1="17" x2="12" y2="21" />
+                  </svg>Sessions
+                </div>
+                <div class="sn-item" data-sp="backup" onclick="switchSettings(this)">
+                  <svg width="13" height="13" fill="none" stroke="currentColor" stroke-width="2" viewBox="0 0 24 24">
+                    <path d="M21 15v4a2 2 0 01-2 2H5a2 2 0 01-2-2v-4" />
+                    <polyline points="7 10 12 15 17 10" />
+                    <line x1="12" y1="15" x2="12" y2="3" />
+                  </svg>Data Backup
+                </div>
+              </div>
+              <div>
+                <!-- My Profile -->
+                <div id="sp-profile" class="settings-panel on">
+                  <div class="card">
+                    <div class="card-header">
+                      <h3>My Profile</h3>
                     </div>
-                    <div class="settings-panel" id="security-settings">
-                            <h2>Security</h2>
-                        <label for="current-admin-password">Current Password</label>
-                            <input type="password" id="current-admin-password">
-                        <label for="new-admin-password">New Password</label>
-                            <input type="password" id="new-admin-password">
-                        <label for="confirm-admin-password">Confirm Password</label>
-                            <input type="password" id="confirm-admin-password">
-                        <button class="save-btn">Update Password</button>
-                    </div>
-                    <div class="settings-panel" id="theme-settings">
-                        <h2>Theme Settings</h2>
-                        <div class="theme-option">
-                            <label for="light-theme">Light Mode</label>
-                            <input type="radio" class="theme-toggle" id="light-theme" name="light-theme" checked>
+                    <div class="card-body">
+                      <div class="photo-upload-wrap">
+                        <label style="cursor: pointer">
+                          <div class="photo-preview" id="photoPreview">
+                            <img id="profilePhotoImg" src="" alt="" />
+                            <div class="photo-preview-overlay">
+                              <svg width="18" height="18" fill="none" stroke="currentColor" stroke-width="2" viewBox="0 0 24 24">
+                                <path d="M21 15v4a2 2 0 01-2 2H5a2 2 0 01-2-2v-4"/>
+                                <polyline points="7 10 12 15 17 10" />
+                                <line x1="12" y1="15" x2="12" y2="3" />
+                              </svg>
+                            </div>
+                          </div>
+                          <input type="file" id="photoInput" accept="image/*" onchange="handlePhotoUpload(event)"/>
+                        </label>
+                        <div>
+                          <p class="user-role" style=" font-size: 13.5px; font-weight: 600; color: var(--text); margin-bottom: 4px; ">Admin User</p>
+                          <p class="user-id" style="font-size: 12.5px; color: var(--muted); margin-bottom: 10px; ">admin@kiut.ac.tz</p>
+                          </div>
+                      </div>
+                      <div class="form-row">
+                        <div class="form-group">
+                          <label>Full Name</label>
+                          <input type="text" class="form-ctrl" value="Admin User"/>
                         </div>
-                        <div class="theme-option">
-                            <label for="dark-theme">Dark Mode</label>
-                            <input type="radio" class="theme-toggle" id="dark-theme" name="dark-theme">
+                        <div class="form-group">
+                          <label>Email</label>
+                          <input type="email" class="form-ctrl" value="admin@kiut.ac.tz"/>
                         </div>
+                      </div>
+                      <div class="form-group">
+                        <label>Role</label>
+                        <input type="text" class="form-ctrl" value="Super Admin" disabled style="opacity: 0.6; cursor: not-allowed"/>
+                      </div>
+                      <button class="btn btn-p">Save Profile</button>
                     </div>
-                    <div class="settings-panel" id="user-management">
-                        <h2>User Management</h2>
-                        <table class="users-table">
-                            <thead>
-                                <tr>
-                                    <th>Name</th>
-                                    <th>Role</th>
-                                    <th>Status</th>
-                                    <th>Action</th>
-                                </tr>
-                            </thead>
-                            <tbody>
-                                <tr>
-                                    <td>Admin One</td>
-                                    <td>Administrator</td>
-                                    <td>Active</td>
-                                    <td><button>Disable</button></td>
-                                </tr>
-                            </tbody>
+                  </div>
+                </div>
+                <!-- Theme -->
+                <div id="sp-theme" class="settings-panel">
+                  <div class="card">
+                    <div class="card-header">
+                      <h3>Theme</h3>
+                    </div>
+                    <div class="card-body">
+                      <div class="theme-opts">
+                        <button class="theme-opt on" onclick="selTheme('light',this)">
+                          <svg width="15" height="15" fill="none" stroke="currentColor" stroke-width="2" viewBox="0 0 24 24">
+                            <circle cx="12" cy="12" r="5" />
+                            <line x1="12" y1="1" x2="12" y2="3" />
+                            <line x1="12" y1="21" x2="12" y2="23" />
+                          </svg>Light
+                        </button>
+                        <button class="theme-opt" onclick="selTheme('dark',this)">
+                          <svg width="15" height="15" fill="none" stroke="currentColor" stroke-width="2" viewBox="0 0 24 24">
+                            <path d="M21 12.79A9 9 0 1111.21 3 7 7 0 0021 12.79z" />
+                          </svg>Dark
+                        </button>
+                        <button class="theme-opt" onclick="selTheme('system',this)">
+                          <svg width="15" height="15" fill="none" stroke="currentColor" stroke-width="2" viewBox="0 0 24 24">
+                            <rect x="2" y="3" width="20" height="14" rx="2"/>
+                          </svg>System
+                        </button>
+                      </div>
+                    </div>
+                  </div>
+                </div>
+                <!-- Date & Time -->
+                <div id="sp-datetime" class="settings-panel">
+                  <div class="card">
+                    <div class="card-header">
+                      <h3>Date &amp; Time Format</h3>
+                    </div>
+                    <div class="card-body">
+                      <div class="form-group">
+                        <label>Date Format</label>
+                        <select class="form-ctrl" style="max-width: 280px">
+                          <option>MM DD, YYYY</option>
+                          <option>DD/MM/YYYY</option>
+                          <option>YYYY-MM-DD</option>
+                        </select>
+                      </div>
+                      <div class="form-group">
+                        <label>Time Format</label>
+                        <select class="form-ctrl" style="max-width: 280px">
+                          <option>12-hour (AM/PM)</option>
+                          <option>24-hour</option>
+                        </select>
+                      </div>
+                      <button class="btn btn-p">Save</button>
+                    </div>
+                  </div>
+                </div>
+                <!-- Password -->
+                <div id="sp-password" class="settings-panel">
+                  <div class="card">
+                    <div class="card-header"><h3>Change Password</h3></div>
+                    <div class="card-body" style="max-width: 380px">
+                      <div class="form-group">
+                        <label>Current Password</label>
+                        <input type="password" class="form-ctrl" placeholder="••••••••"/>
+                      </div>
+                      <div class="form-group">
+                        <label>New Password</label>
+                        <input type="password" class="form-ctrl" placeholder="••••••••"/>
+                      </div>
+                      <div class="form-group">
+                        <label>Confirm New Password</label>
+                        <input type="password" class="form-ctrl" placeholder="••••••••"/>
+                      </div>
+                      <button class="btn btn-p">Update Password</button>
+                    </div>
+                  </div>
+                </div>
+                <!-- Course Codes -->
+                <div id="sp-courses" class="settings-panel">
+                  <div class="card">
+                    <div class="card-header">
+                      <h3>Course Code Manager</h3>
+                      <button class="btn btn-p btn-sm" onclick="openModal('addCourseModal')">+ Add Code</button>
+                    </div>
+                    <div class="tbl-wrap">
+                      <table class="tbl">
+                        <thead>
+                          <tr>
+                            <th>Code</th>
+                            <th>Course Name</th>
+                            <th>Faculty</th>
+                            <th>Actions</th>
+                          </tr>
+                        </thead>
+                        <tbody>
+                          <tr>
+                            <td class="tbl-name">DCS</td>
+                            <td>Diploma in Computer Science</td>
+                            <td>Computing and IT</td>
+                            <td>
+                              <div class="tbl-actions">
+                                <button class="btn btn-icon btn-sm">
+                                  <svg width="12" height="12" fill="none" stroke="currentColor" stroke-width="2" viewBox="0 0 24 24">
+                                    <path d="M11 4H4a2 2 0 00-2 2v14a2 2 0 002 2h14a2 2 0 002-2v-7" />
+                                    <path d="M18.5 2.5a2.121 2.121 0 013 3L12 15l-4 1 1-4 9.5-9.5z" />
+                                  </svg>
+                                </button>
+                                <button class="btn btn-icon btn-sm" style="color: var(--red)">
+                                  <svg width="12" height="12" fill="none" stroke="currentColor" stroke-width="2" viewBox="0 0 24 24" >
+                                    <polyline points="3 6 5 6 21 6" />
+                                    <path d="M19 6l-1 14a2 2 0 01-2 2H8a2 2 0 01-2-2L5 6" />
+                                  </svg>
+                                </button>
+                              </div>
+                            </td>
+                          </tr>
+                          <tr>
+                            <td class="tbl-name">BCS</td>
+                            <td>Bachelor of Computer Science</td>
+                            <td>Computing and IT</td>
+                            <td>
+                              <div class="tbl-actions">
+                                <button class="btn btn-icon btn-sm">
+                                  <svg width="12" height="12" fill="none" stroke="currentColor" stroke-width="2" viewBox="0 0 24 24">
+                                    <path d="M11 4H4a2 2 0 00-2 2v14a2 2 0 002 2h14a2 2 0 002-2v-7" />
+                                    <path d="M18.5 2.5a2.121 2.121 0 013 3L12 15l-4 1 1-4 9.5-9.5z" />
+                                  </svg>
+                                </button>
+                                <button class="btn btn-icon btn-sm" style="color: var(--red)">
+                                  <svg width="12" height="12" fill="none" stroke="currentColor" stroke-width="2" viewBox="0 0 24 24" >
+                                    <polyline points="3 6 5 6 21 6" />
+                                    <path d="M19 6l-1 14a2 2 0 01-2 2H8a2 2 0 01-2-2L5 6"/>
+                                  </svg>
+                                </button>
+                              </div>
+                            </td>
+                          </tr>
+                          <tr>
+                            <td class="tbl-name">LLB</td>
+                            <td>Bachelor of Laws</td>
+                            <td>Law</td>
+                            <td>
+                              <div class="tbl-actions">
+                                <button class="btn btn-icon btn-sm">
+                                  <svg width="12" height="12" fill="none" stroke="currentColor" stroke-width="2" viewBox="0 0 24 24">
+                                    <path d="M11 4H4a2 2 0 00-2 2v14a2 2 0 002 2h14a2 2 0 002-2v-7"/>
+                                    <path d="M18.5 2.5a2.121 2.121 0 013 3L12 15l-4 1 1-4 9.5-9.5z"/>
+                                  </svg>
+                                  </button>
+                                  <button class="btn btn-icon btn-sm" style="color: var(--red)">
+                                  <svg width="12" height="12" fill="none" stroke="currentColor" stroke-width="2" viewBox="0 0 24 24" >
+                                    <polyline points="3 6 5 6 21 6" />
+                                    <path d="M19 6l-1 14a2 2 0 01-2 2H8a2 2 0 01-2-2L5 6"/>
+                                  </svg>
+                                </button>
+                              </div>
+                            </td>
+                          </tr>
+                        </tbody>
+                      </table>
+                    </div>
+                  </div>
+                </div>
+                <!-- Admin Accounts -->
+                <div id="sp-admins" class="settings-panel">
+                  <div class="card">
+                    <div class="card-header">
+                      <h3>Admin Accounts</h3>
+                      <button class="btn btn-p btn-sm" onclick="openModal('addAdminModal')">+ Add Admin</button>
+                    </div>
+                    <div class="tbl-wrap">
+                      <table class="tbl">
+                        <thead>
+                          <tr>
+                            <th>Username</th>
+                            <th>Role</th>
+                            <th>Status</th>
+                            <th>Last Login</th>
+                            <th>Actions</th>
+                          </tr>
+                        </thead>
+                        <tbody>
+                          <tr>
+                            <td>admin@kiut.ac.tz</td>
+                            <td>
+                              <span class="role-badge super">Super Admin</span>
+                            </td>
+                            <td>
+                              <span class="badge badge-g"><span class="bdot"></span>Active</span>
+                            </td>
+                            <td>Nov 25, 08:00</td>
+                            <td>-</td>
+                          </tr>
+                          <tr>
+                            <td>manager@kiut.ac.tz</td>
+                            <td>
+                              <span class="role-badge manager">Manager</span>
+                            </td>
+                            <td>
+                              <span class="badge badge-w"><span class="bdot"></span>Locked</span>
+                            </td>
+                            <td>Nov 25, 10:30</td>
+                            <td>
+                              <button class="btn btn-gh btn-sm">Unlock</button>
+                            </td>
+                          </tr>
+                          <tr>
+                            <td>observer@kiut.ac.tz</td>
+                            <td>
+                              <span class="role-badge observer" style="background: rgba(30, 138, 69, 0.15); color: var(--g);">Observer</span>
+                            </td>
+                            <td>
+                              <span class="badge badge-g"><span class="bdot"></span>Active</span>
+                            </td>
+                            <td>Nov 24, 14:00</td>
+                            <td>
+                              <button class="btn btn-d btn-sm">Deactivate</button>
+                            </td>
+                          </tr>
+                        </tbody>
+                      </table>
+                    </div>
+                  </div>
+                </div>
+                <!-- Sessions -->
+                <div id="sp-sessions" class="settings-panel">
+                  <div class="card">
+                    <div class="card-header">
+                    <h3>Active Sessions</h3>
+                    </div>
+                    <div class="tbl-wrap">
+                      <table class="tbl">
+                        <thead>
+                          <tr>
+                            <th>Admin</th>
+                            <th>Role</th>
+                            <th>Login Time</th>
+                            <th>Last Active</th>
+                            <th>Action</th>
+                          </tr>
+                        </thead>
+                        <tbody>
+                          <tr>
+                            <td>admin@kiut.ac.tz</td>
+                            <td>
+                              <span class="role-badge super">Super Admin</span>
+                            </td>
+                            <td>08:00 AM</td>
+                            <td>Just now</td>
+                            <td>
+                              <span class="badge badge-g" style="font-size: 10px">Current</span>
+                            </td>
+                          </tr>
+                          <tr>
+                            <td>observer@kiut.ac.tz</td>
+                            <td>
+                              <span class="role-badge observer" style="background: rgba(30, 138, 69, 0.15); color: var(--g);">Observer</span>
+                            </td>
+                            <td>10:15 AM</td>
+                            <td>5 min ago</td>
+                            <td>
+                              <button class="btn btn-d btn-sm">Force Logout</button>
+                            </td>
+                          </tr>
+                        </tbody>
+                      </table>
+                    </div>
+                  </div>
+                </div>
+                <!-- Backup -->
+                <div id="sp-backup" class="settings-panel">
+                  <div class="card">
+                    <div class="card-header"><h3>Data Backup</h3></div>
+                    <div class="card-body">
+                      <p style="font-size: 13.5px; color: var(--muted); margin-bottom: 18px;">Export a full encrypted backup of all election data.</p>
+                      <button class="btn btn-p" style="margin-bottom: 22px">Generate Backup Now</button>
+                      <h4 style="font-size: 13px; font-weight: 600; margin-bottom: 10px;">Backup History</h4>
+                      <div class="tbl-wrap">
+                        <table class="tbl">
+                          <thead>
+                            <tr>
+                              <th>Date</th>
+                              <th>Time</th>
+                              <th>By</th>
+                              <th>Size</th>
+                              <th></th>
+                            </tr>
+                          </thead>
+                          <tbody>
+                            <tr>
+                              <td>Nov 24, 2025</td>
+                              <td>11:00 PM</td>
+                              <td>admin@kiut.ac.tz</td>
+                              <td>2.4 MB</td>
+                              <td>
+                                <button class="btn btn-gh btn-sm">Download</button>
+                              </td>
+                            </tr>
+                            <tr>
+                              <td>Nov 23, 2025</td>
+                              <td>11:00 PM</td>
+                              <td>system</td>
+                              <td>2.1 MB</td>
+                              <td>
+                                <button class="btn btn-gh btn-sm">Download</button>
+                              </td>
+                            </tr>
+                          </tbody>
                         </table>
+                      </div>
                     </div>
-                    <div class="settings-panel" id="system-settings">
-                        <h2>System Settings</h2>
-                        <div class="system-item">
-                            <label for="enable-logs-toggle">Enable Logs</label>
-                            <input type="checkbox" id="enable-logs-toggle" checked>
-                        </div>
-                        <div class="system-item">
-                            <label for="multiple-elections-toggle">Allow Multiple Elections</label>
-                            <input type="checkbox" id="multiple-elections-toggle">
-                        </div>
-                        <button class="danger-btn">Reset Settings</button>
-                    </div>
+                  </div>
                 </div>
+              </div>
             </div>
-        </section>
-
-<!--=================================PopUp Form=====================================-->
-        <div id="candidates-form-box" class="form-box" onclick="if(event.target.id==='candidates-form-box') closeCandidatesForm()">
-        <form id="candidates-form">
-                <div class="form-header">
-                    <h2>Add New Candidate</h2>
-                    <button type="button" id="close-button" onclick="closeCandidatesForm()">
-                        <svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24">
-                            <path fill="#f00" d="M12 22C6.477 22 2 17.523 2 12S6.477 2 12 2s10 4.477 10 10s-4.477 10-10 10m0-11.414L9.172 7.757L7.757 9.172L10.586 12l-2.829 2.828l1.415 1.415L12 13.414l2.828 2.829l1.415-1.415L13.414 12l2.829-2.828l-1.415-1.415z" />
-                        </svg>
-                    </button>
-                </div>
-                <div class="form-group">
-                    <label for="candidate-name">Name:</label>
-                    <input type="text" id="candidate-name" name="candidate-name" required>
-                </div>
-                <div class="form-group">
-                    <label for="position">Position:</label>
-                    <input type="text" id="position" name="position" required>
-                </div>
-                <div class="form-group">
-                    <label for="party">Party:</label>
-                    <input type="text" id="party" name="party" required>
-                </div>
-                <div class="form-group">
-                    <label for="department">Department:</label>
-                    <input type="text" id="department" name="department" required>
-                </div>
-                <div class="form-group">
-                    <label for="course">Course:</label>
-                    <input type="text" id="course" name="course" required>
-                </div>
-                <div class="form-group">
-                    <label for="photo">Photo:</label>
-                    <input type="file" id="photo" name="photo" accept="image/*" required>
-                </div>
-                <button type="submit" id="submit-button">Add Candidate</button>
-            </form>
+          </div>
         </div>
-    </main>
-
-    <footer>
-    </footer>
-
-   <script src="https://cdn.jsdelivr.net/npm/chart.js"></script>
+      </div>
+    </div>
+    <!-- ═══ VOTER DETAIL PANEL ═══ -->
+    <div class="voter-panel" id="voterPanel">
+      <div class="vp-head">
+        <h3>Voter Detail</h3>
+        <button class="vp-close" onclick="closeVoterPanel()">×</button>
+      </div>
+      <div class="vp-body">
+        <div class="vp-sec">
+          <div class="vp-sec-title">Profile</div>
+          <div class="vp-row">
+            <span class="vp-k">Reg Number</span>
+            <span class="vp-v">DCS/34231/2501/DT</span>
+          </div>
+          <div class="vp-row">
+            <span class="vp-k">Course Code</span>
+            <span class="vp-v">DCS</span>
+          </div>
+          <div class="vp-row">
+            <span class="vp-k">Course Name</span>
+            <span class="vp-v">Diploma in Computer Science</span>
+          </div>
+          <div class="vp-row">
+            <span class="vp-k">Faculty</span>
+            <span class="vp-v">Computing and IT</span>
+          </div>
+          <div class="vp-row">
+            <span class="vp-k">Contact</span>
+            <span class="vp-v">student@gmail.com</span>
+          </div>
+          <div class="vp-row">
+            <span class="vp-k">Registered</span>
+            <span class="vp-v">Nov 20, 2025</span>
+          </div>
+        </div>
+        <div class="vp-sec">
+          <div class="vp-sec-title">Vote Status</div>
+          <div class="vp-row">
+            <span class="vp-k">Status</span>
+            <span class="vp-v">
+              <span class="badge badge-g"><span class="bdot"></span>Voted</span>
+            </span>
+          </div>
+          <div class="vp-row">
+            <span class="vp-k">Vote Time</span>
+            <span class="vp-v">Nov 25, 14:32:08</span>
+          </div>
+        </div>
+        <div class="vp-sec">
+          <div class="vp-sec-title">Vote Receipt</div>
+          <p style="font-size: 11.5px; color: var(--muted); margin-bottom: 10px">Candidate choice is never disclosed.</p>
+          <div class="vp-row">
+            <span class="vp-k">President</span>
+            <span class="vp-v"><span class="badge badge-g">Voted</span></span>
+          </div>
+          <div class="vp-row">
+            <span class="vp-k">MP — Computing &amp; IT</span>
+            <span class="vp-v"><span class="badge badge-g">Voted</span></span>
+          </div>
+        </div>
+      </div>
+    </div>
+    <!-- ═══ MOBILE BOTTOM NAV ═══ -->
+    <div class="bottom-nav">
+      <div class="bn-inner">
+        <button class="bn-item on" onclick="nav(document.querySelector('[data-section=overview]'));setBn(this)">
+          <svg width="20" height="20" fill="none" stroke="currentColor" stroke-width="2" viewBox="0 0 24 24">
+            <rect x="3" y="3" width="7" height="7" rx="1" />
+            <rect x="14" y="3" width="7" height="7" rx="1" />
+            <rect x="3" y="14" width="7" height="7" rx="1" />
+            <rect x="14" y="14" width="7" height="7" rx="1" />
+          </svg>
+          <span>Overview</span>
+        </button>
+        <button class="bn-item"onclick="nav(document.querySelector('[data-section=results]'));setBn(this)">
+          <svg width="20" height="20" fill="none" stroke="currentColor" stroke-width="2" viewBox="0 0 24 24">
+            <line x1="18" y1="20" x2="18" y2="10" />
+            <line x1="12" y1="20" x2="12" y2="4" />
+            <line x1="6" y1="20" x2="6" y2="14" />
+          </svg>
+          <span>Results</span>
+        </button>
+        <button class="bn-item" onclick="nav(document.querySelector('[data-section=voters]'));setBn(this)">
+          <svg width="20" height="20" fill="none" stroke="currentColor" stroke-width="2" viewBox="0 0 24 24">
+            <path d="M17 21v-2a4 4 0 00-4-4H5a4 4 0 00-4 4v2" />
+            <circle cx="9" cy="7" r="4" />
+          </svg>
+          <span>Voters</span>
+        </button>
+        <button class="bn-item" onclick="nav(document.querySelector('[data-section=notifications]'));setBn(this)">
+          <svg width="20" height="20" fill="none" stroke="currentColor" stroke-width="2" viewBox="0 0 24 24" >
+            <path d="M18 8A6 6 0 006 8c0 7-3 9-3 9h18s-3-2-3-9" />
+            <path d="M13.73 21a2 2 0 01-3.46 0" />
+          </svg>
+          <span>Notifs</span>
+        </button>
+        <button class="bn-item" onclick="openDrawer()">
+          <svg width="20" height="20" fill="none" stroke="currentColor" stroke-width="2" viewBox="0 0 24 24">
+            <line x1="3" y1="6" x2="21" y2="6" />
+            <line x1="3" y1="12" x2="21" y2="12" />
+            <line x1="3" y1="18" x2="21" y2="18" />
+          </svg>
+          <span>More</span>
+        </button>
+      </div>
+    </div>
+    <!-- mobile menu drawer -->
+    <div class="mob-drawer" id="mobDrawer">
+      <div class="drawer-overlay" onclick="closeDrawer()"></div>
+      <div class="drawer-content">
+        <div class="drawer-handle"></div>
+        <div class="drawer-items">
+          <button class="drawer-item" onclick="nav(document.querySelector('[data-section=elections]'));closeDrawer()">
+            <svg width="15" height="15" fill="none" stroke="currentColor" stroke-width="2" viewBox="0 0 24 24">
+              <rect x="2" y="7" width="20" height="14" rx="2" />
+              <path d="M16 3l-4-2-4 2" />
+            </svg>Elections
+          </button>
+          <button class="drawer-item" onclick="nav(document.querySelector('[data-section=positions]'));closeDrawer()">
+            <svg width="15" height="15" fill="none" stroke="currentColor" stroke-width="2" viewBox="0 0 24 24">
+              <path d="M9 11l3 3L22 4" />
+            </svg>Positions
+          </button>
+          <button class="drawer-item" onclick="nav(document.querySelector('[data-section=candidates]'));closeDrawer()">
+            <svg width="15" height="15" fill="none" stroke="currentColor" stroke-width="2" viewBox="0 0 24 24">
+              <path d="M17 21v-2a4 4 0 00-4-4H5a4 4 0 00-4 4v2" />
+              <circle cx="9" cy="7" r="4" />
+            </svg>Candidates
+          </button>
+          <button class="drawer-item" onclick="nav(document.querySelector('[data-section=announcements]'));closeDrawer()">
+            <svg width="15" height="15" fill="none" stroke="currentColor" stroke-width="2" viewBox="0 0 24 24">
+              <polygon points="11 5 6 9 2 9 2 15 6 15 11 19 11 5" />
+            </svg>Announcements
+          </button>
+          <button class="drawer-item" onclick="nav(document.querySelector('[data-section=reports]'));closeDrawer()">
+            <svg width="15" height="15" fill="none" stroke="currentColor" stroke-width="2" viewBox="0 0 24 24">
+              <path d="M14 2H6a2 2 0 00-2 2v16a2 2 0 002 2h12a2 2 0 002-2V8z"/>
+            </svg>Reports
+          </button>
+          <button class="drawer-item" onclick="nav(document.querySelector('[data-section=logs]'));closeDrawer()">
+            <svg width="15" height="15" fill="none" stroke="currentColor" stroke-width="2" viewBox="0 0 24 24">
+              <path d="M4 6h16M4 10h16M4 14h16M4 18h7" />
+            </svg>System Logs
+          </button>
+          <button class="drawer-item" onclick="nav(document.querySelector('[data-section=past]'));closeDrawer()">
+            <svg width="15" height="15" fill="none" stroke="currentColor" stroke-width="2" viewBox="0 0 24 24">
+              <path d="M12 8v4l3 3m6-3a9 9 0 11-18 0 9 9 0 0118 0z" />
+            </svg>Past Elections
+          </button>
+          <button class="drawer-item" onclick="nav(document.querySelector('[data-section=settings]'));closeDrawer()">
+            <svg width="15" height="15" fill="none" stroke="currentColor" stroke-width="2" viewBox="0 0 24 24" >
+              <circle cx="12" cy="12" r="3" />
+            </svg>Settings
+          </button>
+        </div>
+      </div>
+    </div>
+    <!-- ═══ FORM MODALS ═══ -->
+    <div class="modal-overlay" id="addCandidateModal">
+      <div class="modal">
+        <div class="modal-head">
+          <h3>Add New Candidate</h3>
+          <button class="modal-close" onclick="closeModal('addCandidateModal')">×</button>
+        </div>
+        <div class="modal-body">
+          <div class="form-row">
+            <div class="form-group">
+              <label>Full Name</label>
+              <input type="text" class="form-ctrl" placeholder="Full name" />
+            </div>
+            <div class="form-group">
+              <label>Position</label>
+              <select class="form-ctrl">
+                <option>Select position...</option>
+                <option>President</option>
+                <option>MP - Computing and IT</option>
+                <option>MP - Law</option>
+              </select>
+            </div>
+          </div>
+          <div class="form-row">
+            <div class="form-group">
+              <label>Faculty</label>
+              <select class="form-ctrl">
+                <option>Select faculty...</option>
+                <option>Computing and IT</option>
+                <option>Law</option>
+                <option>Business Administration</option>
+                <option>Health Sciences</option>
+              </select>
+            </div>
+            <div class="form-group">
+              <label>Department</label>
+              <input type="text" class="form-ctrl" placeholder="e.g. Computer Science"/>
+            </div>
+          </div>
+          <div class="form-row">
+            <div class="form-group">
+              <label>Year of Study</label>
+              <select class="form-ctrl">
+                <option>1st Year</option>
+                <option>2nd Year</option>
+                <option>3rd Year</option>
+                <option>4th Year</option>
+              </select>
+            </div>
+            <div class="form-group">
+              <label>Photo</label>
+              <input type="file" class="form-ctrl" accept="image/*" />
+            </div>
+          </div>
+        </div>
+        <div class="modal-foot">
+          <button class="btn btn-gh" onclick="closeModal('addCandidateModal')">Cancel</button>
+          <button class="btn btn-p">Add Candidate</button>
+        </div>
+      </div>
+    </div>
+    <div class="modal-overlay" id="addPositionModal">
+      <div class="modal">
+        <div class="modal-head">
+          <h3>Add Position</h3>
+          <button class="modal-close" onclick="closeModal('addPositionModal')">×</button>
+        </div>
+        <div class="modal-body">
+          <div class="form-group">
+            <label>Position Name</label>
+            <input type="text" class="form-ctrl" placeholder="e.g. President or MP for Computing and IT"/>
+          </div>
+          <div class="form-group">
+            <label>Position Type</label>
+            <select class="form-ctrl" id="posType" onchange="toggleFacSel()">
+              <option value="g">General - all students vote</option>
+              <option value="f">Faculty - one faculty only</option>
+            </select>
+          </div>
+          <div class="form-group" id="facSelGroup" style="display: none">
+            <label>Faculty</label>
+            <select class="form-ctrl">
+              <option>Select faculty...</option>
+              <option>Computing and IT</option>
+              <option>Law</option>
+              <option>Business Administration</option>
+              <option>Health Sciences</option>
+            </select>
+            <p class="form-hint">Only students of this faculty will see this position.</p>
+          </div>
+          <div class="form-row">
+            <div class="form-group">
+              <label>Min Candidates</label>
+              <input type="number" class="form-ctrl" value="1" min="1" max="6" />
+            </div>
+            <div class="form-group">
+              <label>Max Candidates</label>
+              <input type="number" class="form-ctrl" value="6" min="1" max="6" />
+            </div>
+          </div>
+        </div>
+        <div class="modal-foot">
+          <button class="btn btn-gh" onclick="closeModal('addPositionModal')">Cancel</button>
+          <button class="btn btn-p">Create Position</button>
+        </div>
+      </div>
+    </div>
+    <div class="modal-overlay" id="createElectionModal">
+      <div class="modal">
+        <div class="modal-head">
+          <h3>Create Election</h3>
+          <button class="modal-close" onclick="closeModal('createElectionModal')">×</button>
+        </div>
+        <div class="modal-body">
+          <div class="form-group">
+            <label>Election Name</label>
+            <input type="text" class="form-ctrl" placeholder="e.g. KIUTSO Elections 2026/27"/>
+          </div>
+          <div class="form-row">
+            <div class="form-group">
+              <label>Start Date &amp; Time</label>
+              <input type="datetime-local" class="form-ctrl" />
+            </div>
+            <div class="form-group">
+              <label>End Date &amp; Time</label>
+              <input type="datetime-local" class="form-ctrl" />
+            </div>
+          </div>
+        </div>
+        <div class="modal-foot">
+          <button class="btn btn-gh" onclick="closeModal('createElectionModal')">Cancel</button>
+          <button class="btn btn-p">Create Election</button>
+        </div>
+      </div>
+    </div>
+    <div class="modal-overlay" id="disqualifyModal">
+      <div class="modal" style="max-width: 420px">
+        <div class="modal-head" style="background: #92400e">
+          <h3>Disqualify Candidate</h3>
+          <button class="modal-close" onclick="closeModal('disqualifyModal')">×</button>
+        </div>
+        <div class="modal-body">
+          <p style="font-size: 13.5px; color: var(--muted); margin-bottom: 16px">You are about to disqualify <strong style="color: var(--text)">Candidate One</strong>. This removes them from the public ballot immediately and cannot be undone.</p>
+          <div class="form-group">
+            <label>Reason <span style="color: var(--red)">*</span></label>
+            <textarea class="form-ctrl" placeholder="Enter the mandatory reason - permanently logged to system logs..."></textarea>
+          </div>
+        </div>
+        <div class="modal-foot">
+          <button class="btn btn-gh" onclick="closeModal('disqualifyModal')">Cancel</button>
+          <button class="btn btn-w">Disqualify</button>
+        </div>
+      </div>
+    </div>
+    <div class="modal-overlay" id="deleteModal">
+      <div class="modal confirm" style="max-width: 380px">
+        <div class="modal-head" style="background: var(--red)">
+          <h3>Delete Candidate</h3>
+          <button class="modal-close" onclick="closeModal('deleteModal')">×</button>
+        </div>
+        <div class="modal-body">
+          <h4>Please Confirm Action.</h4>
+          <p>This will permanently delete <strong>Candidate One</strong>. Cannot be undone.</p>
+        </div>
+        <div class="modal-foot">
+          <button class="btn btn-gh" onclick="closeModal('deleteModal')">Cancel</button>
+          <button class="btn btn-d">Yes, Delete</button>
+        </div>
+      </div>
+    </div>
+    <div class="modal-overlay" id="closeVotingModal">
+      <div class="modal confirm" style="max-width: 400px">
+        <div class="modal-head" style="background: var(--red)">
+          <h3>Close Voting Early</h3>
+          <button class="modal-close" onclick="closeModal('closeVotingModal')">×</button>
+        </div>
+        <div class="modal-body">
+          <h4>Close Voting Early?</h4>
+          <p>This immediately ends voting for all students and cannot be reversed.</p>
+          <div class="form-group" style="margin-top: 16px; text-align: left">
+            <label>Reason <span style="color: var(--red)">*</span></label>
+            <textarea class="form-ctrl" placeholder="Enter reason for early closure..." style="min-height: 70px"></textarea>
+          </div>
+        </div>
+        <div class="modal-foot">
+          <button class="btn btn-gh" onclick="closeModal('closeVotingModal')">Cancel</button>
+          <button class="btn btn-d">Close Voting</button>
+        </div>
+      </div>
+    </div>
+    <div class="modal-overlay" id="pauseModal">
+      <div class="modal confirm" style="max-width: 360px">
+        <div class="modal-head" style="background: #92400e">
+          <h3>Pause Voting</h3>
+          <button class="modal-close" onclick="closeModal('pauseModal')">×</button>
+        </div>
+        <div class="modal-body">
+          <h4>Pause Voting?</h4>
+          <p>Voting will be temporarily suspended. Students will see a "Voting is paused" message. You can resume at any time.</p>
+        </div>
+        <div class="modal-foot">
+          <button class="btn btn-gh" onclick="closeModal('pauseModal')">Cancel</button>
+          <button class="btn btn-w">Pause Voting</button>
+        </div>
+      </div>
+    </div>
+    <div class="modal-overlay" id="addCourseModal">
+      <div class="modal" style="max-width: 400px">
+        <div class="modal-head">
+          <h3>Add Course Code</h3>
+          <button class="modal-close" onclick="closeModal('addCourseModal')">×</button>
+        </div>
+        <div class="modal-body">
+          <div class="form-group">
+            <label>Course Code</label>
+            <input type="text" class="form-ctrl" placeholder="e.g. DCS" />
+          </div>
+          <div class="form-group">
+            <label>Course Name</label>
+            <input type="text" class="form-ctrl" placeholder="e.g. Diploma in Computer Science"/>
+          </div>
+          <div class="form-group">
+            <label>Faculty</label>
+            <select class="form-ctrl">
+              <option>Select faculty...</option>
+              <option>Computing and IT</option>
+              <option>Law</option>
+              <option>Business Administration</option>
+              <option>Health Sciences</option>
+            </select>
+          </div>
+        </div>
+        <div class="modal-foot">
+          <button class="btn btn-gh" onclick="closeModal('addCourseModal')">Cancel</button>
+          <button class="btn btn-p">Add Course Code</button>
+        </div>
+      </div>
+    </div>
+    <div class="modal-overlay" id="addAdminModal">
+      <div class="modal" style="max-width: 400px">
+        <div class="modal-head">
+          <h3>Add Admin Account</h3>
+          <button class="modal-close" onclick="closeModal('addAdminModal')">×</button>
+        </div>
+        <div class="modal-body">
+          <div class="form-group">
+            <label>Email</label>
+            <input type="email" class="form-ctrl" placeholder="admin@kiut.ac.tz"/>
+          </div>
+          <div class="form-group">
+            <label>Role</label>
+            <select class="form-ctrl">
+              <option>Super Admin</option>
+              <option>Election Manager</option>
+              <option>Observer</option>
+            </select>
+          </div>
+          <div class="form-group">
+            <label>Temporary Password</label>
+            <input type="password" class="form-ctrl" placeholder="••••••••" />
+          </div>
+          <div class="form-group">
+            <label>Contact (for 2 Factor Authentication)</label>
+            <input type="text" class="form-ctrl" placeholder="Phone or email"/>
+          </div>
+        </div>
+        <div class="modal-foot">
+          <button class="btn btn-gh" onclick="closeModal('addAdminModal')">Cancel</button>
+          <button class="btn btn-p">Create Admin</button>
+        </div>
+      </div>
+    </div>
     <script src="../scripts/adminPanel.js"></script>
-</body>
+  </body>
 </html>
