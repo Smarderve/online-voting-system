@@ -411,8 +411,8 @@
       .notif-dropdown {
         position: absolute;
         top: calc(100% + 8px);
-        right: 0;
-        width: 310px;
+        right: -10px;
+        width: min( 310px, calc(100vw-20px) );
         background: light-dark( var(--white), var(--gray-dark) );
         border: 1.5px solid var(--border);
         border-radius: var(--rl);
@@ -1244,6 +1244,11 @@
         max-width: 60%;
       }
       /* ANNOUNCEMENT */
+      .ann-grid{
+        display: grid;
+        grid-template-columns: 1fr 1fr;
+        gap: 14px;
+      }
       .aud-pills {
         display: flex;
         gap: 8px;
@@ -1813,6 +1818,9 @@
         .report-grid {
           grid-template-columns: 1fr;
         }
+        .ann-grid{
+          grid-template-columns: 1fr !important;
+        }
         .form-row {
           grid-template-columns: 1fr;
         }
@@ -1821,6 +1829,15 @@
         }
         .search-wrap {
           display: none;
+        }
+        .chart-wrap-tall{
+          height: 200px;
+        }
+      }
+      @media(max-width: 370px){
+        .voter-panel{
+          width: 100%;
+          right: -100%;
         }
       }
     </style>
@@ -2689,7 +2706,7 @@
                 <p>Send messages to registered voters.</p>
               </div>
             </div>
-            <div style="display: grid; grid-template-columns: 1fr 1fr; gap: 14px">
+            <div class="ann-grid">
               <div class="card">
                 <div class="card-header"><h3>Compose</h3></div>
                 <div class="card-body">
@@ -2722,21 +2739,21 @@
                         <div class="ann-subj">Voting Reminder</div>
                         <div class="ann-ts">Nov 25, 14:00</div>
                       </div>
-                      <div class="ann-meta">Not Voted - 180 recipients</div>
+                      <div class="ann-meta">Not Voted 180 recipients</div>
                     </div>
                     <div class="ann-item">
                       <div class="ann-head">
                         <div class="ann-subj">Voting is Now Open</div>
                         <div class="ann-ts">Nov 25, 08:00</div>
                       </div>
-                      <div class="ann-meta">All Voters - 300 recipients</div>
+                      <div class="ann-meta">All Voters 300 recipients</div>
                     </div>
                     <div class="ann-item">
                       <div class="ann-head">
                         <div class="ann-subj">Registration Reminder</div>
                         <div class="ann-ts">Nov 22, 10:00</div>
                       </div>
-                      <div class="ann-meta">All Voters - 250 recipients</div>
+                      <div class="ann-meta">All Voters 250 recipients</div>
                     </div>
                   </div>
                 </div>
