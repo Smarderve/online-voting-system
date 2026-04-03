@@ -27,13 +27,16 @@
         --gold: #f59e0b;
         --gold-l: #fef9c3;
         --red: #dc2626;
+        --red-dark: #991b1b;
         --red-l: #fef2f2;
         --blue: #1d4ed8;
+        --bar: #0F172A;
         --blue-l: #eff6ff;
         --white: #fff;
         --black: #000;
         --off: #f8fafc;
         --gray: #f1f5f9;
+        --gray-dark: #ffffffe1;
         --border: #e2e8f0;
         --border-dark: rgba(0, 0, 0, 0.658);
         --text: #1e293b;
@@ -305,7 +308,7 @@
       /*  TOPBAR */
       .topbar {
         height: var(--topbar);
-        background: light-dark( var(--white), #0F172A);
+        background: light-dark( var(--white), var(--bar) );
         backdrop-filter: blur(10px);
         border-bottom: 1px solid var(--border);
         display: flex;
@@ -340,7 +343,7 @@
         display: flex;
         align-items: center;
         gap: 8px;
-        background: light-dark( var(--gray), #ffffffe1);
+        background: light-dark( var(--gray), var(--gray-dark) );
         border: 1.5px solid var(--border);
         border-radius: 8px;
         padding: 7px 12px;
@@ -374,7 +377,7 @@
       .tb-btn {
         width: 36px;
         height: 36px;
-        background: light-dark( var(--gray), #ffffffe1);
+        background: light-dark( var(--gray), var(--gray-dark));
         border: 1.5px solid var(--border);
         border-radius: 8px;
         display: flex;
@@ -395,7 +398,7 @@
         top: 4px;
         right: 4px;
         background: var(--red);
-        color: #fff;
+        color: var(--white);
         font-size: 9px;
         font-weight: 700;
         padding: 0 4px;
@@ -410,7 +413,7 @@
         top: calc(100% + 8px);
         right: 0;
         width: 310px;
-        background: light-dark( #fff, #ffffffe1 );
+        background: light-dark( var(--white), var(--gray-dark) );
         border: 1.5px solid var(--border);
         border-radius: var(--rl);
         box-shadow: var(--shadow-lg);
@@ -692,7 +695,7 @@
       }
       .badge-b {
         background: var(--blue-l);
-        color: var(--blue);
+        color: light-dark( var(--blue) , var(--black) );
       }
       .bdot {
         width: 6px;
@@ -772,29 +775,32 @@
         box-shadow: 0 4px 14px rgba(10, 48, 24, 0.25);
       }
       .btn-d {
-        background: var(--red);
+        background: light-dark( var(--red) , var(--red-dark) );
+        box-shadow: 0 0 0 6px solid light-dark( transparent , var(--red));
         color: #fff;
       }
       .btn-d:hover {
         background: #b91c1c;
       }
-      .btn-gh {
-        background: transparent;
-        color: light-dark( var(--muted) , var(--black) );
-        border: 1.5px solid light-dark( var(--border) ,  var(--black) );
-        box-shadow: 0 0 4px var(--black);
+      .btn-gh, .btn-w {
+        background: light-dark( transparent , var(--gm) );
+        color: light-dark( var(--muted) , var(--white) );
+        border: 1px solid light-dark( var(--border) ,  var(--gd-light) );
+        box-shadow: 0 0 4px light-dark( transparent, var(--gd-light) );
+        transition: all 0.2s ease;
       }
-      .btn-gh:hover {
-        border-color: var(--hint);
-        color: var(--text);
+      .btn-gh:hover, .btn-w:hover {
+        background: light-dark( transparent , var(--gd) );
+        color: light-dark( var(--muted) , var(--white) );
+        border: 1px solid light-dark( var(--border) ,  var(--gd-light) );
       }
-      .btn-w {
+      /*.btn-w {
         background: var(--gold);
         color: #78350f;
       }
       .btn-w:hover {
         background: #d97706;
-      }
+      }*/
       .btn-sm {
         padding: 6px 12px;
         font-size: 12px;
@@ -804,7 +810,7 @@
         border-radius: 7px;
         background: var(--gray);
         border: 1.5px solid var(--border);
-        color: var(--muted);
+        color: light-dark( var(--muted) , var(--black) );
       }
       .btn-icon:hover {
         border-color: var(--g);
@@ -830,22 +836,19 @@
         font-weight: 600;
         letter-spacing: 0.5px;
         text-transform: uppercase;
-        color: var(--muted);
-        background: var(--gray);
-        border-bottom: 1px solid var(--border);
+        color: light-dark( var(--muted) , var(--white) );
+        background: light-dark( var(--gray) , var(--gd) );
+        border-bottom: 1px solid light-dark( var(--border) , var(--border-dark) );
         white-space: nowrap;
       }
       .tbl td {
         padding: 12px 14px;
-        border-bottom: 1px solid var(--border);
+        border-bottom: 1px solid light-dark( var(--border) , var(--border-dark) );
         vertical-align: middle;
-        color: var(--text);
+        color: light-dark( var(--text) , var(--black) );
       }
       .tbl tr:last-child td {
         border: none;
-      }
-      .tbl tbody tr:hover td {
-        background: #fafafa;
       }
       .tbl-avatar-ph {
         width: 30px;
@@ -864,7 +867,7 @@
       }
       .tbl-sub {
         font-size: 11px;
-        color: var(--muted);
+        color: light-dark( var(--muted) , var(--black) );
         margin-top: 1px;
       }
       .tbl-actions {
@@ -885,7 +888,7 @@
         align-items: center;
         gap: 8px;
         font-size: 13px;
-        color: var(--muted);
+        color: light-dark( var(--muted) , var(--black) );
         flex-wrap: wrap;
       }
       .tbl-toolbar-left select, .tbl-search input, .form-ctrl {
@@ -895,17 +898,17 @@
         display: flex;
         align-items: center;
         gap: 7px;
-        background: var(--gray);
-        border: 1.5px solid var(--border);
+        background: light-dark( var(--gray) , var(--gray-dark) );
+        border: 1.5px solid light-dark( var(--border) , var(--border-dark) );
         border-radius: 8px;
         padding: 7px 12px;
       }
       .tbl-search:focus-within {
         border-color: var(--g);
-        background: #fff;
+        background: light-dark( #fff, var(--gray) );
       }
       .tbl-search svg {
-        color: var(--hint);
+        color: light-dark( var(--hint) , var(--black) );
         flex-shrink: 0;
       }
       .tbl-search input {
@@ -915,10 +918,10 @@
         font-family: var(--sans);
         font-size: 13px;
         width: 180px;
-        color: var(--text);
+        color: light-dark( var(--text) , var(--black) );
       }
       .tbl-search input::placeholder {
-        color: var(--hint);
+        color: light-dark( var(--hint) , var(--black) )                     ;
       }
       .tbl-footer {
         display: flex;
@@ -926,7 +929,7 @@
         align-items: center;
         padding: 12px 0 0;
         font-size: 12.5px;
-        color: var(--muted);
+        color: light-dark( var(--muted) , var(--black) ); 
         flex-wrap: wrap;
         gap: 8px;
       }
@@ -937,18 +940,18 @@
       .pg-btn {
         padding: 5px 11px;
         border: 1.5px solid light-dark( var(--border) , var(--border-dark) );
-        border-radius: 6px;
-        background: none;
+        border-radius: 8px;
+        background: light-dark( transparent , var(--gd) );
         font-family: var(--sans);
         font-size: 12px;
-        color: var(--text);
+        color: light-dark( var(--text) ,   var(--white) );
         cursor: pointer;
-        transition: all 0.15s;
+        transition: all 0.3s ease;
       }
       .pg-btn:hover, .pg-btn.cur {
-        border-color: light-dark( var(--g), var(--black) );
-        color: light-dark( var(--g), var(--black) );
-        background: light-dark( var(--gl), var(--gray) );
+        border-color: light-dark( var(--g), var(--g) );
+        color: light-dark( var(--g), var(--white) );
+        background: light-dark( var(--gl), var(--gd-light) );
       }
       /* FORMS */
       .form-group {
@@ -964,18 +967,18 @@
       .form-ctrl {
         width: 100%;
         padding: 10px 14px;
-        background: var(--off);
-        border: 1.5px solid var(--border);
+        background: light-dark( var(--off) , var(--gd) );
+        border: 1.5px solid light-dark( var(--border) , var(--border-dark) );
         border-radius: var(--r);
         font-family: var(--sans);
         font-size: 13.5px;
-        color: var(--text);
+        color: light-dark( var(--text) , var(--white) );
         outline: none;
         transition: all 0.2s;
       }
       .form-ctrl:focus {
         border-color: var(--g);
-        background: #fff;
+        background: light-dark( #fff, var(--gd) );
         box-shadow: 0 0 0 3px rgba(10, 48, 24, 0.07);
       }
       select.form-ctrl {
@@ -1554,9 +1557,9 @@
         gap: 14px;
       }
       .past-card {
-        background: #fff;
+        background: light-dark( #fff, var(--cd-dark) );
         border-radius: var(--rl);
-        border: 1px solid var(--border);
+        border: 1px solid light-dark( var(--border) , var(--border-dark) );
         overflow: hidden;
         cursor: pointer;
         transition: all 0.2s;
@@ -1579,7 +1582,7 @@
       }
       .past-top p {
         font-size: 11.5px;
-        color: rgba(255, 255, 255, 0.55);
+        color: light-dark( rgba(255, 255, 255, 0.55) , var(--white) );
       }
       .past-body {
         padding: 13px 17px;
@@ -1650,8 +1653,8 @@
         bottom: 0;
         left: 0;
         right: 0;
-        background: #fff;
-        border-top: 1px solid var(--border);
+        background: light-dark( var(--white), var(--bar) );
+        border-top: 1px solid light-dark( var(--border) , var(--border-dark) );
         z-index: 200;
         box-shadow: 0 -2px 12px rgba(0, 0, 0, 0.07);
       }
@@ -1681,7 +1684,7 @@
         font-weight: 500;
       }
       .bn-item.on svg, .bn-item.on span {
-        color: var(--g);
+        color: light-dark( var(--g) , var(--white) );
       }
       /* mobile menu drawer */
       .mob-drawer {
@@ -1703,7 +1706,7 @@
         bottom: 0;
         left: 0;
         right: 0;
-        background: #fff;
+        background: light-dark( var(--white), var(--bar) );
         border-radius: 18px 18px 0 0;
         padding: 20px;
         max-height: 68vh;
@@ -1721,7 +1724,7 @@
       .drawer-handle {
         width: 38px;
         height: 4px;
-        background: var(--border);
+        background: light-dark( var(--border) , var(--border-dark) );
         border-radius: 100px;
         margin: 0 auto 18px;
       }
@@ -1736,12 +1739,12 @@
         gap: 9px;
         padding: 11px 13px;
         border-radius: var(--r);
-        border: 1.5px solid var(--border);
+        border: 1.5px solid light-dark( var(--border) , var(--border-dark) );
         cursor: pointer;
         background: none;
         font-family: var(--sans);
         font-size: 13px;
-        color: var(--text);
+        color: light-dark(var(--text), var(--white));
         font-weight: 500;
         transition: all 0.2s;
       }
@@ -1766,6 +1769,7 @@
       @media (max-width: 900px) {
         .sidebar {
           transform: translateX(-100%);
+          display: none;
         }
         .sidebar.mob-open {
           transform: translateX(0);
@@ -1775,7 +1779,7 @@
           padding-bottom: 70px;
         }
         .mob-toggle {
-          display: flex;
+          display: none;
         }
         .search-wrap input {
           width: 130px;
@@ -1796,6 +1800,12 @@
       @media (max-width: 640px) {
         .content {
           padding: 14px;
+        }
+        .sidebar{
+          display: none;
+        }
+        .mob-toggle{
+          display: none;
         }
         .stat-grid {
           grid-template-columns: 1fr 1fr;
@@ -2250,7 +2260,7 @@
                         <td class="tbl-name">President</td>
                         <td><span class="badge badge-g">General</span></td>
                         <td>
-                          <span style="color: var(--hint); font-size: 12px">All students</span>
+                          <span style="color: light-dark( var(--hint) , var(--black) ); font-size: 12px">All students</span>
                         </td>
                         <td>2</td>
                         <td>6</td>
@@ -2286,7 +2296,7 @@
                                 <path d="M18.5 2.5a2.121 2.121 0 013 3L12 15l-4 1 1-4 9.5-9.5z"/>
                               </svg>
                             </button>
-                            <button class="btn btn-icon btn-sm" style="color: var(--red)">
+                            <button class="btn btn-icon btn-sm" style="color: light-dark( var(--red) , var(--red-dark) )">
                               <svg width="13" height="13" fill="none" stroke="currentColor" stroke-width="2" viewBox="0 0 24 24">
                                 <polyline points="3 6 5 6 21 6" />
                                 <path d="M19 6l-1 14a2 2 0 01-2 2H8a2 2 0 01-2-2L5 6" />
@@ -2351,8 +2361,8 @@
                     <select class="form-ctrl" style="width: auto; padding: 6px 10px">
                       <option>All Positions</option>
                       <option>President</option>
-                      <option>MP - Computing &amp; IT</option>
-                      <option>MP - Law</option>
+                      <option>MP Computing &amp; IT</option>
+                      <option>MP Law</option>
                     </select>
                   </div>
                   <div class="tbl-search">
@@ -2381,7 +2391,7 @@
                       <tr>
                         <td>1</td>
                         <td>
-                          <div class="tbl-avatar-ph">C</div>
+                          <div class="tbl-avatar-ph"></div>
                         </td>
                         <td>
                           <div class="tbl-name">Candidate One</div>
@@ -2401,7 +2411,7 @@
                                 <path d="M18.5 2.5a2.121 2.121 0 013 3L12 15l-4 1 1-4 9.5-9.5z"/>
                               </svg>
                             </button>
-                            <button class="btn btn-icon btn-sm" style="color: var(--gold)" onclick="openModal('disqualifyModal')">
+                            <button class="btn btn-icon btn-sm" style="color: light-dark( var(--gold) , var(--black) )" onclick="openModal('disqualifyModal')">
                               <svg width="13" height="13" fill="none" stroke="currentColor" stroke-width="2" viewBox="0 0 24 24">
                                 <circle cx="12" cy="12" r="10" />
                                 <line x1="4.93" y1="4.93" x2="19.07" y2="19.07"/>
@@ -2418,7 +2428,7 @@
                       </tr>
                       <tr>
                         <td>2</td>
-                        <td><div class="tbl-avatar-ph">C</div></td>
+                        <td><div class="tbl-avatar-ph"></div></td>
                         <td>
                           <div class="tbl-name">Candidate Two</div>
                           <div class="tbl-sub">LLB/34045/2501/DT</div>
@@ -2437,7 +2447,7 @@
                                 <path d="M18.5 2.5a2.121 2.121 0 013 3L12 15l-4 1 1-4 9.5-9.5z"/>
                               </svg>
                             </button>
-                            <button class="btn btn-icon btn-sm" style="color: var(--gold)" onclick="openModal('disqualifyModal')">
+                            <button class="btn btn-icon btn-sm" style="color: light-dark( var(--gold) , var(--black) )" onclick="openModal('disqualifyModal')">
                               <svg width="13" height="13" fill="none" stroke="currentColor" stroke-width="2" viewBox="0 0 24 24">
                                 <circle cx="12" cy="12" r="10" />
                                 <line x1="4.93" y1="4.93" x2="19.07" y2="19.07" />
@@ -2454,7 +2464,7 @@
                       </tr>
                       <tr style="opacity: 0.55">
                         <td>3</td>
-                        <td><div class="tbl-avatar-ph">C</div></td>
+                        <td><div class="tbl-avatar-ph"></div></td>
                         <td>
                           <div class="tbl-name">Candidate Three</div>
                           <div class="tbl-sub">BCS/33012/2501/DT</div>
