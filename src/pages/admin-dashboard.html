@@ -828,6 +828,7 @@
         width: 100%;
         border-collapse: collapse;
         font-size: 13px;
+        overflow-x: auto;
       }
       .tbl th {
         padding: 10px 14px;
@@ -963,6 +964,9 @@
         font-weight: 600;
         color: var(--text);
         margin-bottom: 6px;
+      }
+      .results-filter{
+        width: auto;
       }
       .form-ctrl {
         width: 100%;
@@ -1448,11 +1452,26 @@
         gap: 18px;
       }
       .settings-nav {
+        display: flex;
         background: #fff;
         border: 1px solid var(--border);
         border-radius: var(--rl);
         padding: 8px;
         height: fit-content;
+        overflow-x: auto;
+        scrollbar-width: none;
+        position: relative;
+      }
+      .settings-nav::after {
+        background: linear-gradient(to right, transparent, light-dark( var(--gray) , var(--gray-dark) ) );
+        content: '';
+        position: sticky;
+        top: 0;
+        left: 0;
+        width: 30px;
+        height: 100%;
+        pointer-events: none;
+        transition: opacity 0.2s;
       }
       .sn-item {
         display: flex;
@@ -1833,11 +1852,20 @@
         .chart-wrap-tall{
           height: 200px;
         }
+        .results-filter{
+          width: 100%;
+        }
+        .card-header{
+          flex-wrap: wrap;
+        }
       }
       @media(max-width: 370px){
         .voter-panel{
           width: 100%;
           right: -100%;
+        }
+        .stat-grid{
+          grid-template-columns: 1fr;
         }
       }
     </style>
@@ -2526,7 +2554,7 @@
             <div class="card" style="margin-bottom: 14px">
               <div class="card-header">
                 <h3>Votes by Candidate</h3>
-                <select class="form-ctrl" style="width: auto; padding: 6px 10px; font-size: 12px">
+                <select class="form-ctrl results-filter" style="padding: 6px 10px; font-size: 12px">
                   <option>All Positions</option>
                   <option>President</option>
                   <option>MP Computing &amp; IT</option>
