@@ -595,8 +595,7 @@
         border-radius: var(--rl);
         border: 1px solid light-dark( var(--border), var(--border-dark) );
         box-shadow: var(--shadow);
-        overflow-x: auto;
-        -webkit-overflow-scrolling: touch;
+        overflow: visible !important;
       }
       .card-header {
         padding: 15px 18px;
@@ -612,7 +611,7 @@
       }
       .card-body {
         padding: 18px;
-        overflow-x: auto;
+        overflow: visible !important;
         -webkit-overflow-scrolling: touch;
       }
       /* STATUS CARDS  */
@@ -830,16 +829,15 @@
         overflow-x: auto;
         width: 100%;
         overflow-y: hidden;
-        overflow-x: auto;
+        overflow-x: auto !important;
         -webkit-overflow-scrolling: touch;
       }
       .tbl {
-        display: block;
+        display: table !important;
         min-width: 100%;
-        width: max-content;
+        width: max-content !important;
         border-collapse: collapse;
         font-size: 13px;
-        overflow-x: auto;
       }
       .tbl th {
         padding: 10px 14px;
@@ -851,10 +849,10 @@
         color: light-dark( var(--muted) , var(--white) );
         background: light-dark( var(--gray) , var(--gd) );
         border-bottom: 1px solid light-dark( var(--border) , var(--border-dark) );
-        white-space: nowrap;
+        white-space: nowrap !important;
       }
       .tbl td {
-        white-space: nowrap;
+        white-space: nowrap !important;
         padding: 12px 14px;
         border-bottom: 1px solid light-dark( var(--border) , var(--border-dark) );
         vertical-align: middle;
