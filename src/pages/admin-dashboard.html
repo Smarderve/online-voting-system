@@ -412,7 +412,7 @@
         position: absolute;
         top: calc(100% + 8px);
         right: -10px;
-        width: min( 310px, calc(100vw-20px) );
+        width: min( 310px, calc(100vw-10px) );
         background: light-dark( var(--white), var(--gray-dark) );
         border: 1.5px solid var(--border);
         border-radius: var(--rl);
@@ -1858,6 +1858,39 @@
         .card-header{
           flex-wrap: wrap;
         }
+        .tbl{
+          font-size: 11px;
+        }
+        .tbl th , .tbl td{
+          padding: 8px 10px;
+        }
+        .tbl-sub{
+          font-size: 10px;
+        }
+        .tbl-actions{
+          gap: 3px;
+        }
+        .tbl-toolbar{
+          gap: 6px;
+        }
+        .tbl-toolbar-left{
+          gap: 4px;
+          font-size: 11px;
+        }
+        .tbl-search{
+          padding: 6px 10px;
+          gap: 4px;
+        }
+        .tbl-search input{
+          width: 120px;
+          font-size: 11px;
+        }
+        .tbl-footer{
+          font-size: 11px;
+          padding: 10px 0 0;
+          gap: 6px;
+        }
+
       }
       @media(max-width: 370px){
         .voter-panel{
