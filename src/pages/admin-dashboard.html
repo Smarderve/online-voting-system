@@ -595,6 +595,8 @@
         border-radius: var(--rl);
         border: 1px solid light-dark( var(--border), var(--border-dark) );
         box-shadow: var(--shadow);
+        overflow-x: auto;
+        -webkit-overflow-scrolling: touch;
       }
       .card-header {
         padding: 15px 18px;
@@ -610,6 +612,8 @@
       }
       .card-body {
         padding: 18px;
+        overflow-x: auto;
+        -webkit-overflow-scrolling: touch;
       }
       /* STATUS CARDS  */
       .stat-grid {
@@ -822,6 +826,7 @@
       }
       /* TABLES  */
       .tbl-wrap {
+        position: relative;
         overflow-x: auto;
         width: 100%;
         overflow-y: hidden;
@@ -829,7 +834,8 @@
         -webkit-overflow-scrolling: touch;
       }
       .tbl {
-        min-width: 600px;
+        display: block;
+        min-width: 100%;
         width: max-content;
         border-collapse: collapse;
         font-size: 13px;
@@ -848,6 +854,7 @@
         white-space: nowrap;
       }
       .tbl td {
+        white-space: nowrap;
         padding: 12px 14px;
         border-bottom: 1px solid light-dark( var(--border) , var(--border-dark) );
         vertical-align: middle;
