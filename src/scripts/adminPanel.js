@@ -106,10 +106,43 @@
           document.getElementById('posType').value === 'f' ? '' : 'none'
       }
       // theme 
-      function selTheme(t, el) {
-        document.querySelectorAll('.theme-opt').forEach(o => o.classList.remove('on'))
-        el.classList.add('on')
-      }
+      // ========== THEME TOGGLE ==========
+      (function() {
+        const THEME_KEY = 'kiutso-admin-theme';
+        const html = document.documentElement;
+
+        function getStoredTheme() {
+          return localStorage.getItem(THEME_KEY) || 'system';
+        }
+
+        function applyTheme(theme) {
+          if (theme === 'light') {
+            html.setAttribute('data-theme', 'light');
+          } else if (theme === 'dark') {
+            html.setAttribute('data-theme', 'dark');
+          } else {
+            html.removeAttribute('data-theme');
+          }
+        }
+
+        function updateButtons(activeTheme) {
+          document.querySelectorAll('.theme-opt').forEach(btn => {
+            const btnTheme = btn.getAttribute('data-theme');
+            btn.classList.toggle('on', btnTheme === activeTheme);
+          });
+        }
+
+        window.setTheme = function(theme, clickedBtn) {
+          localStorage.setItem(THEME_KEY, theme);
+          applyTheme(theme);
+          updateButtons(theme);
+        };
+
+        // Init
+        const stored = getStoredTheme();
+        applyTheme(stored);
+        updateButtons(stored);
+      })();
       // voter tabs filter
       function filterV(t, el) {
         document.querySelectorAll('.vt').forEach(b => b.classList.remove('on'))
