@@ -1,0 +1,1693 @@
+<!doctype html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>Voting Dashboard | KIUTSO Elections 2025/26</title>
+    <link rel="icon" href="../../assets/images/kiut-white.png" type="image/png"/>
+    <link rel="preconnect" href="https://fonts.googleapis.com" />
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
+    <link href="https://fonts.googleapis.com/css2?family=Poppins:wght@300;400;500;600;700;800&display=swap" rel="stylesheet"/>
+    <style>
+      * {
+        margin: 0;
+        padding: 0;
+        box-sizing: border-box;
+      }
+      :root {
+        --green-dark: #0d4a22;
+        --green: #166534;
+        --green-mid: #1a7a3c;
+        --green-bright: #22c55e;
+        --green-light: #dcfce7;
+        --gold: #f59e0b;
+        --gold-l: #fef9c3;
+        --red: #dc2626;
+        --red-l: #fef2f2;
+        --white: #fff;
+        --off: #f9fafb;
+        --gray: #f1f5f9;
+        --border: #e2e8f0;
+        --text: #1e293b;
+        --muted: #64748b;
+        --hint: #94a3b8;
+        --sans: "Poppins", sans-serif;
+        --shadow: 0 2px 12px rgba(0, 0, 0, 0.07);
+        --shadow-md: 0 6px 24px rgba(0, 0, 0, 0.11);
+        --shadow-lg: 0 16px 48px rgba(0, 0, 0, 0.16);
+        --r: 10px;
+        --rl: 14px;
+        --rxl: 18px;
+      }
+      html,body {
+        min-height: 100vh;
+        font-family: var(--sans);
+        background: var(--off);
+        color: var(--text);
+        cursor: default;
+      }
+      ::-webkit-scrollbar {
+        width: 6px;
+      }
+      ::-webkit-scrollbar-thumb {
+        background: var(--green-mid);
+        border-radius: 10px;
+      }
+      ::-webkit-scrollbar-track {
+        background: var(--gray);
+      }
+      html {
+        scroll-behavior: smooth;
+        scrollbar-width: thin;
+        scrollbar-color: var(--green-mid) var(--gray);
+      }
+      button {
+        cursor: pointer;
+        font-family: var(--sans);
+      }
+      /* NAVBAR */
+      .nav {
+        background: var(--green-dark);
+        height: 70px;
+        padding: 0 52px;
+        display: flex;
+        align-items: center;
+        justify-content: space-between;
+        position: sticky;
+        top: 0;
+        z-index: 200;
+        box-shadow: 0 2px 16px rgba(0, 0, 0, 0.2);
+      }
+      .nav-brand {
+        display: flex;
+        align-items: center;
+        gap: 12px;
+        text-decoration: none;
+      }
+      .nav-logo {
+        height: 54px;
+        width: 54px;
+        object-fit: contain;
+        filter: brightness(0) invert(1);
+        flex-shrink: 0;
+      }
+      .nav-brand-text span {
+        display: block;
+        line-height: 1.15;
+      }
+      .nav-brand-text .top {
+        font-size: 14px;
+        font-weight: 700;
+        color: #fff;
+      }
+      .nav-brand-text .bot {
+        font-size: 10px;
+        color: var(--white);
+        letter-spacing: 0.5px;
+      }
+      .nav-right {
+        display: flex;
+        align-items: center;
+        gap: 14px;
+      }
+      .nav-voter-info {
+        text-align: right;
+      }
+      .nav-voter-info .reg {
+        font-size: 13px;
+        font-weight: 600;
+        color: #fff;
+      }
+      .nav-voter-info .faculty {
+        font-size: 10.5px;
+        color: rgba(255, 255, 255, 0.5);
+        margin-top: 1px;
+      }
+      .nav-logout {
+        padding: 8px 18px;
+        border: 2px solid rgba(255, 255, 255, 0.775);
+        border-radius: 8px;
+        background: transparent;
+        color: var(--white);
+        font-family: var(--sans);
+        font-size: 13px;
+        font-weight: 500;
+        transition: all 0.2s;
+      }
+      .nav-logout:hover {
+        border-color: #fff;
+        color: #fff;
+        background: rgba(255, 255, 255, 0.1);
+      }
+      /* PROGRESS BAR */
+      .progress-bar {
+        padding: 18px 52px;
+      }
+      .progress-inner {
+        max-width: 860px;
+        margin: 0 auto;
+        display: flex;
+        align-items: center;
+      }
+      .pb-step {
+        display: flex;
+        align-items: center;
+        gap: 9px;
+        flex: 1;
+      }
+      .pb-step:last-child {
+        flex: none;
+      }
+      .pb-circle {
+        width: 32px;
+        height: 32px;
+        border-radius: 50%;
+        border: 2px solid var(--border);
+        display: flex;
+        align-items: center;
+        justify-content: center;
+        font-size: 12.5px;
+        font-weight: 600;
+        color: var(--hint);
+        background: #fff;
+        flex-shrink: 0;
+        transition: all 0.3s;
+      }
+      .pb-circle.done {
+        background: var(--green);
+        border-color: var(--green);
+        color: #fff;
+      }
+      .pb-circle.active {
+        background: var(--green);
+        border-color: var(--green);
+        color: #fff;
+        box-shadow: 0 0 0 4px var(--green-light);
+      }
+      .pb-label {
+        font-size: 12px;
+        font-weight: 600;
+        color: var(--hint);
+        white-space: nowrap;
+        transition: color 0.3s;
+      }
+      .pb-label.active {
+        color: var(--green);
+      }
+      .pb-label.done {
+        color: var(--text);
+      }
+      .pb-line {
+        flex: 1;
+        height: 2px;
+        background: var(--border);
+        margin: 0 10px;
+        border-radius: 2px;
+        transition: background 0.3s;
+      }
+      .pb-line.done {
+        background: var(--green);
+      }
+      /* PAGE LAYOUT */
+      .page {
+        max-width: 1100px;
+        margin: 0 auto;
+        padding: 36px 52px 72px;
+      }
+      /* STEPS PANELS */
+      .panel {
+        display: none;
+      }
+      .panel.on {
+        display: flex;
+        flex-direction: column;
+        align-items: center;
+        justify-content: center;
+        animation: up 0.28s ease;
+      }
+      @keyframes up {
+        from {
+          opacity: 0;
+          transform: translateY(10px);
+        }
+        to {
+          opacity: 1;
+          transform: none;
+        }
+      }
+      /* SECTION HEADER */
+      .sec-head {
+        display: flex;
+        flex-direction: column;
+        align-items: center;
+        justify-content: center;
+        margin-bottom: 28px;
+      }
+      .sec-tag {
+        display: inline-flex;
+        align-items: center;
+        gap: 6px;
+        padding: 4px 12px;
+        border-radius: 100px;
+        font-size: 11px;
+        font-weight: 600;
+        letter-spacing: 1.5px;
+        text-transform: uppercase;
+        margin-bottom: 10px;
+      }
+      .sec-tag.gen {
+        background: var(--green-light);
+        color: var(--green);
+      }
+      .sec-tag.fac {
+        background: var(--gold-l);
+        color: #92400e;
+      }
+      .sec-head h2 {
+        font-size: 22px;
+        font-weight: 700;
+        color: var(--text);
+        margin-bottom: 5px;
+      }
+      .sec-head p {
+        font-size: 14px;
+        color: var(--muted);
+        line-height: 1.65;
+      }
+      .sec-head p strong {
+        color: var(--text);
+      }
+      /* POSITION BLOCK */
+      .pos-block {
+        margin-bottom: 44px;
+      }
+      .pos-block:last-child {
+        margin-bottom: 0;
+      }
+      .pos-meta {
+        display: flex;
+        align-items: center;
+        justify-content: space-between;
+        margin-bottom: 18px;
+        flex-wrap: wrap;
+        gap: 10px;
+      }
+      .pos-name {
+        font-size: 17px;
+        font-weight: 700;
+        color: var(--text);
+      }
+      .pos-sel-info {
+        font-size: 12.5px;
+        color: var(--muted);
+      }
+      .pos-sel-info .cnt {
+        font-weight: 700;
+        color: var(--green);
+      }
+      .pos-badge {
+        font-size: 11px;
+        font-weight: 600;
+        padding: 4px 12px;
+        border-radius: 100px;
+      }
+      .pos-badge.gen {
+        background: var(--green-light);
+        color: var(--green);
+      }
+      .pos-badge.fac {
+        background: var(--gold-l);
+        color: #92400e;
+      }
+      /* CANDIDATES GRID */
+      .cand-grid {
+        display: grid;
+        grid-template-columns: repeat(4, 1fr);
+        gap: 16px;
+      }
+      .cand-grid.two-col {
+        grid-template-columns: repeat(2, 1fr);
+        max-width: 600px;
+      }
+      /* CANDIDATES CARD */
+      .cand-card {
+        background: #fff;
+        border-radius: var(--rl);
+        border: 2px solid var(--border);
+        overflow: hidden;
+        cursor: pointer;
+        transition: all 0.22s ease;
+        position: relative;
+        display: flex;
+        flex-direction: column;
+      }
+      .cand-card:hover {
+        border-color: var(--green);
+        transform: translateY(-3px);
+        box-shadow: var(--shadow-md);
+      }
+      .cand-card.sel {
+        border-color: var(--green);
+        box-shadow:
+          0 0 0 3px var(--green-light),
+          var(--shadow-md);
+        transform: translateY(-3px);
+      }
+      .cand-card.sel .cand-check {
+        display: flex;
+      }
+      .cand-check {
+        position: absolute;
+        top: 10px;
+        right: 10px;
+        z-index: 3;
+        width: 26px;
+        height: 26px;
+        border-radius: 50%;
+        background: var(--green);
+        color: #fff;
+        display: none;
+        align-items: center;
+        justify-content: center;
+        box-shadow: 0 2px 8px rgba(22, 101, 52, 0.4);
+      }
+      .cand-photo {
+        height: 170px;
+        background: linear-gradient(145deg, var(--green-dark) 0%, var(--green-mid) 100%);
+        display: flex;
+        align-items: center;
+        justify-content: center;
+        position: relative;
+        overflow: hidden;
+        flex-shrink: 0;
+      }
+      .cand-photo::after {
+        content: "";
+        position: absolute;
+        inset: 0;
+        background: linear-gradient( to top, rgba(0, 0, 0, 0.28) 0%, transparent 55%);
+      }
+      .cand-photo img {
+        width: 130px;
+        height: 130px;
+        border-radius: 50%;
+        object-fit: cover;
+        border: 3px solid rgba(255, 255, 255, 0.25);
+        position: relative;
+        z-index: 1;
+      }
+      .cand-photo-ph {
+        width: 130px;
+        height: 130px;
+        border-radius: 50%;
+        background: rgba(255, 255, 255, 0.15);
+        border: 3px solid rgba(255, 255, 255, 0.25);
+        display: flex;
+        align-items: center;
+        justify-content: center;
+        font-size: 30px;
+        font-weight: 700;
+        color: #fff;
+        position: relative;
+        z-index: 1;
+      }
+      .cand-body {
+        padding: 16px;
+        flex: 1;
+        display: flex;
+        flex-direction: column;
+      }
+      .cand-name {
+        font-size: 14.5px;
+        font-weight: 700;
+        color: var(--text);
+        margin-bottom: 2px;
+      }
+      .cand-role {
+        font-size: 10.5px;
+        font-weight: 600;
+        color: var(--green);
+        text-transform: uppercase;
+        letter-spacing: 0.8px;
+        margin-bottom: 9px;
+      }
+      .cand-bio {
+        font-size: 12.5px;
+        color: var(--muted);
+        line-height: 1.6;
+        flex: 1;
+        display: -webkit-box;
+        -webkit-line-clamp: 3;
+        line-clamp: 3;
+        -webkit-box-orient: vertical;
+        overflow: hidden;
+      }
+      .cand-footer {
+        display: flex;
+        border-top: 1px solid var(--border);
+        flex-shrink: 0;
+      }
+      .cand-select-btn {
+        flex: 1;
+        padding: 10px 12px;
+        background: none;
+        border: none;
+        font-family: var(--sans);
+        font-size: 12px;
+        font-weight: 500;
+        color: var(--hint);
+        display: flex;
+        align-items: center;
+        justify-content: center;
+        gap: 5px;
+        transition: all 0.2s;
+        border-right: 1px solid var(--border);
+      }
+      .cand-card.sel .cand-select-btn {
+        background: var(--green-light);
+        color: var(--green);
+      }
+      .cand-view-btn {
+        padding: 10px 14px;
+        background: none;
+        border: none;
+        font-family: var(--sans);
+        font-size: 12px;
+        font-weight: 500;
+        color: var(--green);
+        display: flex;
+        align-items: center;
+        gap: 4px;
+        transition: all 0.2s;
+        flex-shrink: 0;
+      }
+      .cand-view-btn:hover {
+        background: var(--green-light);
+      }
+      /* VALIDATION MESSAGE */
+      .val-msg {
+        display: none;
+        align-items: center;
+        gap: 7px;
+        padding: 10px 16px;
+        background: var(--red-l);
+        border: 1px solid rgba(220, 38, 38, 0.2);
+        border-radius: 9px;
+        font-size: 13px;
+        color: var(--red);
+        font-weight: 500;
+        margin-top: 14px;
+      }
+      .val-msg.show {
+        display: flex;
+      }
+      /* STEPS NAV */
+      .step-nav {
+        display: flex;
+        justify-content: space-between;
+        align-items: center;
+        margin-top: 36px;
+        padding-top: 22px;
+        border-top: 1px solid var(--border);
+      }
+      .btn {
+        display: inline-flex;
+        align-items: center;
+        gap: 7px;
+        padding: 12px 26px;
+        border-radius: var(--r);
+        font-family: var(--sans);
+        font-size: 14px;
+        font-weight: 500;
+        cursor: pointer;
+        transition: all 0.2s;
+        border: none;
+      }
+      .btn-g {
+        background: var(--green);
+        color: #fff;
+      }
+      .btn-g:hover {
+        background: var(--green-dark);
+        transform: translateY(-1px);
+        box-shadow: 0 4px 16px rgba(22, 101, 52, 0.3);
+      }
+      .btn-g:disabled {
+        opacity: 0.4;
+        cursor: not-allowed;
+        transform: none;
+        box-shadow: none;
+      }
+      .btn-gh {
+        background: transparent;
+        border: 1.5px solid var(--border);
+        color: var(--muted);
+      }
+      .btn-gh:hover {
+        border-color: var(--hint);
+        color: var(--text);
+      }
+      .btn:active {
+        transform: scale(0.97);
+      }
+      /* REVIEW */
+      .review-title {
+        text-align: center;
+        margin-bottom: 28px;
+      }
+      .review-title h2 {
+        font-size: 22px;
+        font-weight: 700;
+        color: var(--text);
+        margin-bottom: 6px;
+      }
+      .review-title p {
+        font-size: 14px;
+        color: var(--muted);
+      }
+      .review-list {
+        display: flex;
+        flex-direction: column;
+        gap: 12px;
+        margin-bottom: 28px;
+      }
+      .review-item {
+        background: #fff;
+        border: 1px solid var(--border);
+        border-radius: var(--rl);
+        display: flex;
+        align-items: center;
+        gap: 16px;
+        padding: 16px 20px;
+      }
+      .ri-avatar {
+        width: 52px;
+        height: 52px;
+        border-radius: 50%;
+        flex-shrink: 0;
+        background: linear-gradient( 145deg, var(--green-dark), var(--green-mid) );
+        display: flex;
+        align-items: center;
+        justify-content: center;
+        font-size: 18px;
+        font-weight: 700;
+        color: #fff;
+        overflow: hidden;
+      }
+      .ri-avatar img {
+        width: 100%;
+        height: 100%;
+        object-fit: cover;
+      }
+      .ri-body {
+        flex: 1;
+        min-width: 0;
+      }
+      .ri-pos {
+        font-size: 10.5px;
+        font-weight: 600;
+        color: var(--muted);
+        text-transform: uppercase;
+        letter-spacing: 0.8px;
+        margin-bottom: 2px;
+      }
+      .ri-name {
+        font-size: 15px;
+        font-weight: 700;
+        color: var(--text);
+      }
+      .ri-type {
+        font-size: 10px;
+        font-weight: 600;
+        padding: 3px 9px;
+        border-radius: 100px;
+        flex-shrink: 0;
+      }
+      .ri-type.gen {
+        background: var(--green-light);
+        color: var(--green);
+      }
+      .ri-type.fac {
+        background: var(--gold-l);
+        color: #92400e;
+      }
+      .ri-change {
+        background: none;
+        border: none;
+        color: var(--green);
+        font-size: 12px;
+        font-weight: 500;
+        cursor: pointer;
+        text-decoration: underline;
+        text-underline-offset: 2px;
+        flex-shrink: 0;
+        padding: 0;
+      }
+      .review-warn {
+        background: var(--gold-l);
+        border: 1px solid rgba(245, 158, 11, 0.3);
+        border-radius: var(--r);
+        padding: 14px 18px;
+        display: flex;
+        align-items: flex-start;
+        gap: 10px;
+        font-size: 13px;
+        color: #78350f;
+        line-height: 1.65;
+        margin-bottom: 24px;
+      }
+      .submit-btn {
+        width: 100%;
+        padding: 15px;
+        background: var(--green);
+        border: none;
+        border-radius: var(--rl);
+        color: #fff;
+        font-family: var(--sans);
+        font-size: 15px;
+        font-weight: 700;
+        cursor: pointer;
+        transition: all 0.25s;
+        display: flex;
+        align-items: center;
+        justify-content: center;
+        gap: 9px;
+      }
+      .submit-btn:hover {
+        background: var(--green-dark);
+        transform: translateY(-1px);
+        box-shadow: 0 6px 22px rgba(22, 101, 52, 0.3);
+      }
+      .submit-btn .sp {
+        width: 18px;
+        height: 18px;
+        border: 2.5px solid rgba(255, 255, 255, 0.3);
+        border-top-color: #fff;
+        border-radius: 50%;
+        animation: spin 0.65s linear infinite;
+        display: none;
+        flex-shrink: 0;
+      }
+      .submit-btn.loading .sp {
+        display: block;
+      }
+      .submit-btn.loading .stxt {
+        opacity: 0.7;
+      }
+      @keyframes spin {
+        to {
+          transform: rotate(360deg);
+        }
+      }
+      /* SUCCESS STATE */
+      .success-wrap {
+        min-height: 65vh;
+        display: flex;
+        align-items: center;
+        justify-content: center;
+        animation: up 0.4s ease;
+      }
+      .success-card {
+        background: #fff;
+        border-radius: 20px;
+        border: 1px solid var(--border);
+        padding: 52px 48px;
+        text-align: center;
+        max-width: 540px;
+        width: 100%;
+        box-shadow: var(--shadow-md);
+      }
+      .success-icon {
+        width: 80px;
+        height: 80px;
+        border-radius: 50%;
+        background: var(--green-light);
+        border: 3px solid var(--green);
+        display: flex;
+        align-items: center;
+        justify-content: center;
+        margin: 0 auto 22px;
+        animation: pop 0.4s 0.1s ease both;
+      }
+      @keyframes pop {
+        from {
+          opacity: 0;
+          transform: scale(0.5);
+        }
+        to {
+          opacity: 1;
+          transform: scale(1);
+        }
+      }
+      .success-icon svg {
+        color: var(--green);
+      }
+      .success-card h2 {
+        font-size: 24px;
+        font-weight: 800;
+        color: var(--text);
+        margin-bottom: 10px;
+      }
+      .success-card .sub {
+        font-size: 14px;
+        color: var(--muted);
+        line-height: 1.7;
+        margin-bottom: 26px;
+      }
+      .receipt-box {
+        background: var(--gray);
+        border-radius: var(--r);
+        padding: 18px;
+        text-align: left;
+        margin-bottom: 22px;
+      }
+      .receipt-title {
+        font-size: 10.5px;
+        font-weight: 600;
+        letter-spacing: 1.5px;
+        text-transform: uppercase;
+        color: var(--muted);
+        margin-bottom: 12px;
+      }
+      .r-row {
+        display: flex;
+        justify-content: space-between;
+        padding: 7px 0;
+        border-bottom: 1px solid var(--border);
+        font-size: 13px;
+      }
+      .r-row:last-child {
+        border: none;
+      }
+      .r-k {
+        color: var(--muted);
+      }
+      .r-v {
+        font-weight: 600;
+        color: var(--text);
+      }
+      .results-announce {
+        background: var(--gold-l);
+        border: 1px solid rgba(245, 158, 11, 0.3);
+        border-radius: var(--r);
+        padding: 14px 18px;
+        display: flex;
+        align-items: center;
+        gap: 10px;
+        font-size: 13px;
+        color: #78350f;
+        line-height: 1.6;
+        margin-bottom: 22px;
+        text-align: left;
+      }
+      .success-note {
+        font-size: 12.5px;
+        color: var(--hint);
+        line-height: 1.65;
+        margin-bottom: 24px;
+      }
+      .home-btn {
+        display: inline-flex;
+        align-items: center;
+        gap: 7px;
+        padding: 12px 28px;
+        background: var(--green);
+        border: none;
+        border-radius: var(--r);
+        color: #fff;
+        font-family: var(--sans);
+        font-size: 14px;
+        font-weight: 600;
+        cursor: pointer;
+        transition: all 0.2s;
+        text-decoration: none;
+      }
+      .home-btn:hover {
+        background: var(--green-dark);
+      }
+      .view-results-btn {
+        display: none;
+        margin-top: 10px;
+        width: 100%;
+        padding: 12px;
+        background: var(--gold);
+        border: none;
+        border-radius: var(--r);
+        color: #78350f;
+        font-family: var(--sans);
+        font-size: 14px;
+        font-weight: 600;
+        cursor: pointer;
+        transition: all 0.2s;
+        align-items: center;
+        justify-content: center;
+        gap: 7px;
+      }
+      .view-results-btn:hover {
+        background: #d97706;
+        color: #fff;
+      }
+      .view-results-btn.show {
+        display: flex;
+      }
+      /* ALREADY VOTED STATE */
+      .voted-wrap {
+        min-height: 75vh;
+        display: flex;
+        align-items: center;
+        justify-content: center;
+        padding: 40px 20px;
+      }
+      .voted-card {
+        background: #fff;
+        border-radius: 20px;
+        border: 1px solid var(--border);
+        padding: 52px 48px;
+        text-align: center;
+        max-width: 560px;
+        width: 100%;
+        box-shadow: var(--shadow-md);
+      }
+      .voted-icon {
+        width: 80px;
+        height: 80px;
+        border-radius: 50%;
+        background: var(--green-light);
+        border: 3px solid var(--green);
+        display: flex;
+        align-items: center;
+        justify-content: center;
+        margin: 0 auto 22px;
+      }
+      .voted-icon svg {
+        color: var(--green);
+      }
+      .voted-card h2 {
+        font-size: 22px;
+        font-weight: 700;
+        color: var(--text);
+        margin-bottom: 8px;
+      }
+      .voted-card .sub {
+        font-size: 14px;
+        color: var(--muted);
+        line-height: 1.7;
+        margin-bottom: 28px;
+      }
+      .voted-receipt-toggle {
+        background: none;
+        border: 1.5px solid var(--border);
+        border-radius: var(--r);
+        color: var(--green);
+        font-family: var(--sans);
+        font-size: 13.5px;
+        font-weight: 600;
+        padding: 11px 24px;
+        cursor: pointer;
+        transition: all 0.2s;
+        width: 100%;
+        margin-bottom: 10px;
+        display: flex;
+        align-items: center;
+        justify-content: center;
+        gap: 7px;
+      }
+      .voted-receipt-toggle:hover {
+        border-color: var(--green);
+        background: var(--green-light);
+      }
+      .voted-receipt {
+        display: none;
+        text-align: left;
+        margin-bottom: 16px;
+      }
+      .voted-receipt.open {
+        display: block;
+        animation: up 0.25s ease;
+      }
+      /* CANDIDATES MODAL */
+      .modal-overlay {
+        position: fixed;
+        inset: 0;
+        background: rgba(0, 0, 0, 0.5);
+        z-index: 500;
+        display: none;
+        align-items: center;
+        justify-content: center;
+        padding: 20px;
+        backdrop-filter: blur(4px);
+      }
+      .modal-overlay.open {
+        display: flex;
+        animation: fadein 0.18s ease;
+      }
+      @keyframes fadein {
+        from {
+          opacity: 0;
+        }
+        to {
+          opacity: 1;
+        }
+      }
+      .modal {
+        background: #fff;
+        border-radius: 20px;
+        width: 100%;
+        max-width: 600px;
+        max-height: 90vh;
+        overflow-y: auto;
+        box-shadow: var(--shadow-lg);
+        animation: mup 0.22s ease;
+      }
+      @keyframes mup {
+        from {
+          opacity: 0;
+          transform: scale(0.94) translateY(8px);
+        }
+        to {
+          opacity: 1;
+          transform: none;
+        }
+      }
+      .modal-photo {
+        height: 220px;
+        background: linear-gradient( 145deg, var(--green-dark) 0%, var(--green-mid) 100% );
+        display: flex;
+        align-items: center;
+        justify-content: center;
+        position: relative;
+        border-radius: 20px 20px 0 0;
+        overflow: hidden;
+      }
+      .modal-photo::after {
+        content: "";
+        position: absolute;
+        inset: 0;
+        background: linear-gradient(to top, rgba(0, 0, 0, 0.4) 0%, transparent 60%);
+      }
+      .modal-photo img {
+        width: 110px;
+        height: 110px;
+        border-radius: 50%;
+        object-fit: cover;
+        border: 4px solid rgba(255, 255, 255, 0.3);
+        position: relative;
+        z-index: 1;
+      }
+      .modal-photo-ph {
+        width: 110px;
+        height: 110px;
+        border-radius: 50%;
+        background: rgba(255, 255, 255, 0.15);
+        border: 4px solid rgba(255, 255, 255, 0.3);
+        display: flex;
+        align-items: center;
+        justify-content: center;
+        font-size: 38px;
+        font-weight: 700;
+        color: #fff;
+        position: relative;
+        z-index: 1;
+      }
+      .modal-photo-name {
+        position: absolute;
+        bottom: 16px;
+        left: 0;
+        right: 0;
+        text-align: center;
+        z-index: 2;
+      }
+      .modal-photo-name h3 {
+        font-size: 20px;
+        font-weight: 700;
+        color: #fff;
+      }
+      .modal-photo-name p {
+        font-size: 12px;
+        color: rgba(255, 255, 255, 0.7);
+        margin-top: 2px;
+      }
+      .modal-close {
+        position: absolute;
+        top: 14px;
+        right: 14px;
+        z-index: 10;
+        width: 32px;
+        height: 32px;
+        border-radius: 50%;
+        background: rgba(0, 0, 0, 0.3);
+        border: none;
+        color: #fff;
+        display: flex;
+        align-items: center;
+        justify-content: center;
+        cursor: pointer;
+        font-size: 18px;
+        transition: background 0.2s;
+      }
+      .modal-close:hover {
+        background: rgba(0, 0, 0, 0.5);
+      }
+      .modal-body {
+        padding: 24px 28px;
+      }
+      .modal-section {
+        margin-bottom: 22px;
+      }
+      .modal-section:last-child {
+        margin-bottom: 0;
+      }
+      .modal-section-title {
+        font-size: 10.5px;
+        font-weight: 600;
+        letter-spacing: 1.5px;
+        text-transform: uppercase;
+        color: var(--muted);
+        margin-bottom: 10px;
+        padding-bottom: 7px;
+        border-bottom: 1px solid var(--border);
+      }
+      .modal-section p {
+        font-size: 14px;
+        color: var(--text);
+        line-height: 1.75;
+      }
+      .modal-row {
+        display: flex;
+        justify-content: space-between;
+        padding: 7px 0;
+        border-bottom: 1px solid var(--border);
+        font-size: 13.5px;
+      }
+      .modal-row:last-child {
+        border: none;
+      }
+      .modal-row .key {
+        color: var(--muted);
+      }
+      .modal-row .val {
+        font-weight: 500;
+        color: var(--text);
+      }
+      .modal-foot {
+        padding: 18px 28px;
+        border-top: 1px solid var(--border);
+        display: flex;
+        gap: 10px;
+      }
+      .modal-select-btn {
+        flex: 1;
+        padding: 12px;
+        background: var(--green);
+        border: none;
+        border-radius: var(--r);
+        color: #fff;
+        font-family: var(--sans);
+        font-size: 14px;
+        font-weight: 600;
+        cursor: pointer;
+        transition: all 0.2s;
+        display: flex;
+        align-items: center;
+        justify-content: center;
+        gap: 7px;
+      }
+      .modal-select-btn:hover {
+        background: var(--green-dark);
+      }
+      .modal-select-btn.sel {
+        background: var(--green-light);
+        color: var(--green);
+      }
+      .modal-close-btn {
+        padding: 12px 20px;
+        border: 1.5px solid var(--border);
+        border-radius: var(--r);
+        background: none;
+        color: var(--muted);
+        font-family: var(--sans);
+        font-size: 14px;
+        cursor: pointer;
+        transition: all 0.2s;
+      }
+      .modal-close-btn:hover {
+        border-color: var(--hint);
+        color: var(--text);
+      }
+      /* RESPONSIVE DESIGNS */
+      @media (max-width: 960px) {
+        .nav, .progress-bar, .page {
+          padding-left: 20px;
+          padding-right: 20px;
+        }
+        .cand-grid {
+          grid-template-columns: repeat(2, 1fr);
+        }
+        .cand-grid.two-col {
+          grid-template-columns: repeat(2, 1fr);
+          max-width: 100%;
+        }
+      }
+      @media (max-width: 600px) {
+        .nav {
+          padding: 0 16px;
+        }
+        .nav-voter-info {
+          display: none;
+        }
+        .progress-bar {
+          padding: 14px 16px;
+        }
+        .pb-label {
+          display: none;
+        }
+        .page {
+          padding: 24px 16px 52px;
+        }
+        .cand-grid, .cand-grid.two-col {
+          grid-template-columns: 1fr;
+        }
+        .success-card, .voted-card {
+          padding: 36px 20px;
+        }
+        .modal-body {
+          padding: 18px 20px;
+        }
+        .modal-foot {
+          padding: 14px 20px;
+          flex-direction: column-reverse;
+        }
+        .step-nav {
+          flex-direction: column-reverse;
+          gap: 10px;
+        }
+        .step-nav .btn {
+          width: 100%;
+          justify-content: center;
+        }
+      }
+    </style>
+  </head>
+  <body>
+    <!-- STATE OPTIONS: 'voting' | 'already-voted' | 'results-out' -->
+    <script> const PAGE_STATE = "voting"; </script>
+    <!-- NAV BAR -->
+    <nav class="nav">
+      <a href="votingPage.html" class="nav-brand">
+        <img src="../../assets/images/kiut-white.png" alt="KIUT" class="nav-logo" onerror="this.style.display = 'none'"/>
+        <div class="nav-brand-text">
+          <span class="top">Kampala International University of Tanzania</span>
+          <span class="bot">KIUTSO Elections 2025/26</span>
+        </div>
+      </a>
+      <div class="nav-right">
+        <div class="nav-voter-info">
+          <div class="reg">DCS/34231/2501/DT</div>
+          <div class="faculty">Faculty: Computing and IT</div>
+        </div>
+        <button class="nav-logout" onclick="if (confirm('Are you sure you want to logout?')) window.location.href = 'index.html'; ">Logout</button>
+      </div>
+    </nav>
+    <!-- ALREADY VOTED PAGE STATE -->
+    <div id="state-voted" style="display: none">
+      <div class="voted-wrap">
+        <div class="voted-card">
+          <div class="voted-icon">
+            <svg width="36" height="36" fill="none" stroke="currentColor" stroke-width="2.5" viewBox="0 0 24 24">
+              <polyline points="20 6 9 17 4 12" />
+            </svg>
+          </div>
+          <h2>You Have Already Voted</h2>
+          <p class="sub">Your vote was successfully submitted for the KIUTSO Elections 2025/26. Each student can vote only once.</p>
+          <!-- Results announcement -->
+          <div class="results-announce" style="margin-bottom: 22px">
+            <svg width="18" height="18" fill="none" stroke="currentColor" stroke-width="2" viewBox="0 0 24 24" style="flex-shrink: 0">
+              <rect x="3" y="4" width="18" height="18" rx="2" />
+              <line x1="16" y1="2" x2="16" y2="6" />
+              <line x1="8" y1="2" x2="8" y2="6" />
+              <line x1="3" y1="10" x2="21" y2="10" />
+            </svg>
+            <span>Election results will be announced <strong>Tommorrow.</strong></span>
+          </div>
+          <!-- View results button "shown when results are out"-->
+          <button class="view-results-btn" id="viewResultsBtn">
+            <svg width="15" height="15" fill="none" stroke="currentColor" stroke-width="2.5" viewBox="0 0 24 24">
+              <line x1="18" y1="20" x2="18" y2="10" />
+              <line x1="12" y1="20" x2="12" y2="4" />
+              <line x1="6" y1="20" x2="6" y2="14" />
+            </svg>View Election Results
+          </button>
+          <!-- View vote receipt -->
+          <button class="voted-receipt-toggle" onclick="toggleReceipt()">
+            <svg width="15" height="15" fill="none" stroke="currentColor" stroke-width="2" viewBox="0 0 24 24">
+              <path d="M14 2H6a2 2 0 00-2 2v16a2 2 0 002 2h12a2 2 0 002-2V8z" />
+              <polyline points="14 2 14 8 20 8" />
+            </svg>
+            <span id="receiptToggleLabel">View Vote Receipt</span>
+          </button>
+          <div class="voted-receipt" id="votedReceipt">
+            <div class="receipt-box" style="margin-top: 0">
+              <div class="receipt-title">Vote Receipt</div>
+              <div class="r-row">
+                <span class="r-k">Voter ID</span>
+                <span class="r-v">DCS/34231/2501/DT</span>
+              </div>
+              <div class="r-row">
+                <span class="r-k">Submitted</span>
+                <span class="r-v">June 25 2026, 14:32</span>
+              </div>
+              <div class="r-row">
+                <span class="r-k">Election</span>
+                <span class="r-v">KIUTSO Elections 2025/26</span>
+              </div>
+              <div class="r-row">
+                <span class="r-k">President</span>
+                <span class="r-v">Voted ✓</span>
+              </div>
+              <div class="r-row">
+                <span class="r-k">MP </span>
+                <span class="r-v">Voted ✓</span>
+              </div>
+            </div>
+            <p style="font-size: 12px; color: var(--hint); line-height: 1.6">This receipt confirms your participation only. Your candidate choices remain private and are never disclosed.</p>
+          </div>
+          <a href="../../main/index.html" class="home-btn" style="margin-top: 20px; width: 100%; justify-content: center">
+            <svg width="14" height="14" fill="none" stroke="currentColor" stroke-width="2.5" viewBox="0 0 24 24" >
+              <path d="M19 12H5M12 19l-7-7 7-7" />
+            </svg>Return to Homepage
+          </a>
+        </div>
+      </div>
+    </div>
+    <!-- PAGE IN VOTING STATE  -->
+    <div id="state-voting" style="display: none">
+      <!-- PROGRESS BAR -->
+      <div class="progress-bar">
+        <div class="progress-inner">
+          <div class="pb-step">
+            <div class="pb-circle active" id="pc1">1</div>
+            <span class="pb-label active" id="pl1">President Position</span>
+          </div>
+          <div class="pb-line" id="pline1"></div>
+          <div class="pb-step">
+            <div class="pb-circle" id="pc2">2</div>
+            <span class="pb-label" id="pl2">MP Position</span>
+          </div>
+          <div class="pb-line" id="pline2"></div>
+          <div class="pb-step">
+            <div class="pb-circle" id="pc3">3</div>
+            <span class="pb-label" id="pl3">Review Selections</span>
+          </div>
+          <div class="pb-line" id="pline3"></div>
+          <div class="pb-step" style="flex: none">
+            <div class="pb-circle" id="pc4">
+              <svg width="13" height="13" fill="none" stroke="currentColor" stroke-width="3" viewBox="0 0 24 24">
+                <polyline points="20 6 9 17 4 12" />
+              </svg>
+            </div>
+            <span class="pb-label" id="pl4">Complete</span>
+          </div>
+        </div>
+      </div>
+      <div class="page">
+        <!-- STEP 1: GENERAL -->
+        <div id="panel-1" class="panel on">
+          <div class="sec-head">
+            <div class="sec-tag gen">
+              <svg width="11" height="11" fill="none" stroke="currentColor" stroke-width="2.5" viewBox="0 0 24 24">
+                <path d="M17 21v-2a4 4 0 00-4-4H5a4 4 0 00-4 4v2" />
+                <circle cx="9" cy="7" r="4" />
+                <path d="M23 21v-2a4 4 0 00-3-3.87" />
+                <path d="M16 3.13a4 4 0 010 7.75" />
+              </svg>President Position
+            </div>
+            <h2>Vote for the President Position</h2>
+          </div>
+          <div class="pos-block">
+            <div class="pos-meta">
+              <div>
+                <div class="pos-name">President Position Candidates: </div>
+                <div class="pos-sel-info">Selected <span class="cnt" id="pres-cnt">0</span> of 1</div>
+              </div>
+            </div>
+            <!-- candidates layout -->
+            <div class="cand-grid two-col" id="grid-president">
+              <div class="cand-card" id="card-c1" onclick="selectCand('president', 'c1', this)">
+                <div class="cand-check">
+                  <svg width="12" height="12" fill="none" stroke="currentColor" stroke-width="3" viewBox="0 0 24 24">
+                    <polyline points="20 6 9 17 4 12" />
+                  </svg>
+                </div>
+                <div class="cand-photo">
+                  <div class="cand-photo-ph"></div>
+                </div>
+                <div class="cand-body">
+                  <div class="cand-name">Candidate One</div>
+                  <div class="cand-role">President</div>
+                  <div class="cand-bio">Committed to academic excellence and student welfare across all KIUT faculties. Advocates for improved campus facilities and stronger student representation.</div>
+                </div>
+                <div class="cand-footer">
+                  <button class="cand-select-btn" onclick="selectCand('president', 'c1', document.getElementById('card-c1'),); event.stopPropagation();">
+                    <svg width="12" height="12" fill="none" stroke="currentColor" stroke-width="2.5" viewBox="0 0 24 24">
+                      <circle cx="12" cy="12" r="10" />
+                    </svg>Vote
+                  </button>
+                  <button class="cand-view-btn" onclick="openProfile('c1'); event.stopPropagation();">View Profile
+                    <svg width="12" height="12" fill="none" stroke="currentColor" stroke-width="2" viewBox="0 0 24 24">
+                      <path d="M18 13v6a2 2 0 01-2 2H5a2 2 0 01-2-2V8a2 2 0 012-2h6" />
+                      <polyline points="15 3 21 3 21 9" />
+                      <line x1="10" y1="14" x2="21" y2="3" />
+                    </svg>
+                  </button>
+                </div>
+              </div>
+              <div class="cand-card" id="card-c2" onclick="selectCand('president', 'c2', this)">
+                <div class="cand-check">
+                  <svg width="12" height="12" fill="none" stroke="currentColor" stroke-width="3" viewBox="0 0 24 24">
+                    <polyline points="20 6 9 17 4 12" />
+                  </svg>
+                </div>
+                <div class="cand-photo">
+                  <div class="cand-photo-ph"></div>
+                </div>
+                <div class="cand-body">
+                  <div class="cand-name">Candidate Two</div>
+                  <div class="cand-role">President</div>
+                  <div class="cand-bio">Focused on transparent communication and student-administration relations. Plans to establish a formal student grievance resolution committee.</div>
+                </div>
+                <div class="cand-footer">
+                  <button class="cand-select-btn" onclick="selectCand('president', 'c2', document.getElementById('card-c2'),); event.stopPropagation();">
+                    <svg width="12" height="12" fill="none" stroke="currentColor" stroke-width="2.5" viewBox="0 0 24 24">
+                      <circle cx="12" cy="12" r="10" />
+                    </svg>Vote
+                  </button>
+                  <button class="cand-view-btn" onclick="openProfile('c2'); event.stopPropagation();">View Profile
+                    <svg width="12" height="12" fill="none" stroke="currentColor" stroke-width="2" viewBox="0 0 24 24">
+                      <path d="M18 13v6a2 2 0 01-2 2H5a2 2 0 01-2-2V8a2 2 0 012-2h6"/>
+                      <polyline points="15 3 21 3 21 9" />
+                      <line x1="10" y1="14" x2="21" y2="3" />
+                    </svg>
+                  </button>
+                </div>
+              </div>
+            </div>
+          </div>
+          <div class="val-msg" id="val1">
+            <svg width="15" height="15" fill="none" stroke="currentColor" stroke-width="2" viewBox="0 0 24 24">
+              <circle cx="12" cy="12" r="10" />
+              <line x1="12" y1="8" x2="12" y2="12" />
+              <line x1="12" y1="16" x2="12.01" y2="16" />
+            </svg>Please select one candidate before continuing.
+          </div>
+          <div class="step-nav">
+            <div></div>
+            <button class="btn btn-g" onclick="toStep2()">Continue
+              <svg width="14" height="14" fill="none" stroke="currentColor" stroke-width="2.5" viewBox="0 0 24 24">
+                <path d="M5 12h14M12 5l7 7-7 7" />
+              </svg>
+            </button>
+          </div>
+        </div>
+        <!-- STEP 2: MP -->
+        <div id="panel-2" class="panel">
+          <div class="sec-head">
+            <div class="sec-tag fac">
+              <svg width="11" height="11" fill="none" stroke="currentColor" stroke-width="2.5" viewBox="0 0 24 24">
+                <path d="M2 3h6a4 4 0 014 4v14a3 3 0 00-3-3H2z" />
+                <path d="M22 3h-6a4 4 0 00-4 4v14a3 3 0 013-3h7z" />
+              </svg>MP Position
+            </div>
+            <h2>Vote for your Faculty Member of Parliament</h2>
+          </div>
+          <div class="pos-block">
+            <div class="pos-meta">
+              <div>
+                <div class="pos-name">MP Computing and IT</div>
+                <div class="pos-sel-info">Selected <span class="cnt" id="mp-cnt">0</span> of 1</div>
+              </div>
+              <span class="pos-badge fac">Faculty: Computing and IT</span>
+            </div>
+            <div class="cand-grid" id="grid-mp">
+              <div class="cand-card" id="card-m1" onclick="selectCand('mp', 'm1', this)">
+                <div class="cand-check">
+                  <svg width="12" height="12" fill="none" stroke="currentColor" stroke-width="3" viewBox="0 0 24 24">
+                    <polyline points="20 6 9 17 4 12" />
+                  </svg>
+                </div>
+                <div class="cand-photo">
+                  <div class="cand-photo-ph"></div>
+                </div>
+                <div class="cand-body">
+                  <div class="cand-name">Candidate One</div>
+                  <div class="cand-role">MP Computing and IT</div>
+                  <div class="cand-bio">3rd year Computer Science student. Committed to improving lab resources, internet access, and industry attachment opportunities.</div>
+                </div>
+                <div class="cand-footer">
+                  <button class="cand-select-btn" onclick="selectCand('mp', 'm1', document.getElementById('card-m1'),); event.stopPropagation();">
+                    <svg width="12" height="12" fill="none" stroke="currentColor" stroke-width="2.5" viewBox="0 0 24 24">
+                      <circle cx="12" cy="12" r="10" />
+                    </svg>Vote
+                  </button>
+                  <button class="cand-view-btn" onclick="openProfile('m1');event.stopPropagation();">View Profile
+                    <svg width="12" height="12" fill="none" stroke="currentColor" stroke-width="2" viewBox="0 0 24 24">
+                      <path d="M18 13v6a2 2 0 01-2 2H5a2 2 0 01-2-2V8a2 2 0 012-2h6"/>
+                      <polyline points="15 3 21 3 21 9" />
+                      <line x1="10" y1="14" x2="21" y2="3" />
+                    </svg>
+                  </button>
+                </div>
+              </div>
+              <div class="cand-card" id="card-m2" onclick="selectCand('mp', 'm2', this)">
+                <div class="cand-check">
+                  <svg width="12" height="12" fill="none" stroke="currentColor" stroke-width="3" viewBox="0 0 24 24"> 
+                    <polyline points="20 6 9 17 4 12" />
+                  </svg>
+                </div>
+                <div class="cand-photo">
+                  <div class="cand-photo-ph"></div>
+                </div>
+                <div class="cand-body">
+                  <div class="cand-name">Candidate Two</div>
+                  <div class="cand-role">MP Computing and IT</div>
+                  <div class="cand-bio">2nd year IT student with student organizing experience. Focused on connecting computing students with tech companies and internship programs.</div>
+                </div>
+                <div class="cand-footer">
+                  <button class="cand-select-btn" onclick="selectCand('mp','m2', document.getElementById('card-m2'),); event.stopPropagation();">
+                    <svg width="12" height="12" fill="none" stroke="currentColor" stroke-width="2.5" viewBox="0 0 24 24">
+                      <circle cx="12" cy="12" r="10" />
+                    </svg>Vote
+                  </button>
+                  <button class="cand-view-btn" onclick="openProfile('m2'); event.stopPropagation();">View Profile
+                    <svg width="12" height="12" fill="none" stroke="currentColor" stroke-width="2" viewBox="0 0 24 24">
+                      <path d="M18 13v6a2 2 0 01-2 2H5a2 2 0 01-2-2V8a2 2 0 012-2h6" />
+                      <polyline points="15 3 21 3 21 9" />
+                      <line x1="10" y1="14" x2="21" y2="3" />
+                    </svg>
+                  </button>
+                </div>
+              </div>
+              <div class="cand-card" id="card-m3" onclick="selectCand('mp', 'm3', this)">
+                <div class="cand-check">
+                  <svg width="12" height="12" fill="none" stroke="currentColor" stroke-width="3" viewBox="0 0 24 24" >
+                    <polyline points="20 6 9 17 4 12" />
+                  </svg>
+                </div>
+                <div class="cand-photo">
+                  <div class="cand-photo-ph"></div>
+                </div>
+                <div class="cand-body">
+                  <div class="cand-name">Candidate Three</div>
+                  <div class="cand-role">MP Computing and IT</div>
+                  <div class="cand-bio">Diploma CS student advocating for extended computer lab hours, affordable printing services, and a stronger alumni network for graduates.
+                  </div>
+                </div>
+                <div class="cand-footer">
+                  <button class="cand-select-btn" onclick="selectCand('mp', 'm3', document.getElementById('card-m3'), ); event.stopPropagation();">
+                    <svg width="12" height="12" fill="none" stroke="currentColor" stroke-width="2.5" viewBox="0 0 24 24">
+                      <circle cx="12" cy="12" r="10" />
+                    </svg>Vote
+                  </button>
+                  <button class="cand-view-btn" onclick="openProfile('m3'); event.stopPropagation();">View Profile
+                    <svg width="12" height="12" fill="none" stroke="currentColor" stroke-width="2" viewBox="0 0 24 24">
+                      <path d="M18 13v6a2 2 0 01-2 2H5a2 2 0 01-2-2V8a2 2 0 012-2h6" />
+                      <polyline points="15 3 21 3 21 9" />
+                      <line x1="10" y1="14" x2="21" y2="3" />
+                    </svg>
+                  </button>
+                </div>
+              </div>
+              <div class="cand-card" id="card-m4" onclick="selectCand('mp', 'm4', this)">
+                <div class="cand-check">
+                  <svg width="12" height="12" fill="none" stroke="currentColor" stroke-width="3" viewBox="0 0 24 24">
+                    <polyline points="20 6 9 17 4 12" />
+                  </svg>
+                </div>
+                <div class="cand-photo">
+                  <div class="cand-photo-ph"></div>
+                </div>
+                <div class="cand-body">
+                  <div class="cand-name">Candidate Four</div>
+                  <div class="cand-role">MP Computing and IT</div>
+                  <div class="cand-bio">Passionate about bridging theory and practical skills. Plans to organize monthly hackathons, coding competitions, and industry mentorship sessions.</div>
+                </div>
+                <div class="cand-footer">
+                  <button
+                    class="cand-select-btn" onclick="selectCand('mp', 'm4', document.getElementById('card-m4'),); event.stopPropagation();">
+                    <svg width="12" height="12" fill="none" stroke="currentColor" stroke-width="2.5" viewBox="0 0 24 24">
+                      <circle cx="12" cy="12" r="10" />
+                    </svg>Vote
+                  </button>
+                  <button class="cand-view-btn" onclick="openProfile('m4'); event.stopPropagation();">View Profile
+                    <svg width="12" height="12" fill="none" stroke="currentColor" stroke-width="2" viewBox="0 0 24 24">
+                      <path d="M18 13v6a2 2 0 01-2 2H5a2 2 0 01-2-2V8a2 2 0 012-2h6"/>
+                      <polyline points="15 3 21 3 21 9" />
+                      <line x1="10" y1="14" x2="21" y2="3" />
+                    </svg>
+                  </button>
+                </div>
+              </div>
+            </div>
+          </div>
+          <div class="val-msg" id="val2">
+            <svg width="15" height="15" fill="none" stroke="currentColor" stroke-width="2" viewBox="0 0 24 24">
+              <circle cx="12" cy="12" r="10" />
+              <line x1="12" y1="8" x2="12" y2="12" />
+              <line x1="12" y1="16" x2="12.01" y2="16" />
+            </svg>Please select one candidate before continuing.
+          </div>
+          <div class="step-nav">
+            <button class="btn btn-gh" onclick="goStep(1)">
+              <svg width="14" height="14" fill="none" stroke="currentColor" stroke-width="2.5" viewBox="0 0 24 24">
+                <path d="M19 12H5M12 19l-7-7 7-7" />
+              </svg>Back
+            </button>
+            <button class="btn btn-g" onclick="toStep3()">Continue
+              <svg width="14" height="14" fill="none" stroke="currentColor" stroke-width="2.5" viewBox="0 0 24 24">
+                <path d="M5 12h14M12 5l7 7-7 7" />
+              </svg>
+            </button>
+          </div>
+        </div>
+        <!-- STEP 3: REVIEW -->
+        <div id="panel-3" class="panel">
+          <div class="review-title">
+            <h2>Review Your Selections</h2>
+            <p>Confirm your choices below. You cannot change your vote after submitting.</p>
+          </div>
+          <div class="review-list" id="reviewList"></div>
+          <div class="review-warn">
+            <svg width="18" height="18" fill="none" stroke="currentColor" stroke-width="2" viewBox="0 0 24 24" style="flex-shrink: 0; margin-top: 1px">
+              <circle cx="12" cy="12" r="10" />
+              <line x1="12" y1="8" x2="12" y2="12" />
+              <line x1="12" y1="16" x2="12.01" y2="16" />
+            </svg>
+            <span>Once submitted your vote is final and cannot be changed. If you need to change a selection use the Change link above before submitting.</span>
+          </div>
+          <button class="submit-btn" id="submitBtn" onclick="submitVote()">
+            <div class="sp"></div>
+            <span class="stxt">Submit Vote</span>
+          </button>
+          <div style="margin-top: 10px">
+            <button class="btn btn-gh" style="width: 100%; justify-content: center" onclick="goStep(2)">
+              <svg width="14" height="14" fill="none" stroke="currentColor" stroke-width="2.5" viewBox="0 0 24 24">
+                <path d="M19 12H5M12 19l-7-7 7-7" />
+              </svg>Back
+            </button>
+          </div>
+        </div>
+        <!-- STEP 4: SUCCESS -->
+        <div id="panel-4" class="panel">
+          <div class="success-wrap">
+            <div class="success-card">
+              <div class="success-icon">
+                <svg width="36" height="36" fill="none" stroke="currentColor" stroke-width="2.5" viewBox="0 0 24 24">
+                  <polyline points="20 6 9 17 4 12" />
+                </svg>
+              </div>
+              <h2>Your Vote Has Been Submitted!</h2>
+              <p class="sub">Thank you for participating in the KIUTSO Elections 2025/26. Your vote has been succesfully recorded.</p>
+              <div class="receipt-box">
+                <div class="receipt-title">Vote Receipt</div>
+                <div id="successReceiptContent"></div>
+              </div>
+              <div class="results-announce">
+                <svg width="18" height="18" fill="none" stroke="currentColor" stroke-width="2" viewBox="0 0 24 24" style="flex-shrink: 0">
+                  <rect x="3" y="4" width="18" height="18" rx="2" />
+                  <line x1="16" y1="2" x2="16" y2="6" />
+                  <line x1="8" y1="2" x2="8" y2="6" />
+                  <line x1="3" y1="10" x2="21" y2="10" />
+                </svg>
+                <span>Election results will be announced <strong>Tomorrow.</strong></span>
+              </div>
+              <p class="success-note">Your voter ID is marked as voted. This receipt does not reveal your candidate choices vote privacy is always maintained.</p>
+              <a href="../../main/index.html" class="home-btn" style="width: 100%; justify-content: center">
+                <svg width="14" height="14" fill="none" stroke="currentColor" stroke-width="2.5" viewBox="0 0 24 24">
+                  <path d="M19 12H5M12 19l-7-7 7-7" />
+                </svg>Return to Homepage
+              </a>
+            </div>
+          </div>
+        </div>
+      </div>
+    </div>
+    <!--  CANDIDATE PROFILE MODAL -->
+    <div class="modal-overlay" id="profileModal">
+      <div class="modal" style="position: relative">
+        <button class="modal-close" onclick="closeProfile()">×</button>
+        <div class="modal-photo">
+          <div class="modal-photo-ph" id="modalPhotoPh"></div>
+          <div class="modal-photo-name">
+            <h3 id="modalName"></h3>
+            <p id="modalRole"></p>
+          </div>
+        </div>
+        <div class="modal-body">
+          <div class="modal-section">
+            <div class="modal-section-title">About</div>
+            <p id="modalAbout"></p>
+          </div>
+          <div class="modal-section">
+            <div class="modal-section-title">Personal Details</div>
+            <div class="modal-row">
+              <span class="key">Full Name</span>
+              <span class="val" id="modalFullName"></span>
+            </div>
+            <div class="modal-row">
+              <span class="key">Position Running For</span>
+              <span class="val" id="modalPosition"></span>
+            </div>
+            <div class="modal-row">
+              <span class="key">Faculty</span>
+              <span class="val" id="modalFaculty"></span>
+            </div>
+            <div class="modal-row">
+              <span class="key">Course</span>
+              <span class="val" id="modalCourse"></span>
+            </div>
+            <div class="modal-row">
+              <span class="key">Year of Study</span>
+              <span class="val" id="modalYear"></span>
+            </div>
+          </div>
+          <div class="modal-section">
+            <div class="modal-section-title">Campaign Details</div>
+            <p id="modalManifesto"></p>
+          </div>
+          <div class="modal-section">
+            <div class="modal-section-title">Slogans</div>
+            <p id="modalPledges"></p>
+          </div>
+        </div>
+        <div class="modal-foot">
+          <button class="modal-close-btn" onclick="closeProfile()">Close</button>
+          <button class="modal-select-btn" id="modalSelectBtn" onclick="selectFromModal()">
+            <svg width="13" height="13" fill="none" stroke="currentColor" stroke-width="3" viewBox="0 0 24 24">
+              <polyline points="20 6 9 17 4 12" />
+            </svg>Vote for Candidate
+          </button>
+        </div>
+      </div>
+    </div>
+    <script src="../scripts/votingPage.js"></script>
+  </body>
+</html>
