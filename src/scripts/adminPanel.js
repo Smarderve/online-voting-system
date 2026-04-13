@@ -187,9 +187,9 @@
       // charts 
       let tc = null,
         rc = null
-      const chartFont = { family: 'Poppins', size: 11 }
-      const gridColor = 'rgba(0,0,0,.05)'
-      const tickColor = '#000'
+      const chartFont = { family: 'Poppins', size: 13 }
+      const gridColor = 'rgba(80, 82, 77, 0.58)'
+      const tickColor = '#50ba0e'
 
       //Votes Chart
       function initTrend() {
@@ -216,8 +216,8 @@
               {
                 label: 'Votes',
                 data: [12, 19, 8, 25, 30, 18, 22, 15, 10, 5],
-                backgroundColor: 'rgba(10,48,24,.75)',
-                hoverBackgroundColor: 'rgba(5,28,14,.9)',
+                backgroundColor: 'rgb(246, 255, 0)',
+                hoverBackgroundColor: 'rgba(243, 251, 0, 0.72)',
                 borderRadius: 5,
                 borderSkipped: false
               }
@@ -264,15 +264,7 @@
               {
                 label: 'Votes',
                 data: [55, 40, 25, 18, 12, 22, 16],
-                backgroundColor: [
-                  'rgba(10,48,24,.8)',
-                  'rgba(10,48,24,.65)',
-                  'rgba(10,48,24,.5)',
-                  'rgba(16, 17, 7, 0.8)',
-                  'rgba(7, 7, 7, 0.6)',
-                  'rgba(121, 80, 27, 0.8)',
-                  'rgba(124, 80, 5, 0.6)'
-                ],
+                backgroundColor: [ 'rgba(255, 221, 0, 0.93)0.5)'],
                 borderRadius: 5,
                 borderSkipped: false
               }
