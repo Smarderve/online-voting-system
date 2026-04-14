@@ -421,8 +421,8 @@
       .notif-dropdown {
         position: absolute;
         top: calc(100% + 8px);
-        right: -10px;
-        width: min( 310px, calc(100vw-10px) );
+        right: -150px;
+        width: min( 510px, calc(200vw-2px) );
         background: light-dark( var(--white), #0F172A );
         border: 1.5px solid light-dark( var(--border), #334155 );
         border-radius: var(--rl);
@@ -515,7 +515,7 @@
         padding: 10px;
         text-align: center;
         font-size: 12px;
-        color: var(--g);
+        color: light-dark( var(--g), #3b82f6 ) ;
         font-weight: 500;
         cursor: pointer;
         background: light-dark( var(--gray), #1e293b );
@@ -526,6 +526,7 @@
         top: calc(100% + 8px);
         right: 0;
         width: 200px;
+        color: light-dark( var(--text), #f1f5f9 );
         background: light-dark( #fff, #0F172A );
         border: 1.5px solid light-dark( var(--border), #334155 );
         border-radius: var(--r);
@@ -1469,8 +1470,10 @@
       }
       /* SETTINGS SECTION */
       .settings-grid {
-        display: grid;
-        grid-template-columns: 210px 1fr;
+        display: flex;
+        flex-direction: column;
+        align-items: center;
+        justify-content: start;
         gap: 18px;
       }
       .settings-nav {
@@ -1707,7 +1710,7 @@
       }
       .bn-inner {
         display: flex;
-        justify-content: space-around;
+        justify-content: space-between;
         padding: 8px 0 max(8px, env(safe-area-inset-bottom));
       }
       .bn-item {
@@ -2115,11 +2118,11 @@
             </div>
             <div style="position: relative">
               <button class="tb-btn" style=" width: auto; padding: 6px 12px; gap: 7px; display: flex; align-items: center;" onclick="toggleDrop('profile-dd')">
-                <div style=" width: 26px; height: 26px; border-radius: 50%; background: var(--gl); display: flex; align-items: center; justify-content: center; font-size: 11px; font-weight: 700; color: var(--g); overflow: hidden; ">
+                <div style=" width: 26px; height: 26px; border-radius: 50%; background: light-dark( var(--gl), rgba(140, 140, 148, 0.37) ); display: flex; align-items: center; justify-content: center; font-size: 11px; font-weight: 700; color: var(--g); overflow: hidden; ">
                   <img id="topbarAvatarImg" src="" style=" display: none; width: 100%; height: 100%; object-fit: cover; "/>
-                  <span id="topbarAvatarLetter">A</span>
+                  <span id="topbarAvatarLetter"></span>
                 </div>
-                <span style=" font-size: 12.5px; font-weight: 500; color: var(--text); ">Admin</span>
+                <span style=" font-size: 12.5px; font-weight: 500; color: light-dark( var(--text), var(--white) ); ">Admin</span>
                 <svg width="11" height="11" fill="none" stroke="currentColor" stroke-width="2" viewBox="0 0 24 24" >
                   <polyline points="6 9 12 15 18 9" />
                 </svg>
