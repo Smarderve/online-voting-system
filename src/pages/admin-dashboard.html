@@ -1475,6 +1475,7 @@
         align-items: center;
         justify-content: start;
         gap: 18px;
+        width: 100%;
       }
       .settings-nav {
         display: flex;
@@ -1515,7 +1516,7 @@
       }
       .sn-item.on {
         background: light-dark( var(--gl), #1a3a2a );
-        color: var(--g);
+        color: light-dark( var(--g), var(--white) );
         font-weight: 600;
       }
       .settings-panel {
@@ -1523,6 +1524,7 @@
       }
       .settings-panel.on {
         display: block;
+        width: 100%;
       }
       .theme-opts {
         display: flex;
@@ -1801,7 +1803,7 @@
       .drawer-item:hover, .drawer-item.on {
         border-color: var(--g);
         background: light-dark( var(--gl), #1a3a2a );
-        color: var(--g);
+        color: light-dark( var(--g), var(--white) );
       }
       @media (max-width: 1200px) {
         .stat-grid {
@@ -1916,6 +1918,9 @@
           padding: 10px 0 0;
           gap: 6px;
         }
+        .settings-grid{
+          align-items: start;
+        }
       }
       @media(max-width: 370px){
         .voter-panel{
@@ -1924,6 +1929,9 @@
         }
         .stat-grid{
           grid-template-columns: 1fr;
+        }
+        .settings-grid{
+          align-items: start;
         }
       }
     </style>
