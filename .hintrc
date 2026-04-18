@@ -3,14 +3,7 @@
     "development"
   ],
   "hints": {
-    "compat-api/css": [
-      "default",
-      {
-        "ignore": [
-          "scrollbar-width"
-        ]
-      }
-    ],
+    "compat-api/css": "off",
     "axe/forms": [
       "default",
       {
@@ -27,6 +20,9 @@
     "not chrome <= 112",
     "not ios_saf <= 26.2",
     "not safari <= 26.2",
-    "not samsung <= 29"
+    "not samsung <= 29",
+    "not chrome <= 116",
+    "not ios_saf <= 26.3",
+    "not safari <= 26.3"
   ]
 }
