@@ -1,11 +1,15 @@
   html {
       scroll-behavior: smooth;
+      margin: 0;
+      padding: 0;
+      box-sizing: border-box;
   }
 
   body {
       margin: 0;
       font-family: Arial, sans-serif;
-      color: white;
+      background: url('../../assets/images/better.jpeg') no-repeat center center/cover;
+      height: 100vh;
   }
 
   /* HEADER */
