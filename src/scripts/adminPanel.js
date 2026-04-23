@@ -1,123 +1,292 @@
-
-//==============================Sections Navigation============================
-        
-        /* function navigate(page) {
-
-            //Get all page sections
-            const sections = document.querySelectorAll(".page-section");
-
-            //hide all sections
-
-            sections.forEach(function (section) {
-                section.style.display = "none";
-            });
-
-            //Show the selected section
-
-            const targetSelection = document.getElementById(page + "-section");
-            if (targetSelection) {
-                targetSelection.style.display = "block";
-            }
-
-            //Initially show dashboard section
-
-            navigate('dashboard'); 
-        }*/
-    
-    document.addEventListener("DOMContentLoaded", function () {
-        const buttons = document.querySelectorAll(".nav-links");
-        const sections = document.querySelectorAll(".page-section");
-
-        buttons.forEach(btn => {
-            btn.addEventListener("click", function () {
-                const target = btn.dataset.target;
-
-                function hideAllSections() {
-                    sections.forEach(sec => sec.classList.remove("active"));
-                    document.getElementById(target).classList.add("active");
-                }
-               
-                sections.forEach(sec => sec.style.display = "none");
-                buttons.forEach(b => b.classList.remove("active"));
-
-                
-                document.getElementById(target).style.display = "flex";
-                this.classList.add("active");
-
-                window.onload = function () {
-                    showSection("dashboard-section");
-                }
-            });
-        });
-    });
-
-
-//=======================================Hidden Form===========================
-
-function openCandidatesForm() {
-    document.getElementById("candidates-form-box").classList.add("active");
-} 
-
-function closeCandidatesForm() {
-    document.getElementById("candidates-form-box").classList.remove("active");
-}
-
-//=======================+===============Graphs================================
-
-//chart1
-
-const ctx = document.getElementById('votesChart');
-
-  new Chart(ctx, {
-    type: 'bar',
-    data: {
-      labels: ['Candidate1', 'Candidate2', 'Candidate3', 'Candidate4', 'Candidate5', 'Candidate6'],
-      datasets: [{
-        label: 'Number of Votes',
-        data: [120, 190, 30, 50, 20, 30],
-        backgroundColor: 'rgb(0, 129, 0)',
-        borderColor: 'rgb(255, 255, 255)',
-        borderWidth: 1
-      }]
-    },
-    options: {
-      scales: {
-        y: {
-          beginAtZero: true
-        }
+// manage sections titles
+      const TITLES = {
+        overview: 'Overview',
+        elections: 'Manage Elections',
+        positions: 'Manage Positions',
+        candidates: 'Manage Candidates',
+        results: 'Vote Results',
+        voters: 'Registered Voters',
+        announcements: 'Announcements',
+        reports: 'Reports',
+        notifications: 'Notifications',
+        logs: 'System Logs',
+        past: 'Past Elections',
+        settings: 'Settings'
       }
-    }
-  });
+      // sidebar collapse (desktop)
+      function toggleSidebar() {
+        const sb = document.getElementById('sidebar')
+        sb.classList.toggle('collapsed')
+      }
+      // section navigation 
+      function nav(btn) {
 
-//==============================Sidebar Toggle============================
+        if (!btn) return
+        const id = btn.dataset.section
+        document.querySelectorAll('.page-section').forEach(s => s.classList.remove('active'))
+        document.querySelectorAll('.sb-item').forEach(b => b.classList.remove('active'))
+        const sec = document.getElementById('sec-' + id)
 
-        const sidebar = document.querySelector(".sidebar");
-        const toggleBtn = document.getElementById("hamburger-toogle");
+        if (sec) sec.classList.add('active')
+        btn.classList.add('active')
+        document.getElementById('topbar-title').textContent = TITLES[id] || id
+        closeAllDrops()
 
-        toggleBtn.addEventListener("click", function () {
-            sidebar.classList.toggle("collapsed");
-        });
+        if (window.innerWidth < 900)
+          document.getElementById('sidebar').classList.remove('mob-open')
+        window.scrollTo(0, 0)
 
+        if (id === 'overview') initTrend()
+        if (id === 'results') initResults()
+      }
+      // dropdowns 
+      function toggleDrop(id) {
+        const el = document.getElementById(id)
+        const was = el.classList.contains('open')
+        closeAllDrops()
+        if (!was) el.classList.add('open')
+      }
+      function closeAllDrops() {
+        document.querySelectorAll('.notif-dropdown,.profile-dropdown').forEach(d => d.classList.remove('open'))
+      }
+      document.addEventListener('click', e => {
+        if (
+          !e.target.closest('[onclick*="toggleDrop"]') &&
+          !e.target.closest('.notif-dropdown') &&
+          !e.target.closest('.profile-dropdown')
+        )
+          closeAllDrops()
+      })
+      // form modals
+      function openModal(id) {
+        document.getElementById(id).classList.add('open')
+      }
+      function closeModal(id) {
+        document.getElementById(id).classList.remove('open')
+      }
+      document.querySelectorAll('.modal-overlay').forEach(o => o.addEventListener('click', e => {
+          if (e.target === o) o.classList.remove('open')
+        })
+      )
+      // voter panel 
+      function openVoterPanel() {
+        document.getElementById('voterPanel').classList.add('open')
+      }
+      function closeVoterPanel() {
+        document.getElementById('voterPanel').classList.remove('open')
+      }
+      // mobile drawer 
+      function openDrawer() {
+        document.getElementById('mobDrawer').classList.add('open')
+      }
+      function closeDrawer() {
+        document.getElementById('mobDrawer').classList.remove('open')
+      }
+      // mobile bottom navbar
+      function setBn(el) {
+        document.querySelectorAll('.bn-item').forEach(b => b.classList.remove('on'))
+        el.classList.add('on')
+      }
+      // audience /users announcement filter
+      function selAud(el) {
+        document.querySelectorAll('.aud-pill').forEach(p => p.classList.remove('on'))
+        el.classList.add('on')
+      }
+      // settings panels
+      function switchSettings(el) {
+        document.querySelectorAll('.settings-panel').forEach(p => p.classList.remove('on'))
+        document.querySelectorAll('.sn-item').forEach(i => i.classList.remove('on'))
+        const sp = el.dataset.sp
+        document.getElementById('sp-' + sp).classList.add('on')
+        el.classList.add('on')
+      }
+      // position type toggle
+      function toggleFacSel() {
+        document.getElementById('facSelGroup').style.display =
+          document.getElementById('posType').value === 'f' ? '' : 'none'
+      }
+      // theme 
+      // ========== THEME TOGGLE ==========
+      (function() {
+        const THEME_KEY = 'kiutso-admin-theme';
+        const html = document.documentElement;
 
-//==============================Settings Toggle============================
+        function getStoredTheme() {
+          return localStorage.getItem(THEME_KEY) || 'system';
+        }
 
-// Settings tabs
-document.querySelectorAll('.settings-tab').forEach(tab => {
-    tab.addEventListener('click', () => {
-        document.querySelectorAll('.settings-tab').forEach(t => t.classList.remove('active'));
-        document.querySelectorAll('.settings-panel').forEach(p => p.classList.remove('active'));
+        function applyTheme(theme) {
+          if (theme === 'light') {
+            html.setAttribute('data-theme', 'light');
+          } else if (theme === 'dark') {
+            html.setAttribute('data-theme', 'dark');
+          } else {
+            html.removeAttribute('data-theme');
+          }
+        }
 
-        tab.classList.add('active');
-        document.getElementById(tab.dataset.tab).classList.add('active');
-    });
-});
+        function updateButtons(activeTheme) {
+          document.querySelectorAll('.theme-opt').forEach(btn => {
+            const btnTheme = btn.getAttribute('data-theme');
+            btn.classList.toggle('on', btnTheme === activeTheme);
+          });
+        }
 
-//==================CAlendar Function=======================
+        window.setTheme = function(theme, clickedBtn) {
+          localStorage.setItem(THEME_KEY, theme);
+          applyTheme(theme);
+          updateButtons(theme);
+        };
 
-const startDate = document.getElementById("start-date");
-const endDate = document.getElementById("end-date");
+        // Init
+        const stored = getStoredTheme();
+        applyTheme(stored);
+        updateButtons(stored);
+      })();
+      // voter tabs filter
+      function filterV(t, el) {
+        document.querySelectorAll('.vt').forEach(b => b.classList.remove('on'))
+        el.classList.add('on')
+      }
+      // notifications filter 
+      document.querySelectorAll('.nf-btn').forEach(b =>
+        b.addEventListener('click', function () {
+          document.querySelectorAll('.nf-btn').forEach(x => x.classList.remove('on'))
+          this.classList.add('on')
+        })
+      )
+      // profile photo upload part
+      function handlePhotoUpload(e) {
+        const file = e.target.files[0]
 
-const today = new Date().toISOString().split("T")[0];
-startDate.setAttribute("min", today);
-endDate.setAttribute("min", today);
+        if (!file) return
+        const reader = new FileReader()
+        reader.onload = ev => {
+          const src = ev.target.result
 
+          // update settings profile preview
+          const img = document.getElementById('profilePhotoImg')
+          img.src = src
+          img.style.display = 'block'
+          document.getElementById('photoPreview').childNodes[0].textContent = ''
+
+          // update sidebar avatar
+          const sbImg = document.getElementById('sbAvatarImg')
+          sbImg.src = src
+          sbImg.style.display = 'block'
+          document.getElementById('sbAvatar').childNodes[0].textContent = ''
+
+          // update topbar avatar
+          const tbImg = document.getElementById('topbarAvatarImg')
+          tbImg.src = src
+          tbImg.style.display = 'block'
+          document.getElementById('topbarAvatarLetter').style.display = 'none'
+        }
+        reader.readAsDataURL(file)
+      }
+      // charts 
+      let tc = null,
+        rc = null
+      const chartFont = { family: 'Poppins', size: 13 }
+      const gridColor = 'rgba(80, 82, 77, 0.58)'
+      const tickColor = '#50ba0e'
+
+      //Votes Chart
+      function initTrend() {
+        if (tc) return
+        const ctx = document.getElementById('trendChart')
+
+        if (!ctx) return
+        tc = new Chart(ctx, {
+          type: 'bar',
+          data: {
+            labels: [
+              '8am',
+              '9am',
+              '10am',
+              '11am',
+              '12pm',
+              '1pm',
+              '2pm',
+              '3pm',
+              '4pm',
+              '5pm'
+            ],
+            datasets: [
+              {
+                label: 'Votes',
+                data: [12, 19, 8, 25, 30, 18, 22, 15, 10, 5],
+                backgroundColor: 'rgb(246, 255, 0)',
+                hoverBackgroundColor: 'rgba(243, 251, 0, 0.72)',
+                borderRadius: 5,
+                borderSkipped: false
+              }
+            ]
+          },
+          options: {
+            responsive: true,
+            maintainAspectRatio: false,
+            plugins: { legend: { display: false } },
+            scales: {
+              y: {
+                beginAtZero: true,
+                grid: { color: gridColor },
+                ticks: { font: chartFont, color: tickColor }
+              },
+              x: {
+                grid: { display: false },
+                ticks: { font: chartFont, color: tickColor }
+              }
+            }
+          }
+        })
+      }
+      //Results Chart
+      function initResults() {
+        if (rc) return
+        const ctx = document.getElementById('resultsChart')
+
+        if (!ctx) return
+        rc = new Chart(ctx, {
+          type: 'bar',
+          indexAxis: 'y',
+          data: {
+            labels: [
+              'Candidate One',
+              'Candidate Two',
+              'Candidate Three',
+              'Candidate Four',
+              'Candidate Five',
+              'Candidate Six',
+              'Candidate Seven'
+            ],
+            datasets: [
+              {
+                label: 'Votes',
+                data: [55, 40, 25, 18, 12, 22, 16],
+                backgroundColor: [ 'rgba(255, 221, 0, 0.93)0.5)'],
+                borderRadius: 5,
+                borderSkipped: false
+              }
+            ]
+          },
+          options: {
+            responsive: true,
+            maintainAspectRatio: false,
+            plugins: { legend: { display: false } },
+            scales: {
+              x: {
+                beginAtZero: true,
+                grid: { color: gridColor },
+                ticks: { font: chartFont, color: tickColor }
+              },
+              y: {
+                grid: { display: false },
+                ticks: { font: chartFont, color: tickColor }
+              }
+            }
+          }
+        })
+      }
+      // init on load
+      initTrend()

@@ -3,8 +3,8 @@
   <head>
     <meta charset="UTF-8" />
     <meta name="viewport" content="width=device-width, initial-scale=1.0" />
-    <title>Register Account | KIUTSO Elections 2025/26</title>
-    <link rel="icon" href="../../assets/images/kiut-white.png" type="image/png">
+    <title>Login | KIUT Elections 2025/26</title>
+    <link rel="icon" href="../../assets/images/kiut-white.png" type="image/png"/>
     <link rel="preconnect" href="https://fonts.googleapis.com" />
     <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
     <link href="https://fonts.googleapis.com/css2?family=Poppins:wght@300;400;500;600;700;800&display=swap" rel="stylesheet"/>
@@ -19,10 +19,8 @@
         --green: #166534;
         --green-mid: #1a7a3c;
         --green-light: #dcfce7;
-        --gold: #f59e0b;
         --white: #ffffff;
         --off-white: #f9fafb;
-        --gray-100: #f1f5f9;
         --gray-200: #e2e8f0;
         --gray-400: #94a3b8;
         --gray-500: #64748b;
@@ -39,18 +37,17 @@
         border-radius: 10px;
       }
       ::-webkit-scrollbar-track {
-        background: var(--gray-100);
+        background: #f1f5f9;
       }
       html,body {
         min-height: 100vh;
         font-family: var(--sans);
         scrollbar-width: thin;
-        scrollbar-color: var(--green-mid) var(--gray-100);
+        scrollbar-color: var(--green-mid) #f1f5f9;
       }
       body {
         background: var(--off-white);
         color: var(--text);
-        cursor: default;
         display: flex;
         flex-direction: column;
       }
@@ -142,6 +139,24 @@
         font-weight: 400;
         line-height: 1.6;
       }
+      .error-banner {
+        display: none;
+        background: #fef2f2;
+        border: 1.5px solid #fecaca;
+        border-radius: 10px;
+        padding: 12px 16px;
+        margin-bottom: 20px;
+        font-size: 13px;
+        color: var(--err);
+        align-items: center;
+        gap: 8px;
+      }
+      .error-banner.show {
+        display: flex;
+      }
+      .error-banner svg {
+        flex-shrink: 0;
+      }
       .field {
         margin-bottom: 20px;
       }
@@ -172,36 +187,51 @@
       .field input.err {
         border-color: var(--err);
       }
-      .field-hint {
-        font-size: 11.5px;
-        color: var(--gray-400);
-        margin-top: 6px;
+      .pw-wrap {
+        position: relative;
       }
-      .toggle-row {
-        display: flex;
-        align-items: center;
-        gap: 8px;
-        margin-top: 8px;
+      .pw-wrap input {
+        padding-right: 46px;
       }
-      .toggle-divider {
-        font-size: 12px;
-        color: var(--gray-400);
-      }
-      .toggle-btn {
+      .pw-toggle {
+        position: absolute;
+        right: 14px;
+        top: 50%;
+        transform: translateY(-50%);
         background: none;
         border: none;
-        font-family: var(--sans);
-        font-size: 12px;
-        font-weight: 600;
-        color: var(--green);
         cursor: pointer;
-        padding: 0;
-        text-decoration: underline;
-        text-underline-offset: 2px;
+        color: var(--gray-400);
+        display: flex;
+        align-items: center;
+        padding: 4px;
         transition: color 0.15s;
       }
-      .toggle-btn:hover {
+      .pw-toggle:hover {
+        color: var(--gray-700);
+      }
+      .field-row {
+        display: flex;
+        justify-content: space-between;
+        align-items: center;
+        margin-bottom: 7px;
+      }
+      .field-row label {
+        font-size: 13px;
+        font-weight: 600;
+        color: var(--gray-700);
+        margin: 0;
+      }
+      .forgot-link {
+        font-size: 12px;
+        color: var(--green);
+        font-weight: 500;
+        text-decoration: none;
+        transition: color 0.15s;
+      }
+      .forgot-link:hover {
         color: var(--green-dark);
+        text-decoration: underline;
       }
       .btn-primary {
         width: 100%;
@@ -229,27 +259,32 @@
       .btn-primary:active {
         transform: scale(0.98);
       }
-      .btn-ghost {
-        width: 100%;
-        padding: 11px;
-        background: transparent;
-        border: 1.5px solid var(--gray-200);
-        border-radius: 10px;
-        color: var(--gray-500);
-        font-family: var(--sans);
-        font-size: 13px;
-        font-weight: 500;
-        cursor: pointer;
-        transition: all 0.2s;
-        margin-top: 10px;
-        display: flex;
-        align-items: center;
-        justify-content: center;
-        gap: 6px;
+      .btn-primary:disabled {
+        opacity: 0.65;
+        cursor: not-allowed;
+        transform: none;
+        box-shadow: none;
       }
-      .btn-ghost:hover {
-        border-color: var(--gray-400);
-        color: var(--gray-700);
+      .spinner {
+        width: 16px;
+        height: 16px;
+        border: 2px solid rgba(255, 255, 255, 0.35);
+        border-top-color: #fff;
+        border-radius: 50%;
+        animation: spin 0.65s linear infinite;
+        display: none;
+        flex-shrink: 0;
+      }
+      .btn-primary.loading .spinner {
+        display: block;
+      }
+      .btn-primary.loading .btn-txt {
+        opacity: 0.7;
+      }
+      @keyframes spin {
+        to {
+          transform: rotate(360deg);
+        }
       }
       .card-note {
         text-align: center;
@@ -266,33 +301,16 @@
         color: var(--green-dark);
         text-decoration: underline;
       }
-      .panel {
-        display: none;
-      }
-      .panel.show {
-        display: block;
-        animation: fadeSlide 0.3s ease;
-      }
-      @keyframes fadeSlide {
-        from {
-          opacity: 0;
-          transform: translateX(10px);
-        }
-        to {
-          opacity: 1;
-          transform: translateX(0);
-        }
-      }
       @media (max-width: 960px) {
         .nav {
           padding: 0 20px;
         }
         .nav-brand-text .top {
-        font-size: 10px;
-        font-weight: 600;
+          font-size: 10px;
+          font-weight: 600;
         }
         .nav-brand-text .bot {
-        font-size: 9px;
+          font-size: 9px;
         }
         .nav-back {
           gap: 4px;
@@ -305,11 +323,11 @@
           padding: 0 20px;
         }
         .nav-brand-text .top {
-        font-size: 10px;
-        font-weight: 600;
+          font-size: 10px;
+          font-weight: 600;
         }
         .nav-brand-text .bot {
-        font-size: 9px;
+          font-size: 9px;
         }
         .nav-back {
           gap: 4px;
@@ -342,67 +360,103 @@
     </nav>
     <div class="page">
       <div class="card">
-        <div id="panel-1" class="panel show">
-          <div class="card-header">
-            <h2>Register to Vote</h2>
-            <p>Enter your details below.</p>
-          </div>
-          <div class="field">
-            <label for="reg">Registration Number:</label>
-            <input type="text" id="reg" autocomplete="off"/>
-          </div>
-          <div id="email-field" class="field">
-            <label for="email">Email Address:</label>
-            <input type="email" id="email"/>
-            <div class="toggle-row">
-              <span class="toggle-divider">or</span>
-              <button class="toggle-btn" onclick="toggleContact('phone')">Use phone number instead</button>
-            </div>
-          </div>
-          <div id="phone-field" class="field" style="display: none">
-            <label for="phone">Phone Number:</label>
-            <input type="tel" id="phone" />
-            <div class="toggle-row">
-              <span class="toggle-divider">or</span>
-              <button class="toggle-btn" onclick="toggleContact('email')">Use email instead</button>
-            </div>
-          </div>
-          <div class="field">
-            <label for="password">Password:</label>
-            <input type="password" id="password" autocomplete="off"/>
-          </div>
-          <div class="field">
-            <label for="confirm-password">Confirm Password:</label>
-            <input type="password" id="confirm-password" autocomplete="off"/>
-          </div>
-          <button class="btn-primary" >Register Account
-            <svg width="15" height="15" fill="none" stroke="currentColor" stroke-width="2.5" viewBox="0 0 24 24">
-              <path d="M5 12h14M12 5l7 7-7 7" />
-            </svg>
-          </button>
-          <p class="card-note">Already registered? 
-            <a href="../pages/login.html">Login</a>
-          </p>
+        <div class="card-header">
+          <h2>Login</h2>
+          <p>Enter your registration number or Username.</p>
         </div>
+        <div class="error-banner" id="error-banner">
+          <svg width="15" height="15" fill="none" stroke="currentColor" stroke-width="2" viewBox="0 0 24 24">
+            <circle cx="12" cy="12" r="10" />
+            <line x1="12" y1="8" x2="12" y2="12" />
+            <line x1="12" y1="16" x2="12.01" y2="16" />
+          </svg>
+          <span id="error-msg">Invalid registration number or password.</span>
+        </div>
+        <div class="field">
+          <label for="reg">User ID</label>
+          <input type="text" id="reg" autocomplete="off"/>
+        </div>
+        <div class="field">
+          <div class="field-row">
+            <label for="password">Password</label>
+            <a href="#" class="forgot-link">Forgot password?</a>
+          </div>
+          <div class="pw-wrap">
+            <input type="password" id="password" autocomplete="off"/>
+            <button class="pw-toggle" type="button" onclick="togglePw()" id="pw-btn" aria-label="Show password">
+              <svg id="eye-off" width="18" height="18" fill="none" stroke="currentColor" stroke-width="2" viewBox="0 0 24 24">
+                <path d="M17.94 17.94A10.07 10.07 0 0112 20c-7 0-11-8-11-8a18.45 18.45 0 015.06-5.94M9.9 4.24A9.12 9.12 0 0112 4c7 0 11 8 11 8a18.5 18.5 0 01-2.16 3.19m-6.72-1.07a3 3 0 11-4.24-4.24"/>
+                <line x1="1" y1="1" x2="23" y2="23" />
+              </svg>
+              <svg id="eye-on" style="display: none" width="18" height="18" fill="none" stroke="currentColor" stroke-width="2" viewBox="0 0 24 24">
+                <path d="M1 12s4-8 11-8 11 8 11 8-4 8-11 8-11-8-11-8z" />
+                <circle cx="12" cy="12" r="3" />
+              </svg>
+            </button>
+          </div>
+        </div>
+        <button class="btn-primary" id="login-btn" onclick="doLogin()">
+          <span class="spinner"></span>
+          <span class="btn-txt">Login</span>
+        </button>
+        <p class="card-note">Don't have an account? 
+          <a href="register.html">Register here</a>
+        </p>
       </div>
     </div>
     <script>
-      let countdown,
-        usingPhone = false;
+      function togglePw() {
+        const pw = document.getElementById("password");
+        const off = document.getElementById("eye-off");
+        const on = document.getElementById("eye-on");
 
-      function toggleContact(to) {
-        usingPhone = to === "phone";
-        document.getElementById("email-field").style.display = usingPhone ? "none" : "";
-        document.getElementById("phone-field").style.display = usingPhone ? "" : "none";
-        document.getElementById("email").required = !usingPhone;
-        document.getElementById("phone").required = usingPhone;
-        if (usingPhone) document.getElementById("email").value = "";
-        else document.getElementById("phone").value = "";
+        if (pw.type === "password") {
+          pw.type = "text";
+          off.style.display = "none";
+          on.style.display = "";
+        } else {
+          pw.type = "password";
+          off.style.display = "";
+          on.style.display = "none";
+        }
       }
 
-      document.querySelectorAll("input").forEach(
-        (i) =>i.addEventListener("input", () => i.classList.remove("err")),
-      );
+      function doLogin() {
+        const reg = document.getElementById("reg");
+        const pw = document.getElementById("password");
+        const btn = document.getElementById("login-btn");
+        const banner = document.getElementById("error-banner");
+
+        banner.classList.remove("show");
+        reg.classList.remove("err");
+        pw.classList.remove("err");
+
+        let ok = true;
+        if (!reg.value.trim()) {
+          reg.classList.add("err");
+          ok = false;
+        }
+        if (!pw.value) {
+          pw.classList.add("err");
+          ok = false;
+        }
+        if (!ok) return;
+
+        btn.classList.add("loading");
+        btn.disabled = true;
+
+      }
+
+      document.querySelectorAll("input").forEach((inp) => {
+        inp.addEventListener("input", () => {
+          inp.classList.remove("err");
+          document.getElementById("error-banner").classList.remove("show");
+        });
+      });
+
+      document.addEventListener("keydown", (e) => {
+        if (e.key === "Enter") doLogin();
+      });
     </script>
   </body>
 </html>
