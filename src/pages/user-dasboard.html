@@ -1,0 +1,376 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Student Dashboard View</title>
+    <link rel="stylesheet" href="../styles/user-dashboard.css">
+
+</head>
+
+<body>
+    <!-- Professional Navbar -->
+    <header class="navbar">
+        <div class="navbar-container">
+            <div class="navbar-logo">
+                <h1>🗳️ Student Voting System</h1>
+            </div>
+            <!-- Voting Timer -->
+            <div class="voting-timer">
+                <div class="timer-content">
+                    <span class="timer-label">⏱️</span>
+                    <span id="startTime" class="timer-display">8:30:45 </span>
+                    / <span id="endTime" class="timer-display">2:30:45</span>
+                    <div class="timer-bar">
+                        <div id="timerProgress" class="timer-progress" style="width: 75%;"></div>
+                    </div>
+                    <span id="countdown" class="timer-display">02:00:00</span> <!-- Unique ID for the countdown -->
+                </div>
+            </div>
+            <div class="navbar-controls">
+                <button class="theme-toggle" onclick="toggleDarkMode()" title="Toggle Dark Mode">🌙</button>
+                <button class="logout-btn" onclick="logout()">👤 Logout</button>
+            </div>
+
+        </div>
+
+    </header>
+
+    <h2 class="title">PRESIDENTIAL CANDIDATES</h2>
+
+    <div id="president" class="grid-layout">
+        <div class="card">
+            <img src="../../assets/images/photo 2.jpeg" alt="Amina">
+            <h3>AMINA MOHAMED</h3>
+            <button class="view-btn" onclick="openModal(
+                'Amina Mohamed',
+                'Bachelor of Computer Science',
+                'Dar es Salaam, Tanzania',
+                'Focused on campus digitalization and student welfare.',
+                'Plans: Digital campus, WIFI everywhere, increasing hostel space.',
+                '../../assets/images/photo 2.jpeg'
+            )">View Detail</button>
+            <center>
+                <button class="vote-btn" onclick="selectPresident(this,'Amina Mohamed')">Vote</button>
+
+            </center>
+        </div>
+
+        <div class="card">
+            <img src="../../assets/images/photo 1.jpeg" alt="John">
+            <h3>JOHN KAMAU</h3>
+            <button class="view-btn" onclick="openModal(
+                'John Kamau',
+                'Bachelor of Law',
+                'Arusha, Tanzania',
+                'Student leader advocating legal support for students.',
+                'Plans: Improve health insurance, emergency loans, monthly sports.',
+                '../../assets/images/photo 1.jpeg'
+            )">View Detail</button>
+            <center>
+                <button class="vote-btn" onclick="selectPresident(this,'John Kamau')">Vote</button>
+
+            </center>
+        </div>
+    </div>
+
+
+
+    <hr>
+
+    <h2 class="title">FACULTIES</h2>
+
+    <!-- Faculty List Table -->
+    <div class="faculty-list">
+        <table class="faculty-table">
+            <thead>
+                <tr>
+                    <th>Faculty Name</th>
+                    <th> Voters</th>
+                </tr>
+            </thead>
+            <tbody>
+                <tr>
+                    <td>Faculty of IT</td>
+                    <td><button class="view-voters-btn" onclick="toggleFaculty('it')">View Candidate</button></td>
+                </tr>
+                <tr>
+                    <td>Faculty of Law</td>
+                    <td><button class="view-voters-btn" onclick="toggleFaculty('law')">View Candidate</button></td>
+                </tr>
+                <tr>
+                    <td>Faculty of Business</td>
+                    <td><button class="view-voters-btn" onclick="toggleFaculty('business')">View Candidate</button></td>
+                </tr>
+                <tr>
+                    <td>Faculty of Education</td>
+                    <td><button class="view-voters-btn" onclick="toggleFaculty('education')">View Candidate</button>
+                    </td>
+                </tr>
+                <tr>
+                    <td>Faculty of Medicine</td>
+                    <td><button class="view-voters-btn" onclick="toggleFaculty('medicine')">View Candidate</button></td>
+                </tr>
+            </tbody>
+        </table>
+    </div>
+    <!-- FACULTIES -->
+
+    <div id="it" class="faculty-content">
+        <h3>Faculty of IT Voters</h3>
+        <div class="grid-layout">
+            <div class="card">
+                <img src="../../assets/images/photo 1.jpeg" alt="Sarah Adhiambo">
+                <h4>Sarah Adhiambo</h4>
+                <button class="view-btn" onclick="openModal(
+                'Sarah Adhiambo',
+                'Bachelor of Information Technology',
+                'Mwanza, Tanzania',
+                'Focused on technology innovation and campus development.',
+                'Plans: Monthly hackathons and free software access.',
+                '../../assets/images/photo 1.jpeg'
+            )">View Detail</button>
+                <center>
+                    <button class="vote-btn" onclick="selectFaculty(this,'Sarah Adhiambo','it')">Vote</button>
+                </center>
+            </div>
+
+            <div class="card">
+                <img src="../../assets/images/photo 3.jpeg" alt="John Doe">
+                <h4>John Doe</h4>
+                <button class="view-btn" onclick="openModal(
+                'John Doe',
+                'Bachelor of Information Technology',
+                'Dar es Salaam, Tanzania',
+                'Focused on campus networking and digital tools.',
+                'Plans: Tech workshops and improved WiFi.',
+                '../../assets/images/photo 3.jpeg'
+            )">View Detail</button>
+                <center>
+                    <button class="vote-btn" onclick="selectFaculty(this,'John Doe','it')">Vote</button>
+                </center>
+            </div>
+        </div>
+    </div>
+
+    <div id="law" class="faculty-content">
+        <h3>Faculty of Law Voters</h3>
+        <div class="grid-layout">
+            <div class="card">
+                <img src="../../assets/images/photo 1.jpeg" alt="David Otieno">
+                <h4>David Otieno</h4>
+                <button class="view-btn" onclick="openModal(
+                'David Otieno',
+                'Bachelor of Law',
+                'Dodoma, Tanzania',
+                'Focused on legal support for students.',
+                'Plans: Moot court competitions and legal awareness workshops.',
+                '../../assets/images/photo 1.jpeg'
+            )">View Detail</button>
+                <center>
+                    <button class="vote-btn" onclick="selectFaculty(this,'David Otieno','law')">SVote</button>
+                </center>
+            </div>
+
+            <div class="card">
+                <img src="../../assets/images/photo 4.jpeg" alt="Jane Njeri">
+                <h4>Jane Njeri</h4>
+                <button class="view-btn" onclick="openModal(
+                'Jane Njeri',
+                'Bachelor of Law',
+                'Arusha, Tanzania',
+                'Focused on student legal aid programs.',
+                'Plans: Legal workshops and student advisory sessions.',
+                '../../assets/images/photo 4.jpeg'
+            )">View Detail</button>
+                <center>
+                    <button class="vote-btn" onclick="selectFaculty(this,'Jane Njeri','law')">Vote</button>
+                </center>
+            </div>
+        </div>
+    </div>
+
+    <div id="business" class="faculty-content">
+        <h3>Faculty of Business Voters</h3>
+        <div class="grid-layout">
+            <div class="card">
+                <img src="../../assets/images/photo 4.jpeg" alt="Alice Mbogo">
+                <h4>Alice Mbogo</h4>
+                <button class="view-btn" onclick="openModal(
+                'Alice Mbogo',
+                'Bachelor of Business Administration',
+                'Dar es Salaam, Tanzania',
+                'Focused on entrepreneurship and finance clubs.',
+                'Plans: Business incubators and financial literacy programs.',
+                '../../assets/images/photo 4.jpeg'
+            )">View Detail</button>
+                <center>
+                    <button class="vote-btn" onclick="selectFaculty(this,'Alice Mbogo','business')">Vote</button>
+                </center>
+            </div>
+
+            <div class="card">
+                <img src="../../assets/images/photo 1.jpeg" alt="John Kariuki">
+                <h4>John Kariuki</h4>
+                <button class="view-btn" onclick="openModal(
+                'John Kariuki',
+                'Bachelor of Business Administration',
+                'Moshi, Tanzania',
+                'Focused on marketing and business strategies.',
+                'Plans: Start-up mentorship programs.',
+                '../../assets/images/photo 1.jpeg'
+            )">View Detail</button>
+                <center>
+                    <button class="vote-btn" onclick="selectFaculty(this,'John Kariuki','business')">Vote</button>
+                </center>
+            </div>
+        </div>
+    </div>
+
+    <div id="education" class="faculty-content">
+        <h3>Faculty of Education Voters</h3>
+        <div class="grid-layout">
+            <div class="card">
+                <img src="../../assets/images/photo 3.jpeg" alt="Brian Kamau">
+                <h4>Brian Kamau</h4>
+                <button class="view-btn" onclick="openModal(
+                'Brian Kamau',
+                'Bachelor of Education',
+                'Moshi, Tanzania',
+                'Focused on teaching and curriculum development.',
+                'Plans: Workshops and modern teaching methods implementation.',
+                '../../assets/images/photo 3.jpeg'
+            )">View Detail</button>
+                <center>
+                    <button class="vote-btn" onclick="selectFaculty(this,'Brian Kamau','education')">Vote</button>
+                </center>
+            </div>
+
+            <div class="card">
+                <img src="../../assets/images/photo 1.jpeg" alt="Elisha Nyerere">
+                <h4>Elisha Nyerere</h4>
+                <button class="view-btn" onclick="openModal(
+                'Elisha Nyerere',
+                'Bachelor of Education',
+                'Dar es Salaam, Tanzania',
+                'Focused on modern learning methods and e-learning.',
+                'Plans: Digital classroom and teacher training programs.',
+                '../../assets/images/photo 1.jpeg'
+            )">View Detail</button>
+                <center>
+                    <button class="vote-btn" onclick="selectFaculty(this,'Elisha Nyerere','education')">Vote</button>
+                </center>
+            </div>
+        </div>
+    </div>
+
+    <div id="medicine" class="faculty-content">
+        <h3>Faculty of Medicine Voters</h3>
+        <div class="grid-layout">
+            <div class="card">
+                <img src="../../assets/images/photo 4.jpeg" alt="Catherine Mwinyi">
+                <h4>images/photo 4.jpeg</h4>
+                <button class="view-btn" onclick="openModal(
+                'Catherine Mwinyi',
+                'Bachelor of Medicine',
+                'Dar es Salaam, Tanzania',
+                'Focused on student health initiatives.',
+                'Plans: Health awareness campaigns and medical check-ups.',
+                '../../assets/images/photo 4.jpeg'
+            )">View Detail</button>
+                <center>
+                    <button class="vote-btn" onclick="selectFaculty(this,'Catherine Mwinyi','medicine')">Vote</button>
+                </center>
+            </div>
+
+            <div class="card">
+                <img src="../../assets/images/photo 1.jpeg" alt="John Mwakyembe">
+                <h4>John Mwakyembe</h4>
+                <button class="view-btn" onclick="openModal(
+                'John Mwakyembe',
+                'Bachelor of Medicine',
+                'Dodoma, Tanzania',
+                'Focused on medical research and student clinics.',
+                'Plans: Health workshops and vaccination campaigns.',
+                '../../assets/images/photo 1.jpeg'
+            )">View Detail</button>
+                <center>
+                    <button class="vote-btn" onclick="selectFaculty(this,'John Mwakyembe','medicine')">Vote</button>
+                </center>
+            </div>
+        </div>
+    </div>
+
+
+    <!-- Modal -->
+    <div id="selaModal" class="modal">
+        <div class="modal-content">
+            <span class="close-btn" onclick="closeModal()">×</span>
+            <img id="modalImage">
+            <div>
+                <h2 id="modalName"></h2>
+                <p><strong>Course:</strong> <span id="modalCourse"></span></p>
+                <p><strong>From:</strong> <span id="modalOrigin"></span></p>
+                <p><strong>Author:</strong> <span id="modalAuthor"></span></p>
+                <p id="modalText"></p>
+            </div>
+        </div>
+    </div>
+
+    <!-- ==== FOOTer== -->
+    <footer>
+
+        <div class="footer-parts">
+            <img src="../../assets/images/kiut-white.png" alt="footer_kiut_logo">
+            <p>Kampala International University of Tanzania. <br> &copy; 2025. All Rights Reserved</p>
+        </div>
+
+        <div class="footer-parts">
+            <h3>About KIUT</h3>
+            <div class="links">
+                <a href="https://kiut.ac.tz/about">About Us</a>
+                <a href="https://kiut.ac.tz/about/governance/board_of_trustees">Governance</a>
+                <a href="https://kiut.ac.tz/about/about_kiut/contacts">Contact</a>
+                <a href="https://kiut.ac.tz/about/about_kiut/careers">Careers</a>
+            </div>
+        </div>
+
+        <div class="footer-parts">
+            <h3>KIUT Programmes</h3>
+            <div class="links">
+                <a href="https://kiut.ac.tz/admission/programmes/certificate_programmes">Certificates</a>
+                <a href="https://kiut.ac.tz/admission/programmes/diploma_programmes">Diploma</a>
+                <a href="https://kiut.ac.tz/admission/programmes/bachelor_programmes">Bachelor Degree</a>
+                <a href="https://kiut.ac.tz/admission/programmes/postgraduate_diploma_programmes">Postgraduate
+                    Diploma</a>
+                <a href="https://kiut.ac.tz/admission/programmes/masters_programmes">Masters</a>
+                <a href="https://kiut.ac.tz/admission/programmes/short_courses">Short Courses</a>
+            </div>
+        </div>
+
+        <div class="footer-parts">
+            <h3>Contact Information</h3>
+            <p>Kampala Road No. 2, Off Nyerere Road,<br>Gongo la Mboto,<br>P. O. Box 9790, Ilala 12110,<br>Dar es
+                Salaam, Tanzania.</p>
+            <div class="links">
+                <a href="tel:+255782777775">+255 782 777 775</a>
+                <a href="tel:+255768000808">+255 768 000 808</a>
+            </div>
+            <div class="links">
+                <a href="mailto:info@kiut.ac.tz">info@kiut.ac.tz</a>
+                <a href="mailto:admissions@kiut.ac.tz">admissions@kiut.ac.tz</a>
+            </div>
+        </div>
+
+    </footer>
+    <div class="marquee">
+        <p>Welcome Kampala International University in Tanzania exploring the height</p>
+    </div>
+
+    <script src="../scripts/user-dashboard.js"></script>
+
+
+</body>
+
+</html>
