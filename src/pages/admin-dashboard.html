@@ -417,6 +417,55 @@
         min-width: 15px;
         text-align: center;
       }
+      /* FIX 17 — mobile search icon button */
+      .mob-search-btn {
+        display: none;
+      }
+      /* FIX 1 mobile search bar that drops below topbar */
+      .mob-search-bar {
+        display: none;
+        align-items: center;
+        gap: 8px;
+        padding: 10px 16px;
+        background: light-dark( var(--white), var(--bar) );
+        border-bottom: 1px solid light-dark( var(--border), #1e293b );
+        position: sticky;
+        top: var(--topbar);
+        z-index: 99;
+        box-shadow: var(--shadow);
+      }
+      .mob-search-bar.open {
+        display: flex;
+      }
+      .mob-search-bar input {
+        flex: 1;
+        background: light-dark( var(--gray), #1e293b );
+        border: 1.5px solid light-dark( var(--border), #334155 );
+        border-radius: 8px;
+        padding: 8px 12px;
+        font-family: var(--sans);
+        font-size: 13px;
+        color: light-dark( var(--text), #f1f5f9 );
+        outline: none;
+        transition: border-color 0.2s;
+      }
+      .mob-search-bar input:focus {
+        border-color: var(--g);
+        background: light-dark( #fff, #0f172a );
+      }
+      .mob-search-bar input::placeholder {
+        color: light-dark( var(--hint), #64748b );
+      }
+      .mob-search-close {
+        background: none;
+        border: none;
+        color: light-dark( var(--muted), #cbd5e1 );
+        font-size: 20px;
+        line-height: 1;
+        padding: 0 4px;
+        cursor: pointer;
+        flex-shrink: 0;
+      }
       /* dropdown */
       .notif-dropdown {
         position: absolute;
@@ -1874,8 +1923,12 @@
         .past-grid {
           grid-template-columns: 1fr;
         }
+        /* FIX 1 show mobile search icon, hiding the topbar search bar */
         .search-wrap {
           display: none;
+        }
+        .mob-search-btn {
+          display: flex;
         }
         .chart-wrap-tall{
           height: 200px;
@@ -1889,37 +1942,178 @@
         .tbl{
           font-size: 11px;
         }
-        .tbl th , .tbl td{
+        .tbl th {
           padding: 8px 10px;
         }
         .tbl-sub{
           font-size: 10px;
         }
-        .tbl-actions{
-          gap: 3px;
+        .settings-grid{
+          align-items: start;
         }
-        .tbl-toolbar{
-          gap: 6px;
+        /*FIX 2 tables layout appear in cards layout on Mobile Devices*/
+        .card {
+          overflow: hidden;
         }
-        .tbl-toolbar-left{
-          gap: 4px;
+        .card-body {
+          overflow: hidden;
+        }
+        .tbl thead {
+          display: none;
+        }
+        .tbl, .tbl tbody, .tbl tr, .tbl td {
+          display: block;
+          width: 100%;
+          box-sizing: border-box;
+        }
+        .tbl tr {
+          background: light-dark(var(--white), #0D241A);
+          border: 1px solid light-dark(var(--border), #1e3a2c);
+          border-radius: var(--r);
+          margin-bottom: 10px;
+          overflow: hidden;
+          box-shadow: var(--shadow);
+        }
+        .tbl tr:last-child {
+          margin-bottom: 0;
+        }
+        .tbl td {
+          display: flex;
+          justify-content: space-between;
+          align-items: center;
+          padding: 9px 13px;
+          border-bottom: 1px solid light-dark(var(--border), #1e3a2c);
+          font-size: 12px;
+          gap: 10px;
+          white-space: normal;
+        }
+        .tbl td:last-child {
+          border-bottom: none;
+        }
+        .tbl td::before {
+          content: attr(data-label);
+          font-size: 10px;
+          font-weight: 600;
+          text-transform: uppercase;
+          letter-spacing: 0.5px;
+          color: light-dark(var(--muted), #94a3b8);
+          flex-shrink: 0;
+          min-width: 88px;
+        }
+        /* cells with no label (action cells, index) */
+        .tbl td[data-label=""] {
+          justify-content: flex-end;
+          padding: 9px 13px;
+          background: light-dark(var(--gray), #0A1C14);
+        }
+        .tbl td[data-label=""]::before {
+          display: none;
+        }
+        /* Voter table -> reg number = card header */
+        #sec-voters .tbl td[data-label="Reg Number"] {
+          background: light-dark(var(--gl), #1a3a2a);
+          font-weight: 600;
+          font-size: 13px;
+          color: light-dark(var(--g), #4ade80);
+          padding: 11px 13px;
+        }
+        #sec-voters .tbl td[data-label="Reg Number"]::before {
+          display: none;
+        }
+        /* Candidate table -> name = card header */
+        #sec-candidates .tbl td[data-label=""] {
+          display: none;
+        }
+        /* hide "#" and "photo cells" from the table on small screens*/
+        #sec-candidates .tbl td[data-label="Name"] {
+          background: light-dark(var(--gl), #1a3a2a);
+          font-weight: 600;
+          font-size: 13px;
+          padding: 11px 13px;
+          color: light-dark(var(--g), #4ade80);
+        }
+        #sec-candidates .tbl td[data-label="Name"]::before {
+          display: none;
+        }
+        /* Results table -> candidate = card header */
+        #sec-results .tbl td[data-label="Candidate"] {
+          background: light-dark(var(--gl), #1a3a2a);
+          font-weight: 600;
+          font-size: 13px;
+          padding: 11px 13px;
+          color: light-dark(var(--g), #4ade80);
+        }
+        #sec-results .tbl td[data-label="Candidate"]::before {
+          display: none;
+        }
+        #sec-results .tbl td[data-label="Rank"] {
+          border-bottom: none;
+        }
+        /* Logs table -> action = card header */
+        #sec-logs .tbl td[data-label="Action"] {
+          background: light-dark(var(--gray), #0A1C14);
+          font-weight: 600;
+          font-size: 12px;
+          font-family: monospace;
+          padding: 10px 13px;
+          color: light-dark(var(--text), #f1f5f9);
+        }
+        #sec-logs .tbl td[data-label="Action"]::before {
+          display: none;
+        }
+        /* Position table -> name = card header */
+        #sec-positions .tbl td[data-label="Position"] {
+          background: light-dark(var(--gl), #1a3a2a);
+          font-weight: 600;
+          font-size: 13px;
+          padding: 11px 13px;
+          color: light-dark(var(--g), #4ade80);
+        }
+        #sec-positions .tbl td[data-label="Position"]::before {
+          display: none;
+        }
+        /* Settings tables */
+        #sec-settings .tbl td[data-label="Code"],
+        #sec-settings .tbl td[data-label="Username"],
+        #sec-settings .tbl td[data-label="Admin"] {
+          background: light-dark(var(--gl), #1a3a2a);
+          font-weight: 600;
+          font-size: 13px;
+          padding: 11px 13px;
+          color: light-dark(var(--g), #4ade80);
+        }
+        #sec-settings .tbl td[data-label="Code"]::before,
+        #sec-settings .tbl td[data-label="Username"]::before,
+        #sec-settings .tbl td[data-label="Admin"]::before {
+          display: none;
+        }
+        .tbl-wrap {
+          overflow: visible;
+        }
+        .tbl-scroll {
+          overflow: visible;
+        }
+        .tbl-toolbar {
+          gap: 8px;
+        }
+        .tbl-toolbar-left {
           font-size: 11px;
+          gap: 4px;
         }
-        .tbl-search{
+        .tbl-search {
           padding: 6px 10px;
           gap: 4px;
         }
-        .tbl-search input{
-          width: 120px;
+        .tbl-search input {
+          width: 130px;
           font-size: 11px;
         }
-        .tbl-footer{
+        .tbl-actions {
+          gap: 4px;
+        }
+        .tbl-footer {
           font-size: 11px;
           padding: 10px 0 0;
-          gap: 6px;
-        }
-        .settings-grid{
-          align-items: start;
         }
       }
       @media(max-width: 370px){
@@ -2079,6 +2273,12 @@
               </svg>
               <input type="text" placeholder="Search..." />
             </div>
+            <!-- FIX 1 mobile search icon (only visible on mobile) -->
+            <button class="tb-btn mob-search-btn" id="mobSearchBtn" onclick="toggleMobSearch()" title="Search">
+              <svg width="16" height="16" fill="none" stroke="currentColor" stroke-width="2" viewBox="0 0 24 24">
+                <circle cx="11" cy="11" r="8" /><path d="M21 21l-4.35-4.35" />
+              </svg>
+            </button>
             <div style="position: relative">
               <button class="tb-btn" onclick="toggleDrop('notif-dd')">
                 <svg width="16" height="16" fill="none" stroke="currentColor" stroke-width="2" viewBox="0 0 24 24">
@@ -2152,6 +2352,14 @@
             </div>
           </div>
         </header>
+        <!-- FIX 1 mobile search bar expands below topbar when icon is tapped -->
+        <div class="mob-search-bar" id="mobSearchBar">
+          <svg width="14" height="14" fill="none" stroke="currentColor" stroke-width="2" viewBox="0 0 24 24" style="color:var(--hint);flex-shrink:0">
+            <circle cx="11" cy="11" r="8" /><path d="M21 21l-4.35-4.35" />
+          </svg>
+          <input type="text" placeholder="Search anything..." id="mobSearchInput" />
+          <button class="mob-search-close" onclick="toggleMobSearch()">×</button>
+        </div>
         <!-- ═══ CONTENT ═══ -->
         <div class="content">
           <!-- OVERVIEW -->

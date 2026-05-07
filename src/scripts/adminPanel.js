@@ -288,5 +288,13 @@
           }
         })
       }
+      /* FIX 1 mobile search bar toggle */
+      function toggleMobSearch() {
+        const bar = document.getElementById('mobSearchBar');
+        bar.classList.toggle('open');
+        if (bar.classList.contains('open')) {
+          document.getElementById('mobSearchInput').focus();
+        }
+      }
       // init on load
       initTrend()
